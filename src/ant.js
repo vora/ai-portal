@@ -1,8 +1,21 @@
-import { Layout, Input, Menu, Breadcrumb, Row, Col, Card } from 'antd';
+import {
+  Layout,
+  Input,
+  Menu,
+  Breadcrumb,
+  Row,
+  Col,
+  Card,
+  Select,
+  Tag,
+  Affix,
+  Space,
+  Badge,
+} from 'antd';
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
-const { Meta } = Card;
+const { SubMenu } = Menu;
 
 export {
   Layout,
@@ -10,10 +23,16 @@ export {
   Content,
   Footer,
   Menu,
+  Tag,
   Breadcrumb,
   Search,
   Row,
   Col,
   Card,
-  Meta,
+  SubMenu,
+  Sider,
+  Select,
+  Space,
+  Affix,
+  Badge,
 };

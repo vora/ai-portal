@@ -1,1 +1,5 @@
 @import '~antd/dist/antd.css';
+
+.menu-search .ant-input-search-button {
+  width: 45px;
+}
