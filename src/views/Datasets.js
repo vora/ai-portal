@@ -52,6 +52,18 @@ function Datasets() {
               defaultOpenKeys={['topics', 'groups']}
               style={{ height: '100%', borderRight: 0 }}
             >
+              <Menu.Item key="21" disabled>
+                <Select
+                  showSearch
+                  defaultValue="Organization"
+                  style={{ width: '100%' }}
+                >
+                  <Select.Option value="lucy">
+                    World Economic Forum
+                  </Select.Option>
+                  <Select.Option value="lucy">AI Global</Select.Option>
+                </Select>
+              </Menu.Item>
               <Menu.Item key="2" disabled>
                 <Select defaultValue="Format" style={{ width: '100%' }}>
                   <Select.Option value="lucy">PDF</Select.Option>
