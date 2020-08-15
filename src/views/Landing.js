@@ -2,6 +2,12 @@ import React from 'react';
 import { Layout, Content, Footer, Search, Row, Col, Card } from '../ant';
 import { useHistory } from 'react-router';
 
+let TEMP_FRONTEND_ITEMS = [
+  { name: 'AI Design Assistant' },
+  { name: 'Fawkes' },
+  { name: 'The A-Z of AI' },
+];
+
 function Landing() {
   let history = useHistory();
   let [query, setQuery] = React.useState('');
@@ -22,15 +28,11 @@ function Landing() {
           </Col>
         </Row>
         <Row justify="center" style={{ marginTop: '2rem' }} gutter={[24, 16]}>
-          <Col span={4}>
-            <FeatureCard />
-          </Col>
-          <Col span={4}>
-            <FeatureCard />
-          </Col>
-          <Col span={4}>
-            <FeatureCard />
-          </Col>
+          {TEMP_FRONTEND_ITEMS.map((feat) => (
+            <Col span={4}>
+              <FeatureCard feature={feat} />
+            </Col>
+          ))}
         </Row>
       </Content>
       <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
@@ -40,9 +42,10 @@ function Landing() {
   );
 }
 
-function FeatureCard() {
+function FeatureCard({ feature }) {
   return (
     <Card
+      onClick={() => (window.location = 'https://google.com')}
       hoverable
       style={{ width: '100%' }}
       cover={
@@ -53,7 +56,7 @@ function FeatureCard() {
       }
     >
       <Card.Meta
-        title="A Cool Article"
+        title={feature.name}
         description="See how tech startup is dealing with bias."
       />
     </Card>
