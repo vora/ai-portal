@@ -1,21 +1,36 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const org = require('./organization.model');
+
 
 const Schema = mongoose.Schema;
 
+const USER_TYPES = [];
+
 const UserSchema = new Schema({
-  name: { type: String, default: '' },
-  email: { type: String, default: '' },
-  username: { type: String, default: '' },
+  name: { type: String, default: '', required: true },
+  email: { type: String, default: '', required: true },
+  username: { type: String, default: '', required: true },
+  type: { type: String, enum: USER_TYPES, required: true },
   provider: { type: String, default: '' },
   hashed_password: { type: String, default: '' },
   salt: { type: String, default: '' },
   authToken: { type: String, default: '' },
-  twitter: {},
-  github: {},
-  google: {},
-  linkedin: {},
+  orgs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Organization', default: [] }],
+  twitter: { type: String },
+  github: { type: String },
+  google: { type: String },
+  linkedin: { type: String },
 });
+
+mongoose.model('User', UserSchema);
+
+const defaultUser = {
+  name: '',
+  email: '',
+  username: '',
+  type: '',
+}
 
 UserSchema.virtual('password')
   .set(function (password) {
@@ -31,9 +46,11 @@ UserSchema.methods = {
   authenticate: function (plainText) {
     return this.encryptPassword(plainText) === this.hashed_password;
   },
+
   makeSalt: function () {
     return Math.round(new Date().valueOf() * Math.random()) + '';
   },
+
   encryptPassword: function (password) {
     if (!password) return '';
     try {
@@ -47,13 +64,51 @@ UserSchema.methods = {
   },
 };
 
+
 UserSchema.statics = {
   load: function (options, cb) {
     options.select = options.select || 'name username';
     return this.findOne(options.criteria).select(options.select).exec(cb);
   },
+
+  createUser: function (userAttributes) {
+    let newUserParams = Object.assign({}, defaultUser, userAttributes);
+    let newUser = User.create(newUserParams, function (err, newUserParams) {
+      if (err) {
+        console.log(newUserParams);
+        handleError(err);
+      } else {
+        console.log("Successfully created new user with name " + newUserParams.name);
+      }
+    });
+    return newUser;
+  },
+
+  editUser: function (filter, updateParams) {
+    let updated = User.updateOne(filter, updateParams, function (err, updateParams) {
+      if (err) {
+        console.log(updateParams);
+        handleError(err);
+      } else {
+        console.log("Successfully updated user");
+      }
+    });
+    return updated.ok;
+  },
+
+  deleteUser: function (deleteQuery) {
+    let deleted = User.deleteOne(deleteQuery, function (err, deleteQuery) {
+      if (err) {
+        console.log(deleteQuery);
+        handleError(err);
+      } else {
+        console.log("Successfully deleted user with param " + deleteQuery);
+      }
+    });
+    return deleted.ok;
+  },
+
 };
 
-mongoose.model('User', UserSchema);
 
 module.exports = UserSchema;
