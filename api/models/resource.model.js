@@ -5,10 +5,12 @@ const file = require('./file.model');
 const Schema = mongoose.Schema;
 
 const RESOURCE_TYPES = [];
+const RESOURCE_PATHS = [];
 
 const ResourceSchema = new Schema({
   description: { type: String, default: '', required: true },
   topics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [], required: true }],
+  path: { type: String, enum: RESOURCE_PATHS },
   uploadDate: { type: Date, required: true },
   modified: { type: Date, default: uploadDate },
   license: { type: String, default: '' },
@@ -16,6 +18,7 @@ const ResourceSchema = new Schema({
   creationDate: { type: Date, default: uploadDate },
   type: { type: String, enum: RESOURCE_TYPES, required: true },
   name: { type: String, default: '', required: true },
+  technical: { type: Boolean, default: false },
   trustIndexCategories: { type: Array, default: [] },
   fundedBy: { type: String, default: '' },
   creator: { type: String, default: '' },
@@ -54,8 +57,7 @@ ResourceSchema.statics = {
     let newResParams = Object.assign({}, defaultRes, resAttributes);
     let newRes = Resource.create(newResParams, function (err, newResParams) {
       if (err) {
-        console.log(newResParams);
-        handleError(err);
+        console.error('Cannot create Resource - invalid', err);
       } else {
         console.log("Successfully created new resource with name " + newResParams.name);
       }
@@ -66,8 +68,7 @@ ResourceSchema.statics = {
   editRes: function (filter, updateParams) {
     let updated = Resource.updateOne(filter, updateParams, function (err, updateParams) {
       if (err) {
-        console.log(updateParams);
-        handleError(err);
+        console.error('Invalid update query', err);
       } else {
         console.log("Successfully updated resource");
       }
@@ -78,8 +79,7 @@ ResourceSchema.statics = {
   deleteRes: function (deleteQuery) {
     let deleted = Resource.deleteOne(deleteQuery, function (err, deleteQuery) {
       if (err) {
-        console.log(deleteQuery);
-        handleError(err);
+        console.error('Invalid delete query', err);
       } else {
         console.log("Successfully deleted resource with param " + deleteQuery);
       }

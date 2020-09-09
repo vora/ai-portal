@@ -28,8 +28,7 @@ OrgSchema.statics = {
     let newOrgParams = Object.assign({}, defaultOrg, orgAttributes);
     let newOrg = Organization.create(newOrgParams, function (err, newOrgParams) {
       if (err) {
-        console.log(newOrgParams);
-        handleError(err);
+        console.error('Cannot create Organization - invalid', err);
       } else {
         console.log("Successfully created new org with name " + newOrgParams.name);
       }
@@ -40,8 +39,7 @@ OrgSchema.statics = {
   editOrg: function (filter, updateParams) {
     let updated = Organization.updateOne(filter, updateParams, function (err, updateParams) {
       if (err) {
-        console.log(updateParams);
-        handleError(err);
+        console.error('Invalid update query', err);
       } else {
         console.log("Successfully updated org");
       }
@@ -52,8 +50,7 @@ OrgSchema.statics = {
   deleteOrg: function (deleteQuery) {
     let deleted = Organization.deleteOne(deleteQuery, function (err, deleteQuery) {
       if (err) {
-        console.log(deleteQuery);
-        handleError(err);
+        console.error('Invalid delete query', err);
       } else {
         console.log("Successfully deleted org with param " + deleteQuery);
       }

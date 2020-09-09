@@ -75,8 +75,7 @@ UserSchema.statics = {
     let newUserParams = Object.assign({}, defaultUser, userAttributes);
     let newUser = User.create(newUserParams, function (err, newUserParams) {
       if (err) {
-        console.log(newUserParams);
-        handleError(err);
+        console.error('Cannot create User - Invalid', err);
       } else {
         console.log("Successfully created new user with name " + newUserParams.name);
       }
@@ -87,8 +86,7 @@ UserSchema.statics = {
   editUser: function (filter, updateParams) {
     let updated = User.updateOne(filter, updateParams, function (err, updateParams) {
       if (err) {
-        console.log(updateParams);
-        handleError(err);
+        console.error('Invalid update query', err);
       } else {
         console.log("Successfully updated user");
       }
@@ -99,8 +97,7 @@ UserSchema.statics = {
   deleteUser: function (deleteQuery) {
     let deleted = User.deleteOne(deleteQuery, function (err, deleteQuery) {
       if (err) {
-        console.log(deleteQuery);
-        handleError(err);
+        console.error('Invalid delete query', err);
       } else {
         console.log("Successfully deleted user with param " + deleteQuery);
       }

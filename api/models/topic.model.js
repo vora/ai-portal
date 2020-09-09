@@ -19,8 +19,7 @@ TopicSchema.statics = {
     let newTopicParams = Object.assign({}, defaultTopic, newTopic);
     let newTopic = Topic.create(newTopicParams, function (err, newTopicParams) {
       if (err) {
-        console.log(newTopicParams);
-        handleError(err);
+        console.error('Cannot create Topic - invalid', err);
       } else {
         console.log("Successfully created Topic with name " + newTopicParams.name);
       }
@@ -31,8 +30,7 @@ TopicSchema.statics = {
   editTopic: function (filter, updateParams) {
     let updated = Topic.updateOne(filter, updateParams, function (err, updateParams) {
       if (err) {
-        console.log(updateParams);
-        handleError(err);
+        console.error('Invalid update query', err);
       } else {
         console.log("Successfully updated Topic");
       }
@@ -43,8 +41,7 @@ TopicSchema.statics = {
   deleteTopic: function (deleteQuery) {
     let deleted = Topic.deleteOne(deleteQuery, function (err, deleteQuery) {
       if (err) {
-        console.log(deleteQuery);
-        handleError(err);
+        console.error('Invalid delete query', err);
       } else {
         console.log("Successfully deleted topic with param " + deleteQuery);
       }
