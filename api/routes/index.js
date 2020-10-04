@@ -1,7 +1,7 @@
-let allRoutes = [require('./user.routes')];
+let allRoutes = [require('./user.routes'), require('./resource.routes')];
 
-module.exports = (app, passport) => {
+module.exports = (app) => {
   for (let routes of allRoutes) {
-    routes(app, passport);
+    routes(app);
   }
 };

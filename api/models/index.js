@@ -1,3 +1,5 @@
-const user = require('./user.model');
-
-module.exports = { user };
+module.exports = {
+  user: require('./user.model'),
+  search: require('./search.model'),
+  resource: require('./resource.model'),
+};

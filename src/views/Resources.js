@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -13,19 +13,45 @@ import {
   Badge,
   Space,
   Tag,
-  Footer,
 } from '../ant';
+import Footer from '../components/Footer';
+import LoginButton from '../components/LoginButton';
+import API from '../api';
 
-function Datasets() {
+let queryParamsFromProps = (props) => {
+  let queryString = props.location.search;
+  var query = {};
+  var pairs = (queryString[0] === '?'
+    ? queryString.substr(1)
+    : queryString
+  ).split('&');
+  for (var i = 0; i < pairs.length; i++) {
+    var pair = pairs[i].split('=');
+    query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+  }
+  return query;
+};
+
+function Resources(props) {
+  let { q } = queryParamsFromProps(props);
+  let fetchDatasets = async () => {
+    let resources = await API.get('/api/resources', { query: q });
+    // TODO: show resources
+  };
+  useEffect(() => {
+    fetchDatasets();
+  });
   return (
     <Layout>
       <Affix offsetTop={0}>
         <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
-          <img
-            style={{ float: 'left', marginRight: '40px' }}
-            src="/logo.png"
-            width={'160px'}
-          />
+          <a href="/">
+            <img
+              style={{ float: 'left', marginRight: '40px' }}
+              src="/logo.png"
+              width={'160px'}
+            />
+          </a>
           <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
             <Menu.Item key="s" disabled>
               <Search
@@ -41,6 +67,9 @@ function Datasets() {
             <Menu.Item key="3">520 Articles</Menu.Item>
             <Menu.Item key="4">&#43; Suggest Resource</Menu.Item>
           </Menu>
+          <div style={{ position: 'absolute', top: '0px', right: '20px' }}>
+            <LoginButton />
+          </div>
         </Header>
       </Affix>
       <Layout>
@@ -102,9 +131,7 @@ function Datasets() {
           </Content>
         </Layout>
       </Layout>
-      <Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
-        Footer and Copyright AI Global
-      </Footer>
+      <Footer />
     </Layout>
   );
 }
@@ -124,4 +151,4 @@ function DatasetCard() {
   );
 }
 
-export default Datasets;
+export default Resources;

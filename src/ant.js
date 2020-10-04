@@ -11,6 +11,9 @@ import {
   Affix,
   Space,
   Badge,
+  Button,
+  Form,
+  Checkbox,
 } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -35,4 +38,8 @@ export {
   Space,
   Affix,
   Badge,
+  Button,
+  Form,
+  Input,
+  Checkbox,
 };
