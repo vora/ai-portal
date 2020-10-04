@@ -62,6 +62,18 @@ UserSchema.methods = {
       return '';
     }
   },
+
+  createUser: function (userAttributes) {
+    let newUserParams = Object.assign({}, defaultUser, userAttributes);
+    let newUser = User.create(newUserParams, function (err, newUserParams) {
+      if (err) {
+        console.error('Cannot create User - Invalid', err);
+      } else {
+        console.log("Successfully created new user with name " + newUserParams.name);
+      }
+    });
+    return newUser;
+  },
 };
 
 
