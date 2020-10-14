@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const { USER_ROLES } = require('./enums');
 
 const Schema = mongoose.Schema;
-
-const USER_ROLES = [
-  'admin', // Full access
-  'mod', // e.g. AI Global Employee
-  'member', // Normal member
-];
 
 const UserSchema = new Schema({
   name: { type: String, required: true },

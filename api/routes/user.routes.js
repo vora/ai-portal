@@ -1,4 +1,3 @@
-const { response } = require('express');
 const userUtil = require('../models/user.util');
 
 module.exports = (app) => {
