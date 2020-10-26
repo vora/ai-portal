@@ -14,6 +14,12 @@ import {
   Button,
   Form,
   Checkbox,
+  Table,
+  Statistic,
+  Divider,
+  Radio,
+  InputNumber,
+  Popconfirm,
 } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -42,4 +48,10 @@ export {
   Form,
   Input,
   Checkbox,
+  Table,
+  Statistic,
+  Divider,
+  Radio,
+  InputNumber,
+  Popconfirm,
 };
