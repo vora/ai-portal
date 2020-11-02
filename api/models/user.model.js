@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   role: { type: String, default: 'member', enum: USER_ROLES },
   hashedPassword: { type: String, default: '' },
   salt: { type: String, required: true },
+  creationDate: { type: Date, default: Date.now },
   orgs: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'Organization', default: [] },
   ],

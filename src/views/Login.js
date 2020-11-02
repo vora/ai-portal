@@ -8,8 +8,9 @@ import {
   Button,
   Input,
   Checkbox,
+  notification,
+  Typography,
 } from '../ant';
-import { notification, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import API from '../api';
@@ -24,17 +25,16 @@ export default function Login() {
   let onSubmit = async (values) => {
     let result = await API.post('/api/auth/login', values);
     if (result.errors) {
-      var i;
-      for (i in result.errors) {
+      for (let error of result.errors) {
         notification['error']({
-          message: result.errors[i]['msg'],
+          message: error.msg,
         });
       }
       return;
     }
     setUser(result.user);
     setKey('token', result.token);
-    history.push('/');
+    history.push('/resources');
   };
   let onFail = (values) => {
     var i;

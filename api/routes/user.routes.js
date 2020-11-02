@@ -16,7 +16,10 @@ module.exports = (app) => {
 
   app.get('/api/auth/self', async (req, res) => {
     let user = await req.getUser();
-    return res.json(user.toPrivateJSON());
+    if (user) {
+      return res.json(user.toPrivateJSON());
+    }
+    return res.json({});
   });
 
   app.post('/api/users', async (req, res) => {
@@ -42,6 +45,11 @@ module.exports = (app) => {
         res.json({ errors: [err] });
       }
     }
+  });
+
+  app.get('/api/users', async (req, res) => {
+    let users = await userUtil.getAll();
+    return res.json(users);
   });
 
   app.put('/api/users/:_id', async (req, res) => {

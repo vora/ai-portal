@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.3.5",
+    "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "express-session": "^1.17.1",
@@ -21,6 +22,7 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "watch": "concurrently \"yarn watch:react\" \"yarn watch:api\"",
     "watch:react": "craco start",
     "watch:api": "nodemon server.js",
     "start": "node server.js",

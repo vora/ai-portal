@@ -24,7 +24,7 @@ export function AppEnv({ children }) {
   if (!window.userUpdated) {
     API.get('/api/auth/self').then((user) => {
       window.userUpdated = true;
-      if (user) {
+      if (user && user.id) {
         setUser(user);
       }
     });

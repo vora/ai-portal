@@ -13,7 +13,7 @@ const userUtil = require('./api/models/user.util');
 app.use((req, res, next) => {
   if (
     !req.originalUrl.startsWith('/api/') &&
-    ['js', 'json', 'css', 'png', 'map'].filter((ext) =>
+    ['js', 'json', 'css', 'png', 'map', 'ico', 'txt'].filter((ext) =>
       req.originalUrl.endsWith('.' + ext)
     ).length == 0
   ) {

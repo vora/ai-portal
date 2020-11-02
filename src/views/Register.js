@@ -1,6 +1,14 @@
 import React from 'react';
-import { Layout, Content, Form, Row, Col, Button, Input } from '../ant';
-import { Typography } from 'antd';
+import {
+  Layout,
+  Content,
+  Form,
+  Row,
+  Col,
+  Button,
+  Input,
+  Typography,
+} from '../ant';
 import Footer from '../components/Footer';
 import API from '../api';
 import { useHistory } from 'react-router';
@@ -13,10 +21,9 @@ export default function Register() {
   let onSubmit = async (formVal) => {
     let user = await API.post('/api/users', formVal);
     if (user.errors) {
-      var i;
-      for (i in user.errors) {
+      for (let msg of user.errors) {
         notification['error']({
-          message: user.errors[i]['msg'],
+          message: msg.msg,
         });
       }
       return;
@@ -24,10 +31,10 @@ export default function Register() {
     history.push('/login?username=' + user.username);
   };
   let onFail = (values) => {
-    var i;
-    for (i in values) {
+    console.log(values);
+    for (let err of values.errorFields) {
       notification['error']({
-        message: values[i].msg,
+        message: err.errors[0],
       });
     }
   };

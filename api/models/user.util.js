@@ -24,3 +24,7 @@ exports.getByUsernameOrEmail = async (userOrEmail) => {
   }
   return await User.findOne({ email: userOrEmail });
 };
+
+exports.getAll = async () => {
+  return await User.find();
+};
