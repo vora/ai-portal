@@ -1,4 +1,5 @@
 let allRoutes = [
+  require('./meta.routes'),
   require('./user.routes'),
   require('./resource.routes'),
   require('./enums.routes'),

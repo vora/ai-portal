@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 const port = process.env.PORT || 5000;
 const secret = process.env.SECRET || 'secret.';
@@ -8,6 +9,20 @@ const app = express();
 
 require('./api/models/index');
 const userUtil = require('./api/models/user.util');
+
+app.use((req, res, next) => {
+  if (
+    !req.originalUrl.startsWith('/api/') &&
+    ['js', 'json', 'css', 'png', 'map'].filter((ext) =>
+      req.originalUrl.endsWith('.' + ext)
+    ).length == 0
+  ) {
+    // Serve index html
+    return res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  }
+  // Serve API or static build files
+  next();
+});
 
 app.use(
   require('express-jwt')({
@@ -48,19 +63,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/', express.static(path.join(__dirname, 'build')));
+
 app.use(express.json());
 require('./api/routes/index')(app);
-
-let listenHTTP = () => {
-  app.listen(port);
-  console.log('Listening on port', port);
-};
 
 let runServer = () => {
   mongoose.connection
     .on('error', console.log)
     .on('disconnected', runServer)
-    .once('open', listenHTTP);
+    .once('open', () => app.listen(port));
   return mongoose.connect(process.env.MONGODB_URL, {
     keepAlive: 1,
     useNewUrlParser: true,
