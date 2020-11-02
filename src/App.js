@@ -7,6 +7,7 @@ import Landing from './views/Landing';
 import Login from './views/Login';
 import Register from './views/Register';
 import Resources from './views/Resources';
+import Admin from './views/Admin';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/resources" component={Resources} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/admin" component={Admin} />
           </Switch>
         </BrowserRouter>
       </AppEnv>
