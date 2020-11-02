@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Layout,
   Content,
@@ -21,7 +21,6 @@ import {
   TeamOutlined,
   FileProtectOutlined,
 } from '@ant-design/icons';
-import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 
@@ -114,7 +113,7 @@ const resourcesColumns = [
     render: (
       link // create clickable link to new tab
     ) => (
-      <a href={link} target="_blank">
+      <a href={link} rel="noopener noreferrer" target="_blank">
         {link}
       </a>
     ),
@@ -124,8 +123,8 @@ const resourcesColumns = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <a>Accept</a>
-        <a>Reject</a>
+        <a href="/">Accept</a>
+        <a href="/">Reject</a>
       </Space>
     ),
   },
@@ -237,7 +236,7 @@ const userColumns = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <a>Delete</a>
+        <a href="/">Delete</a>
       </Space>
     ),
   },
@@ -420,15 +419,12 @@ function Sidebar() {
 }
 
 function Admin() {
-  const [selectionType, setSelectionType] = useState('checkbox');
-  let history = useHistory();
-  let [query, setQuery] = React.useState('');
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Row justify="start" align="middle">
         <Col span={3}>
           <a href="/" style={{ margin: '15px' }}>
-            <img src="/logo.png" width={'160px'} />
+            <img alt="logo" src="/logo.png" width={'160px'} />
           </a>
         </Col>
         <Col span={17}>
@@ -437,13 +433,12 @@ function Admin() {
               <a href="/">Home</a>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <a href="">User Name</a>
+              <a href="/">User Name</a>
             </Breadcrumb.Item>
             <Breadcrumb.Item>Administration</Breadcrumb.Item>
           </Breadcrumb>
         </Col>
         <Col span={4}>
-          {/* configure displaying logout button */}
           <LoginButton />
         </Col>
       </Row>

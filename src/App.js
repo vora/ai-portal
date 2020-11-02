@@ -7,7 +7,9 @@ import Landing from './views/Landing';
 import Login from './views/Login';
 import Register from './views/Register';
 import Resources from './views/Resources';
+import AddResources from './views/AddResource';
 import Admin from './views/Admin';
+import AddOrganization from './views/AddOrganization';
 
 function App() {
   return (
@@ -16,10 +18,16 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route path="/resources" component={Resources} />
+            <Route exact path="/resources" component={Resources} />
+            <Route exact path="/resources/create" component={AddResources} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/admin" component={Admin} />
+            <Route
+              exact
+              path="/organizations/create"
+              component={AddOrganization}
+            />
           </Switch>
         </BrowserRouter>
       </AppEnv>

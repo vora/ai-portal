@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React, { createContext, useContext, useState } from 'react';
 import API from './api';
 
 export const AppContext = createContext();

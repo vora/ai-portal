@@ -15,7 +15,7 @@ function Landing() {
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <a href="/">
-        <img src="/logo.png" width={'160px'} />
+        <img alt="logo" src="/logo.png" width={'160px'} />
       </a>
       <Content style={{ padding: '0 50px' }}>
         <Row justify="center" style={{ marginTop: '4rem' }}>

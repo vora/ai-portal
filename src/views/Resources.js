@@ -36,7 +36,7 @@ function Resources(props) {
   let { q } = queryParamsFromProps(props);
   let fetchDatasets = async () => {
     let resources = await API.get('/api/resources', { query: q });
-    // TODO: show resources
+    console.log(resources);
   };
   useEffect(() => {
     fetchDatasets();
@@ -47,6 +47,7 @@ function Resources(props) {
         <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
           <a href="/">
             <img
+              alt="logo"
               style={{ float: 'left', marginRight: '40px' }}
               src="/logo.png"
               width={'160px'}
@@ -139,7 +140,7 @@ function Resources(props) {
 function DatasetCard() {
   return (
     <Card
-      title={<a>ImageNet</a>}
+      title={<a href="/">ImageNet</a>}
       extra={[
         <Tag>Custom</Tag>,
         <Tag>Computer Vision</Tag>,
