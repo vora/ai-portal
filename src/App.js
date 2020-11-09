@@ -10,6 +10,7 @@ import Resources from './views/Resources';
 import AddResources from './views/AddResource';
 import Admin from './views/Admin';
 import AddOrganization from './views/AddOrganization';
+import UserSettings from './views/UserSettings';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/admin" component={Admin} />
+            <Route path="/settings" component={UserSettings} />
             <Route
               exact
               path="/organizations/create"
