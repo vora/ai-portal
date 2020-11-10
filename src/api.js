@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || window.location.origin;
 
 let getToken = () => {
   return JSON.parse(localStorage.getItem('aiportal:token') || '""');
