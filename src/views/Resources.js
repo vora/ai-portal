@@ -34,13 +34,13 @@ let queryParamsFromProps = (props) => {
 function Resources(props) {
   let { q } = queryParamsFromProps(props);
   let [resources, setResources] = useState([]);
-  let fetchResources = async () => {
-    let resources = await API.get('/api/resources', { query: q });
-    setResources(resources);
-  };
   useEffect(() => {
+    let fetchResources = async () => {
+      let resources = await API.get('/api/resources', { query: q });
+      setResources(resources);
+    };
     fetchResources();
-  });
+  }, [q]);
   return (
     <Layout>
       <Affix offsetTop={0}>
