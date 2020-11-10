@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Layout,
   Content,
@@ -10,7 +10,6 @@ import {
   Search,
   Card,
   Affix,
-  Badge,
   Space,
   Tag,
 } from '../ant';
@@ -34,12 +33,13 @@ let queryParamsFromProps = (props) => {
 
 function Resources(props) {
   let { q } = queryParamsFromProps(props);
-  let fetchDatasets = async () => {
+  let [resources, setResources] = useState([]);
+  let fetchResources = async () => {
     let resources = await API.get('/api/resources', { query: q });
-    console.log(resources);
+    setResources(resources);
   };
   useEffect(() => {
-    fetchDatasets();
+    fetchResources();
   });
   return (
     <Layout>
@@ -125,8 +125,8 @@ function Resources(props) {
         <Layout style={{ padding: '24px 24px 24px' }}>
           <Content>
             <Space direction="vertical" style={{ width: '100%' }}>
-              {[...Array(20).keys()].map((i) => (
-                <DatasetCard key={i} />
+              {resources.map((res) => (
+                <ResourceCard key={res._id} resource={res} />
               ))}
             </Space>
           </Content>
@@ -137,17 +137,16 @@ function Resources(props) {
   );
 }
 
-function DatasetCard() {
+function ResourceCard({ resource }) {
+  let tags = resource.type;
   return (
     <Card
-      title={<a href="/">ImageNet</a>}
-      extra={[
-        <Tag>Custom</Tag>,
-        <Tag>Computer Vision</Tag>,
-        <Badge style={{ backgroundColor: '#52c41a' }} count={'A+'} />,
-      ]}
+      title={<a href="/">{resource.name}</a>}
+      extra={tags.map((t) => (
+        <Tag>{t}</Tag>
+      ))}
     >
-      <Card.Meta description="A big dataset with lots of images for testing deep learning models." />
+      <Card.Meta description={resource.desc} />
     </Card>
   );
 }

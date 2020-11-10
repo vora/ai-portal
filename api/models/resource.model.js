@@ -6,7 +6,7 @@ const { RESOURCE_TYPES, RESOURCE_PATHS } = require('./enums');
 const Schema = mongoose.Schema;
 
 const ResourceSchema = new Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   desc: { type: String, required: true },
   type: [{ type: String, enum: RESOURCE_TYPES }],
   path: [{ type: String, enum: RESOURCE_PATHS }],
@@ -14,6 +14,7 @@ const ResourceSchema = new Schema({
   creationDate: { type: Date, default: Date.now },
   modifiedDate: { type: Date, default: Date.now },
   licenseName: { type: String, default: 'Unknown' },
+  downloadURL: { type: String },
   technical: { type: Boolean, default: false },
   featured: { type: Boolean, default: false },
   trustIndexCategories: { type: [String], default: [] },

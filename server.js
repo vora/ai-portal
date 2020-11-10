@@ -70,14 +70,15 @@ require('./api/routes/index')(app);
 
 let runServer = () => {
   mongoose.connection
-    .on('error', console.log)
-    .on('disconnected', runServer)
+    .on('error', console.warn)
+    .on('disconnected', console.warn)
     .once('open', () => app.listen(port));
   return mongoose.connect(process.env.MONGODB_URL, {
     keepAlive: 1,
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
+    autoReconnect: true,
   });
 };
 

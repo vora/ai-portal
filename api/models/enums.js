@@ -23,7 +23,7 @@ module.exports.RESOURCE_TYPES = [
   'Toolkit',
   'Vision Tool',
   'Working Groups',
-  'Workshops',
+  'Workshop',
 ];
 module.exports.RESOURCE_PATHS = [
   'Designer Path',

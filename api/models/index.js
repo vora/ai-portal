@@ -3,4 +3,5 @@ module.exports = {
   search: require('./search.model'),
   resource: require('./resource.model'),
   organization: require('./organization.model'),
+  topic: require('./topic.model'),
 };

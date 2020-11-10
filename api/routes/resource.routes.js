@@ -6,7 +6,9 @@ module.exports = (app) => {
   app.get('/api/resources', async (req, res) => {
     let { query, featured } = req.query;
     let resources = await resourceUtil.search(query, { featured });
-    await searchUtil.create(query);
+    try {
+      await searchUtil.create(query);
+    } catch (e) {}
     res.json(resources);
   });
 
