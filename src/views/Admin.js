@@ -14,17 +14,18 @@ import {
   Tag,
   Table,
   Statistic,
+  Tooltip,
 } from '../ant';
 
 import {
   AreaChartOutlined,
   TeamOutlined,
   FileProtectOutlined,
+  QuestionCircleTwoTone,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import API from '../api';
-import { stringToColor } from './../util';
 
 // resource columns
 const resourcesColumns = [
@@ -55,14 +56,13 @@ const resourcesColumns = [
     sorter: (a, b) => a.topic.localeCompare(b.topic),
     sortDirections: ['descend', 'ascend'],
     render: (topic) => {
-      let color = stringToColor(topic);
       return (
         <Tag
           style={{
-            color: 'black',
+            color: 'white',
             fontWeight: 'bold',
           }}
-          color={color}
+          color={'#42D3D4'}
           key={topic}
         >
           {topic.toUpperCase()}
@@ -71,23 +71,65 @@ const resourcesColumns = [
     },
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (tags) => (
+    title: 'Path',
+    key: 'path',
+    dataIndex: 'path',
+    sorter: (a, b) => a.path.localeCompare(b.path),
+    sortDirections: ['descend', 'ascend'],
+    render: (path) => {
+      return (
+        <Tag
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+          color={'#097AE8'}
+          key={path}
+        >
+          {path.toUpperCase()}
+        </Tag>
+      );
+    },
+  },
+  {
+    title: 'Type',
+    key: 'type',
+    dataIndex: 'type',
+    sorter: (a, b) => a.type.localeCompare(b.type),
+    sortDirections: ['descend', 'ascend'],
+    render: (type) => {
+      return (
+        <Tag
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+          color={'#00CDFF'}
+          key={type}
+        >
+          {type.toUpperCase()}
+        </Tag>
+      );
+    },
+  },
+  {
+    title: 'Keywords',
+    key: 'keywords',
+    dataIndex: 'keywords',
+    render: (keywords) => (
       <>
-        {tags.map((tag) => {
-          let color = stringToColor(tag);
+        {keywords.map((keyword) => {
           return (
             <Tag
               style={{
-                color: 'black',
+                color: 'white',
                 fontWeight: 'bold',
+                marginBottom: '2px',
               }}
-              color={color}
-              key={tag}
+              color={'#009B72'}
+              key={keyword}
             >
-              {tag.toUpperCase()}
+              {keyword.toUpperCase()}
             </Tag>
           );
         })}
@@ -111,8 +153,7 @@ const resourcesColumns = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <a href="/">Accept</a>
-        <a href="/">Reject</a>
+        <a href="/">Accept</a> | <a href="/">Reject</a>
       </Space>
     ),
   },
@@ -125,29 +166,35 @@ const resourcesData = [
     description:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
     date: '2015-03-25',
-    topic: 'Finance',
+    topic: 'Banking',
+    path: 'Designer',
+    type: 'Research',
     link: 'https://aif360.mybluemix.net/',
-    tags: ['framework', 'toolkit'],
+    keywords: ['NLP', 'CV'],
   },
   {
     key: '2',
-    resourceName: 'IBM',
+    resourceName: 'IBM AI Fairness 360',
     description:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
     date: '2015-03-25',
-    topic: 'Banking',
+    topic: 'Finance',
+    path: 'Developer',
+    type: 'Podcast',
     link: 'https://aif360.mybluemix.net/',
-    tags: ['framework', 'toolkit'],
+    keywords: ['Data Analytics', 'IPA'],
   },
   {
     key: '3',
     resourceName: 'IBM AI Fairness 360',
     description:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-28',
-    topic: 'Retail',
+    date: '2015-03-25',
+    topic: 'Banking',
+    path: 'Designer',
+    type: 'Research',
     link: 'https://aif360.mybluemix.net/',
-    tags: ['framework', 'toolkit'],
+    keywords: ['NLP'],
   },
 ];
 
@@ -174,7 +221,18 @@ function Dashboard({ users }) {
   return (
     <Card id="overview" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
-        Administration Overview
+        Administration Overview &nbsp;
+        <Tooltip
+          title={
+            <p style={{ textAlign: 'center', marginBottom: '0' }}>
+              Overview of resources pending approval and number of active user
+              accounts
+            </p>
+          }
+          placement="right"
+        >
+          <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
+        </Tooltip>
       </h1>
       <Row gutter={16}>
         <Col span={4}>
@@ -191,8 +249,19 @@ function Dashboard({ users }) {
 function Resources() {
   return (
     <Card id="resources" style={{ marginBottom: '20px' }}>
-      <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>Pending Resources</h1>
-      <p>Existing requests to add resources to Portal.</p>
+      <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
+        Pending Resources &nbsp;
+        <Tooltip
+          title={
+            <p style={{ textAlign: 'center', marginBottom: '0' }}>
+              List of submitted resources pending administrator approval
+            </p>
+          }
+          placement="right"
+        >
+          <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
+        </Tooltip>
+      </h1>
       <Search
         style={{ width: '50%', marginBottom: '20px' }}
         placeholder="Resource Search"
@@ -238,11 +307,10 @@ function Users({ users }) {
       sorter: (a, b) => a.role.localeCompare(b.role),
       sortDirections: ['descend', 'ascend'],
       render: (role) => {
-        let color = stringToColor(role);
         return (
           <Tag
             style={{ color: 'white', fontWeight: 'bold' }}
-            color={color}
+            color={'#097AE8'}
             key={role}
           >
             {role.toUpperCase()}
@@ -250,36 +318,6 @@ function Users({ users }) {
         );
       },
     },
-    // {
-    //   title: 'Date Joined',
-    //   dataIndex: 'date',
-    //   sorter: (a, b) => {
-    //     let aDate = new Date(a.date);
-    //     let bDate = new Date(b.date);
-    //     return aDate.getTime() - bDate.getTime();
-    //   },
-    // },
-    // {
-    //   title: 'Organizations',
-    //   key: 'organizations',
-    //   dataIndex: 'organizations',
-    //   render: (organizations) => (
-    //     <>
-    //       {organizations.map((org) => {
-    //         let color = stringToColor(org);
-    //         return (
-    //           <Tag
-    //             style={{ color: 'white', fontWeight: 'bold' }}
-    //             color={color}
-    //             key={org}
-    //           >
-    //             {org}
-    //           </Tag>
-    //         );
-    //       })}
-    //     </>
-    //   ),
-    // },
     {
       title: 'Action',
       key: 'action',
@@ -292,11 +330,20 @@ function Users({ users }) {
   ];
   return (
     <Card id="users">
-      <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>Manage Users</h1>
-      <p>
-        Edit user privileges and accounts. View individual user information by
-        selecting the relevant person.
-      </p>
+      <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
+        Manage Users &nbsp;
+        <Tooltip
+          title={
+            <p style={{ textAlign: 'center', marginBottom: '0' }}>
+              List of active users and their Portal roles that can be edited by
+              you
+            </p>
+          }
+          placement="right"
+        >
+          <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
+        </Tooltip>
+      </h1>
       <Search
         style={{ width: '50%', marginBottom: '20px' }}
         placeholder="User Search"

@@ -22,11 +22,11 @@ import {
   TeamOutlined,
   FileProtectOutlined,
   QuestionCircleTwoTone,
+  ExclamationCircleTwoTone,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import API from '../api';
-import { stringToColor } from './../util';
 
 function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
@@ -56,7 +56,7 @@ function Dashboard({ users }) {
               </span>
             </h3>
             <h3>
-              <strong>Name: &nbsp;</strong>{' '}
+              <strong>Name: &nbsp;</strong>
               <span id="name" style={{ fontWeight: 'normal' }}>
                 John Smith
               </span>
@@ -72,11 +72,16 @@ function Dashboard({ users }) {
               <Tooltip title="Edit your profile information">
                 <Button type="primary" href="#">
                   Edit Information
-                </Button>{' '}
+                </Button>
               </Tooltip>
               <Tooltip title="Change your current password">
-                <Button href="#">Change Password</Button>{' '}
-              </Tooltip>{' '}
+                <Button href="#">Change Password</Button>
+              </Tooltip>
+              <Tooltip title="Verify your account email">
+                <Button danger href="#">
+                  <ExclamationCircleTwoTone twoToneColor="red" /> Verify Email
+                </Button>
+              </Tooltip>
             </Space>
           </div>
         </Col>
@@ -139,14 +144,13 @@ function Resources({ resources }) {
       sorter: (a, b) => a.topic.localeCompare(b.topic),
       sortDirections: ['descend', 'ascend'],
       render: (topic) => {
-        let color = stringToColor(topic);
         return (
           <Tag
             style={{
-              color: 'black',
+              color: 'white',
               fontWeight: 'bold',
             }}
-            color={color}
+            color={'#42D3D4'}
             key={topic}
           >
             {topic.toUpperCase()}
@@ -155,23 +159,65 @@ function Resources({ resources }) {
       },
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (tags) => (
+      title: 'Path',
+      key: 'path',
+      dataIndex: 'path',
+      sorter: (a, b) => a.path.localeCompare(b.path),
+      sortDirections: ['descend', 'ascend'],
+      render: (path) => {
+        return (
+          <Tag
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+            }}
+            color={'#097AE8'}
+            key={path}
+          >
+            {path.toUpperCase()}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: 'Type',
+      key: 'type',
+      dataIndex: 'type',
+      sorter: (a, b) => a.type.localeCompare(b.type),
+      sortDirections: ['descend', 'ascend'],
+      render: (type) => {
+        return (
+          <Tag
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+            }}
+            color={'#00CDFF'}
+            key={type}
+          >
+            {type.toUpperCase()}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: 'Keywords',
+      key: 'keywords',
+      dataIndex: 'keywords',
+      render: (keywords) => (
         <>
-          {tags.map((tag) => {
-            let color = stringToColor(tag);
+          {keywords.map((keyword) => {
             return (
               <Tag
                 style={{
-                  color: 'black',
+                  color: 'white',
                   fontWeight: 'bold',
+                  marginBottom: '2px',
                 }}
-                color={color}
-                key={tag}
+                color={'#009B72'}
+                key={keyword}
               >
-                {tag.toUpperCase()}
+                {keyword.toUpperCase()}
               </Tag>
             );
           })}
@@ -195,24 +241,18 @@ function Resources({ resources }) {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" href="#">
-            Edit
-          </Button>
-          <Button type="primary" danger href="#">
-            Remove
-          </Button>
+          <a href="/">Edit</a> | <a href="/">Remove</a>
         </Space>
       ),
     },
   ];
-
   return (
     <Card id="resources" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
         Uploaded Resources &nbsp;
         <Tooltip
           title={
-            <p style={{ textAlign: 'center' }}>
+            <p style={{ textAlign: 'center', marginBottom: '0' }}>
               View the resources you've added and edit them if necessary
             </p>
           }
@@ -254,11 +294,10 @@ function Organizations({ organizations }) {
       sorter: (a, b) => a.type.localeCompare(b.type),
       sortDirections: ['descend', 'ascend'],
       render: (type) => {
-        let color = stringToColor(type);
         return (
           <Tag
             style={{ color: 'white', fontWeight: 'bold' }}
-            color={color}
+            color={'#097AE8'}
             key={type}
           >
             {type.toUpperCase()}
@@ -273,11 +312,10 @@ function Organizations({ organizations }) {
       sorter: (a, b) => a.role.localeCompare(b.role),
       sortDirections: ['descend', 'ascend'],
       render: (role) => {
-        let color = stringToColor(role);
         return (
           <Tag
             style={{ color: 'white', fontWeight: 'bold' }}
-            color={color}
+            color={'red'}
             key={role}
           >
             {role.toUpperCase()}
@@ -295,11 +333,7 @@ function Organizations({ organizations }) {
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) => (
-        <Button type="primary" danger href="#">
-          Leave
-        </Button>
-      ),
+      render: (text, record) => <a href="/">Leave</a>,
     },
   ];
   return (
@@ -308,7 +342,7 @@ function Organizations({ organizations }) {
         Manage Organizations &nbsp;
         <Tooltip
           title={
-            <p style={{ textAlign: 'center' }}>
+            <p style={{ textAlign: 'center', marginBottom: '0' }}>
               View your existing organization memberships and leave if you
               choose
             </p>
