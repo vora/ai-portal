@@ -46,12 +46,10 @@ class ResourceCard extends React.Component {
         </Card>
         <Modal
           title={
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <p style={{ margin: '0' }}>
-                &nbsp;
-                <strong>{resource.name}</strong>
-              </p>
-            </div>
+            <a href={'/resources/' + resource.id} style={{ margin: '0' }}>
+              &nbsp;
+              <strong>{resource.name}</strong>
+            </a>
           }
           centered
           visible={this.state.modalVisible}
