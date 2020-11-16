@@ -115,7 +115,7 @@ function Landing() {
                     <p
                       style={{ textTransform: 'capitalize', marginBottom: '0' }}
                     >
-                      Search by {tag.name}
+                      Search by {tag.type}
                     </p>
                   }
                 >
