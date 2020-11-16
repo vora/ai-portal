@@ -153,7 +153,7 @@ const resourcesColumns = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <a href="/">Accept</a> | <a href="/">Reject</a>
+        <a href="/">Accept</a> | <a href="/">Edit</a> | <a href="/">Reject</a>
       </Space>
     ),
   },

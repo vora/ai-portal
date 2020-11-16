@@ -8,13 +8,12 @@ import {
   Header,
   Select,
   Search,
-  Card,
   Affix,
   Space,
-  Tag,
 } from '../ant';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
+import ResourceCard from '../components/ResourceCard';
 import API from '../api';
 
 let queryParamsFromProps = (props) => {
@@ -137,18 +136,28 @@ function Resources(props) {
   );
 }
 
-function ResourceCard({ resource }) {
-  let tags = resource.type;
-  return (
-    <Card
-      title={<a href="/">{resource.name}</a>}
-      extra={tags.map((t) => (
-        <Tag>{t}</Tag>
-      ))}
-    >
-      <Card.Meta description={resource.desc} />
-    </Card>
-  );
-}
+// mock data for testing modal
+// I kept this in to show the visual if resources is empty
+// let MOCK_DATA = [
+//   {
+//     id: 1,
+//     name: 'Example 1',
+//     type: ['api'],
+//     desc: 'Lorem ipsum',
+//     link: 'https://www.google.com',
+//   },
+//   {
+//     id: 2,
+//     name: 'Example 2',
+//     type: ['algorithm', 'api'],
+//     desc: 'Lorem ipsum',
+//   },
+//   {
+//     id: 3,
+//     name: 'Example 3',
+//     type: ['algorithm'],
+//     desc: 'Lorem ipsum',
+//   },
+// ];
 
 export default Resources;

@@ -69,15 +69,15 @@ function Dashboard({ users }) {
             </h3>
             <hr />
             <Space>
-              <Tooltip title="Edit your profile information">
+              <Tooltip title="Edit your profile information" placement="bottom">
                 <Button type="primary" href="#">
                   Edit Information
                 </Button>
               </Tooltip>
-              <Tooltip title="Change your current password">
+              <Tooltip title="Change your current password" placement="bottom">
                 <Button href="#">Change Password</Button>
               </Tooltip>
-              <Tooltip title="Verify your account email">
+              <Tooltip title="Verify your account email" placement="bottom">
                 <Button danger href="#">
                   <ExclamationCircleTwoTone twoToneColor="red" /> Verify Email
                 </Button>
