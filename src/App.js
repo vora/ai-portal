@@ -11,6 +11,7 @@ import AddResources from './views/AddResource';
 import Admin from './views/Admin';
 import AddOrganization from './views/AddOrganization';
 import UserSettings from './views/UserSettings';
+import Mod from './views/Mod';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/admin" component={Admin} />
             <Route path="/settings" component={UserSettings} />
+            <Route path="/mod" component={Mod} />
             <Route
               exact
               path="/organizations/create"

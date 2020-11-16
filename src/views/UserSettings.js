@@ -27,7 +27,7 @@ function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
 }
 
-function Dashboard({ users }) {
+function Dashboard({ user }) {
   return (
     <Card id="overview" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
@@ -47,19 +47,19 @@ function Dashboard({ users }) {
             <h3>
               <strong>Username: &nbsp;</strong>
               <span id="username" style={{ fontWeight: 'normal' }}>
-                jsmitty
+                {user.username}
               </span>
             </h3>
             <h3>
               <strong>Name: &nbsp;</strong>
               <span id="name" style={{ fontWeight: 'normal' }}>
-                John Smith
+                {user.name}
               </span>
             </h3>
             <h3>
               <strong>Email: &nbsp;</strong>
               <span id="email" style={{ fontWeight: 'normal' }}>
-                johnsmith@imaginary.com
+                {user.email}
               </span>
             </h3>
             <hr />
@@ -72,11 +72,13 @@ function Dashboard({ users }) {
               <Tooltip title="Change your current password" placement="bottom">
                 <Button href="#">Change Password</Button>
               </Tooltip>
-              <Tooltip title="Verify your account email" placement="bottom">
-                <Button danger href="#">
-                  <ExclamationCircleTwoTone twoToneColor="red" /> Verify Email
-                </Button>
-              </Tooltip>
+              {user.verified && (
+                <Tooltip title="Verify your account email" placement="bottom">
+                  <Button danger href="#">
+                    <ExclamationCircleTwoTone twoToneColor="red" /> Verify Email
+                  </Button>
+                </Tooltip>
+              )}
             </Space>
           </div>
         </Col>
@@ -93,14 +95,13 @@ function Dashboard({ users }) {
             <h3>
               <strong>Role:</strong>{' '}
               <span id="role" style={{ fontWeight: 'normal' }}>
-                Administrator
+                {user.role}
               </span>
             </h3>
             <h3>
               <strong>Description: </strong>
               <span id="description" style={{ fontWeight: 'normal' }}>
-                Lorem Ipsum has been the industrys standard dummy text ever
-                since the 1500s
+                {user.description}
               </span>
             </h3>
           </div>
@@ -256,12 +257,14 @@ function Resources({ resources }) {
           <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
         </Tooltip>
       </h1>
-      <Search
-        style={{ width: '50%', marginBottom: '20px' }}
-        placeholder="Resource Search"
-        enterButton
-        onSearch={console.log}
-      />
+      <Tooltip title="Search for a resource" placement="right">
+        <Search
+          style={{ width: '50%', marginBottom: '20px' }}
+          placeholder="Responsible AI Design Assistant"
+          enterButton
+          onSearch={console.log}
+        />
+      </Tooltip>
       <Table
         columns={resourcesColumns}
         dataSource={resources}
@@ -347,12 +350,14 @@ function Organizations({ organizations }) {
           <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
         </Tooltip>
       </h1>
-      <Search
-        style={{ width: '50%', marginBottom: '20px' }}
-        placeholder="User Search"
-        enterButton
-        onSearch={console.log}
-      />
+      <Tooltip title="Search for an organization" placement="right">
+        <Search
+          style={{ width: '50%', marginBottom: '20px' }}
+          placeholder="The Galactic Empire"
+          enterButton
+          onSearch={console.log}
+        />
+      </Tooltip>
       <Table
         columns={columns}
         dataSource={organizations}
@@ -404,7 +409,7 @@ function UserSettings() {
           }}
           offsetTop={100}
         >
-          {user && <Dashboard users={user} />}
+          {user && <Dashboard user={user} />}
           {user && <Resources resources={user.resources} />}
           {user && <Organizations organizations={user.organizations} />}
         </Content>
