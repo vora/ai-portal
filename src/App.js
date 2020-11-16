@@ -9,6 +9,7 @@ import Register from './views/Register';
 import Resources from './views/Resources';
 import AddResources from './views/AddResource';
 import Admin from './views/Admin';
+import ViewResource from './views/ViewResource';
 import AddOrganization from './views/AddOrganization';
 import UserSettings from './views/UserSettings';
 import Mod from './views/Mod';
@@ -21,6 +22,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/resources" component={Resources} />
+            <Route exact path="/resources/example" component={ViewResource} />
             <Route exact path="/resources/create" component={AddResources} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
