@@ -7,9 +7,6 @@ import {
   Col,
   Card,
   Breadcrumb,
-  Menu,
-  Affix,
-  Sider,
   Space,
   Tag,
   Table,
@@ -18,14 +15,12 @@ import {
 } from '../ant';
 
 import {
-  AreaChartOutlined,
-  TeamOutlined,
-  FileProtectOutlined,
   QuestionCircleTwoTone,
   ExclamationCircleTwoTone,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
+import Sidebar from '../components/Sidebar';
 import API from '../api';
 
 function onChange(pagination, filters, sorter, extra) {
@@ -369,59 +364,6 @@ function Organizations({ organizations }) {
   );
 }
 
-function Sidebar() {
-  return (
-    <Affix offsetTop={60}>
-      <Sider width={250}>
-        <Menu
-          mode="inline"
-          theme="light"
-          defaultOpenKeys={['users', 'resources']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <Menu.Item
-            key="dashboard"
-            icon={<AreaChartOutlined />}
-            style={{ marginTop: '30px' }}
-            onClick={() => {
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            User Overview
-          </Menu.Item>
-          <Menu.Item
-            key="organizations"
-            icon={<TeamOutlined />}
-            onClick={() => {
-              window.scrollTo({
-                top: 250,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            Organizations
-          </Menu.Item>
-          <Menu.Item
-            key="pending"
-            icon={<FileProtectOutlined />}
-            onClick={() => {
-              window.scrollTo({
-                top: 600,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            Uploaded Resources
-          </Menu.Item>
-        </Menu>
-      </Sider>
-    </Affix>
-  );
-}
-
 function UserSettings() {
   let [user, setUsers] = useState([]);
   useEffect(() => {
@@ -451,7 +393,10 @@ function UserSettings() {
         </Col>
       </Row>
       <Layout>
-        <Sidebar />
+        <Sidebar
+          mod={false}
+          headings={['User Overview', 'Uploaded Resources', 'Organizations']}
+        />
         <Content
           style={{
             padding: '24px 24px 24px',
@@ -460,8 +405,8 @@ function UserSettings() {
           offsetTop={100}
         >
           {user && <Dashboard users={user} />}
-          {user && <Organizations organizations={user.organizations} />}
           {user && <Resources resources={user.resources} />}
+          {user && <Organizations organizations={user.organizations} />}
         </Content>
       </Layout>
       <Footer />

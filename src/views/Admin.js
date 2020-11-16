@@ -7,9 +7,6 @@ import {
   Col,
   Card,
   Breadcrumb,
-  Menu,
-  Affix,
-  Sider,
   Space,
   Tag,
   Table,
@@ -17,14 +14,10 @@ import {
   Tooltip,
 } from '../ant';
 
-import {
-  AreaChartOutlined,
-  TeamOutlined,
-  FileProtectOutlined,
-  QuestionCircleTwoTone,
-} from '@ant-design/icons';
+import { QuestionCircleTwoTone } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
+import Sidebar from '../components/Sidebar';
 import API from '../api';
 
 // resource columns
@@ -365,59 +358,6 @@ function Users({ users }) {
   );
 }
 
-function Sidebar() {
-  return (
-    <Affix offsetTop={60}>
-      <Sider width={250}>
-        <Menu
-          mode="inline"
-          theme="light"
-          defaultOpenKeys={['users', 'resources']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <Menu.Item
-            key="dashboard"
-            icon={<AreaChartOutlined />}
-            style={{ marginTop: '30px' }}
-            onClick={() => {
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            Overview
-          </Menu.Item>
-          <Menu.Item
-            key="pending"
-            icon={<FileProtectOutlined />}
-            onClick={() => {
-              window.scrollTo({
-                top: 250,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            Pending Resources
-          </Menu.Item>
-          <Menu.Item
-            key="users"
-            icon={<TeamOutlined />}
-            onClick={() => {
-              window.scrollTo({
-                top: 900,
-                behavior: 'smooth',
-              });
-            }}
-          >
-            Users
-          </Menu.Item>
-        </Menu>
-      </Sider>
-    </Affix>
-  );
-}
-
 function Admin() {
   let [users, setUsers] = useState([]);
   useEffect(() => {
@@ -447,7 +387,10 @@ function Admin() {
         </Col>
       </Row>
       <Layout>
-        <Sidebar />
+        <Sidebar
+          mod={false}
+          headings={['Overview', 'Pending Resource', 'Manage Users']}
+        />
         <Content
           style={{
             padding: '24px 24px 24px',
