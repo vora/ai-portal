@@ -9,6 +9,9 @@ export default function LoginButton() {
   if (user) {
     return (
       <div>
+        <Button type="primary" onClick={() => history.push('/settings')}>
+          Account
+        </Button>
         <Button style={{ marginLeft: '10px' }} onClick={logout}>
           Logout
         </Button>

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const user = require('./user.model');
 const { ORG_TYPES } = require('./enums');
 
 const Schema = mongoose.Schema;

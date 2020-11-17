@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -16,17 +16,26 @@ import Footer from '../components/Footer';
 import API from '../api';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
+import { queryParamsFromProps } from '../util';
 
 const { Title } = Typography;
 
-export default function Login() {
+export default function Login(props) {
+  let { username } = queryParamsFromProps(props);
+  useEffect(() => {
+    if (username) {
+      notification.info({
+        message: `Login as ${username} and verify your account by visiting the url sent to your email.`,
+      });
+    }
+  }, [username]);
   let { setUser, setKey } = useAppEnv();
   let history = useHistory();
   let onSubmit = async (values) => {
     let result = await API.post('/api/auth/login', values);
     if (result.errors) {
       for (let error of result.errors) {
-        notification['error']({
+        notification.error({
           message: error.msg,
         });
       }
@@ -39,7 +48,7 @@ export default function Login() {
   let onFail = (values) => {
     var i;
     for (i in values) {
-      notification['error']({
+      notification.error({
         message: values[i].msg,
       });
     }

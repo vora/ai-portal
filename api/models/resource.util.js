@@ -16,3 +16,7 @@ exports.create = async (params) => {
 exports.update = async (resource, params) => {
   return await Model.update({ _id: resource._id }, { $set: params }).exec();
 };
+
+exports.toJSON = async (resource) => {
+  return { ...resource };
+};

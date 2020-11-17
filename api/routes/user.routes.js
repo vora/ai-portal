@@ -1,4 +1,5 @@
 const userUtil = require('../models/user.util');
+const enums = require('../models/enums');
 
 module.exports = (app) => {
   app.post('/api/auth/login', async (req, res) => {
@@ -14,12 +15,19 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/api/auth/self', async (req, res) => {
+  app.get('/api/context', async (req, res) => {
     let user = await req.getUser();
+    let ctx = { enums: enums };
     if (user) {
-      return res.json(user.toPrivateJSON());
+      ctx.user = user;
     }
-    return res.json({});
+    return res.json(ctx);
+  });
+
+  app.post('/api/auth/reset/password', async (req, res) => {
+    let user = await req.getUser();
+    await userUtil.sendReset(user);
+    return res.json({ sent: true });
   });
 
   app.post('/api/users', async (req, res) => {
@@ -53,6 +61,15 @@ module.exports = (app) => {
   });
 
   app.put('/api/users/:_id', async (req, res) => {
-    return await userUtil.update(req.params, req.body);
+    await userUtil.update(req.params, req.body);
+    return res.json({});
+  });
+
+  app.get('/api/users/:_id/resources', async (req, res) => {
+    return res.json([]);
+  });
+
+  app.get('/api/users/:_id/organizations', async (req, res) => {
+    return res.json([]);
   });
 };

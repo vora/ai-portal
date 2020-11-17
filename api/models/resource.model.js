@@ -60,12 +60,5 @@ const ResourceSchema = new Schema({
   ],
 });
 
-ResourceSchema.methods = {
-  toJSON: function () {
-    let { _id, name, type, desc } = this;
-    return { _id, name, type, desc };
-  },
-};
-
 mongoose.model('Resource', ResourceSchema);
 module.exports = ResourceSchema;

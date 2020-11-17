@@ -27,7 +27,7 @@ module.exports = (app) => {
           type,
           desc,
         });
-        return res.json(newResource.toJSON());
+        return res.json(resourceUtil.toJSON(newResource));
       } catch (err) {
         res.json({ errors: [err] });
       }

@@ -6,13 +6,13 @@ import {
   Row,
   Col,
   Card,
-  Button,
   Tooltip,
   Space,
   Tag,
 } from '../ant';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
+import LoginButton from '../components/LoginButton';
 
 let TEMP_FRONTEND_ITEMS = [
   {
@@ -75,18 +75,9 @@ function Landing() {
       <a href="/" style={{ position: 'fixed' }}>
         <img alt="logo" src="/logo.png" width={'160px'} />
       </a>
-      <Button
-        type="primary"
-        href="#"
-        style={{
-          width: '100px',
-          top: '20px',
-          right: '20px',
-          position: 'fixed',
-        }}
-      >
-        Login
-      </Button>
+      <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+        <LoginButton />
+      </div>
       <Content style={{ padding: '0 50px' }}>
         <Row justify="center" style={{ marginTop: '4rem' }}>
           <Col span={12} style={{ textAlign: 'center' }}>
