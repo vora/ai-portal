@@ -24,37 +24,37 @@ import API from '../api';
 const resourcesData = [
   {
     key: '1',
-    resourceName: 'IBM AI Fairness 360',
-    description:
+    name: 'IBM AI Fairness 360',
+    desc:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-25',
-    topic: 'Banking',
-    path: 'Designer',
-    type: 'Research',
+    uploadDate: '2015-03-25',
+    topics: ['Banking'],
+    path: ['Designer'],
+    type: ['Research'],
     link: 'https://aif360.mybluemix.net/',
     keywords: ['NLP', 'CV'],
   },
   {
     key: '2',
-    resourceName: 'IBM AI Fairness 360',
-    description:
+    name: 'IBM AI Fairness 360',
+    desc:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-25',
-    topic: 'Finance',
-    path: 'Developer',
-    type: 'Podcast',
+    uploadDate: '2015-03-25',
+    topics: ['Finance'],
+    path: ['Developer'],
+    type: ['Podcast'],
     link: 'https://aif360.mybluemix.net/',
     keywords: ['Data Analytics', 'IPA'],
   },
   {
     key: '3',
-    resourceName: 'IBM AI Fairness 360',
-    description:
+    name: 'IBM AI Fairness 360',
+    desc:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-25',
-    topic: 'Banking',
-    path: 'Designer',
-    type: 'Research',
+    uploadDate: '2015-03-25',
+    topics: ['Banking', 'Other'],
+    path: ['Designer'],
+    type: ['Research'],
     link: 'https://aif360.mybluemix.net/',
     keywords: ['NLP'],
   },

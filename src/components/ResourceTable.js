@@ -10,86 +10,95 @@ function ResourceTable({ resources, edit, admin }) {
   const resourcesColumns = [
     {
       title: 'Resource Name',
-      dataIndex: 'resourceName',
-      key: 'resourceName',
-      sorter: (a, b) => a.resourceName.localeCompare(b.resourceName),
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ['descend', 'ascend'],
     },
     {
       title: 'Description',
-      dataIndex: 'description',
+      dataIndex: 'desc',
     },
     {
       title: 'Upload Date',
-      dataIndex: 'date',
+      dataIndex: 'uploadDate',
       sorter: (a, b) => {
-        let aDate = new Date(a.date);
-        let bDate = new Date(b.date);
+        let aDate = new Date(a.uploadDate);
+        let bDate = new Date(b.uploadDate);
         return aDate.getTime() - bDate.getTime();
       },
     },
     {
-      title: 'Topic',
-      key: 'topic',
-      dataIndex: 'topic',
-      sorter: (a, b) => a.topic.localeCompare(b.topic),
-      sortDirections: ['descend', 'ascend'],
-      render: (topic) => {
-        return (
-          <Tag
-            style={{
-              color: 'white',
-              fontWeight: 'bold',
-            }}
-            color={'#42D3D4'}
-            key={topic}
-          >
-            {topic.toUpperCase()}
-          </Tag>
-        );
-      },
+      title: 'Topics',
+      key: 'topics',
+      dataIndex: 'topics',
+      render: (topics) => (
+        <>
+          {topics.map((topic) => {
+            return (
+              <Tag
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginBottom: '2px',
+                }}
+                color={'#42D3D4'}
+                key={topic}
+              >
+                {topic.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
     },
     {
       title: 'Path',
       key: 'path',
       dataIndex: 'path',
-      sorter: (a, b) => a.path.localeCompare(b.path),
-      sortDirections: ['descend', 'ascend'],
-      render: (path) => {
-        return (
-          <Tag
-            style={{
-              color: 'white',
-              fontWeight: 'bold',
-            }}
-            color={'#097AE8'}
-            key={path}
-          >
-            {path.toUpperCase()}
-          </Tag>
-        );
-      },
+      render: (path) => (
+        <>
+          {path.map((p) => {
+            return (
+              <Tag
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginBottom: '2px',
+                }}
+                color={'#097AE8'}
+                key={p}
+              >
+                {p.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
     },
     {
       title: 'Type',
       key: 'type',
       dataIndex: 'type',
-      sorter: (a, b) => a.type.localeCompare(b.type),
-      sortDirections: ['descend', 'ascend'],
-      render: (type) => {
-        return (
-          <Tag
-            style={{
-              color: 'white',
-              fontWeight: 'bold',
-            }}
-            color={'#00CDFF'}
-            key={type}
-          >
-            {type.toUpperCase()}
-          </Tag>
-        );
-      },
+      render: (type) => (
+        <>
+          {type.map((t) => {
+            return (
+              <Tag
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginBottom: '2px',
+                }}
+                color={'#00CDFF'}
+                key={t}
+              >
+                {t.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
     },
     {
       title: 'Keywords',
