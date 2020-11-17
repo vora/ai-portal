@@ -8,6 +8,8 @@ import {
   Card,
   Button,
   Tooltip,
+  Space,
+  Tag,
 } from '../ant';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
@@ -29,6 +31,39 @@ let TEMP_FRONTEND_ITEMS = [
     name: 'The A-Z of AI',
     logoURL: '/demo/theazlogo.png',
     description: 'A nutrition label for datasets',
+  },
+];
+
+let TEMP_TAGS = [
+  {
+    name: 'banking',
+    color: '#42D3D4',
+    type: 'topic',
+  },
+  {
+    name: 'health',
+    color: '#42D3D4',
+    type: 'topic',
+  },
+  {
+    name: 'designer',
+    color: '#097AE8',
+    type: 'path',
+  },
+  {
+    name: 'developer',
+    color: '#097AE8',
+    type: 'path',
+  },
+  {
+    name: 'algorithm',
+    color: '#00CDFF',
+    type: 'type',
+  },
+  {
+    name: 'library',
+    color: '#00CDFF',
+    type: 'type',
   },
 ];
 
@@ -61,13 +96,44 @@ function Landing() {
               title="Search for relevant resources here"
             >
               <Search
-                placeholder="AI Design Assistant"
+                placeholder="Responsible AI Design Assistant"
                 enterButton
                 size="large"
                 onChange={(e) => setQuery(e.target.value)}
                 onSearch={() => history.push('/resources?q=' + query)}
               />
             </Tooltip>
+          </Col>
+        </Row>
+        <Row justify="center" style={{ marginTop: '20px' }}>
+          <Col span={12} style={{ textAlign: 'center' }}>
+            <Space>
+              {TEMP_TAGS.map((tag) => (
+                <Tooltip
+                  placement="bottom"
+                  title={
+                    <p
+                      style={{ textTransform: 'capitalize', marginBottom: '0' }}
+                    >
+                      Search by {tag.type}
+                    </p>
+                  }
+                >
+                  <Tag
+                    style={{
+                      color: 'white',
+                      fontWeight: 'bold',
+                      fontSize: '1em',
+                      padding: '5px',
+                    }}
+                    color={tag.color}
+                    key={tag.name}
+                  >
+                    <a href="/">{tag.name.toUpperCase()}</a>
+                  </Tag>
+                </Tooltip>
+              ))}
+            </Space>
           </Col>
         </Row>
         <Row justify="center" style={{ marginTop: '2rem' }} gutter={[24, 16]}>

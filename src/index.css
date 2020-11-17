@@ -10,3 +10,15 @@ body {
 code {
   font-family: 'DM Sans', sans-serif;
 }
+
+.resource-button {
+  border: none;
+  background-color: white;
+  font-weight: bold;
+  outline: none;
+}
+
+.resource-button:hover {
+  color: #00cdff;
+  cursor: pointer;
+}
