@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Layout,
   Content,
@@ -14,7 +14,12 @@ import {
   Tooltip,
 } from '../ant';
 
-import { QuestionCircleTwoTone } from '@ant-design/icons';
+import {
+  QuestionCircleTwoTone,
+  AreaChartOutlined,
+  TeamOutlined,
+  FileProtectOutlined,
+} from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import Sidebar from '../components/Sidebar';
@@ -179,6 +184,11 @@ function Admin() {
   useEffect(() => {
     API.get('/api/users/').then(setUsers);
   }, []);
+
+  let dashRef = useRef(null),
+    resourceRef = useRef(null),
+    userRef = useRef(null);
+
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Row justify="start" align="middle">
@@ -204,8 +214,13 @@ function Admin() {
       </Row>
       <Layout>
         <Sidebar
-          mod={false}
           headings={['Overview', 'Pending Resources', 'Manage Users']}
+          icons={[
+            <AreaChartOutlined />,
+            <FileProtectOutlined />,
+            <TeamOutlined />,
+          ]}
+          refs={[dashRef, resourceRef, userRef]}
         />
         <Content
           style={{
@@ -214,9 +229,15 @@ function Admin() {
           }}
           offsetTop={100}
         >
-          {users && <Dashboard users={users} />}
-          <ResourceTable resources={resourcesData} admin={true} edit={true} />
-          {users && <Users users={users} />}
+          {users && (
+            <div ref={dashRef}>
+              <Dashboard users={users} />
+            </div>
+          )}
+          <div ref={resourceRef}>
+            <ResourceTable resources={resourcesData} admin={true} edit={true} />
+          </div>
+          <div ref={userRef}>{users && <Users users={users} />}</div>
         </Content>
       </Layout>
       <Footer />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Layout,
   Content,
@@ -17,6 +17,9 @@ import {
 import {
   QuestionCircleTwoTone,
   ExclamationCircleTwoTone,
+  AreaChartOutlined,
+  TeamOutlined,
+  FileProtectOutlined,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
@@ -210,6 +213,10 @@ function UserSettings() {
   useEffect(() => {
     API.get('/api/users/').then(setUsers);
   }, []);
+  let dashRef = useRef(null),
+    resourceRef = useRef(null),
+    orgRef = useRef(null);
+
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Row justify="start" align="middle">
@@ -235,8 +242,13 @@ function UserSettings() {
       </Row>
       <Layout>
         <Sidebar
-          mod={false}
           headings={['User Overview', 'Uploaded Resources', 'Organizations']}
+          icons={[
+            <AreaChartOutlined />,
+            <FileProtectOutlined />,
+            <TeamOutlined />,
+          ]}
+          refs={[dashRef, resourceRef, orgRef]}
         />
         <Content
           style={{
@@ -245,15 +257,25 @@ function UserSettings() {
           }}
           offsetTop={100}
         >
-          {user && <Dashboard user={user} />}
           {user && (
-            <ResourceTable
-              edit={true}
-              admin={false}
-              resources={user.resources}
-            />
+            <div ref={dashRef}>
+              <Dashboard user={user} />
+            </div>
           )}
-          {user && <Organizations organizations={user.organizations} />}
+          {user && (
+            <div ref={resourceRef}>
+              <ResourceTable
+                edit={true}
+                admin={false}
+                resources={user.resources}
+              />
+            </div>
+          )}
+          {user && (
+            <div ref={orgRef}>
+              <Organizations organizations={user.organizations} />
+            </div>
+          )}
         </Content>
       </Layout>
       <Footer />
