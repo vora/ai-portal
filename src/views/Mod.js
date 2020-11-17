@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Layout,
   Content,
@@ -10,7 +10,11 @@ import {
   Tooltip,
 } from '../ant';
 
-import { QuestionCircleTwoTone } from '@ant-design/icons';
+import {
+  QuestionCircleTwoTone,
+  AreaChartOutlined,
+  FileProtectOutlined,
+} from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import Sidebar from '../components/Sidebar';
@@ -20,37 +24,37 @@ import API from '../api';
 const resourcesData = [
   {
     key: '1',
-    resourceName: 'IBM AI Fairness 360',
-    description:
+    name: 'IBM AI Fairness 360',
+    desc:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-25',
-    topic: 'Banking',
-    path: 'Designer',
-    type: 'Research',
+    uploadDate: '2015-03-25',
+    topics: ['Banking'],
+    path: ['Designer'],
+    type: ['Research'],
     link: 'https://aif360.mybluemix.net/',
     keywords: ['NLP', 'CV'],
   },
   {
     key: '2',
-    resourceName: 'IBM AI Fairness 360',
-    description:
+    name: 'IBM AI Fairness 360',
+    desc:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-25',
-    topic: 'Finance',
-    path: 'Developer',
-    type: 'Podcast',
+    uploadDate: '2015-03-25',
+    topics: ['Finance'],
+    path: ['Developer'],
+    type: ['Podcast'],
     link: 'https://aif360.mybluemix.net/',
     keywords: ['Data Analytics', 'IPA'],
   },
   {
     key: '3',
-    resourceName: 'IBM AI Fairness 360',
-    description:
+    name: 'IBM AI Fairness 360',
+    desc:
       ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    date: '2015-03-25',
-    topic: 'Banking',
-    path: 'Designer',
-    type: 'Research',
+    uploadDate: '2015-03-25',
+    topics: ['Banking', 'Other'],
+    path: ['Designer'],
+    type: ['Research'],
     link: 'https://aif360.mybluemix.net/',
     keywords: ['NLP'],
   },
@@ -90,6 +94,8 @@ function Mod() {
   useEffect(() => {
     API.get('/api/users/').then(setUsers);
   }, []);
+  let dashRef = useRef(null),
+    resourceRef = useRef(null);
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Row justify="start" align="middle">
@@ -114,7 +120,11 @@ function Mod() {
         </Col>
       </Row>
       <Layout>
-        <Sidebar mod={true} headings={['Overview', 'Pending Resources']} />
+        <Sidebar
+          headings={['Overview', 'Pending Resources']}
+          icons={[<AreaChartOutlined />, <FileProtectOutlined />]}
+          refs={[dashRef, resourceRef]}
+        />
         <Content
           style={{
             padding: '24px 24px 24px',
@@ -122,8 +132,14 @@ function Mod() {
           }}
           offsetTop={100}
         >
-          {users && <Dashboard users={users} />}
-          <ResourceTable resources={resourcesData} admin={true} edit={true} />
+          {users && (
+            <div ref={dashRef}>
+              <Dashboard users={users} />
+            </div>
+          )}
+          <div ref={resourceRef}>
+            <ResourceTable resources={resourcesData} admin={true} edit={true} />
+          </div>
         </Content>
       </Layout>
       <Footer />
