@@ -12,7 +12,10 @@ const userUtil = require('./api/models/user.util');
 
 // Force HTTPS
 app.use((req, res, next) => {
-  if (!req.secure && process.env.NODE_ENV == 'production') {
+  if (
+    process.env.NODE_ENV == 'production' &&
+    req.headers['x-forwarded-proto'] != 'https'
+  ) {
     return res.redirect('https://' + req.headers.host + req.url);
   }
   next();
