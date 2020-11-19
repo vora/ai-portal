@@ -8,3 +8,11 @@ exports.create = async (params) => {
   await topic.save();
   return topic;
 };
+
+exports.getAll = async () => {
+  return await Topic.find();
+};
+
+exports.toJSON = async (topic) => {
+  return { ...topic };
+};

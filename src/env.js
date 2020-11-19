@@ -13,6 +13,7 @@ let getKey = (key) => {
 
 export function AppEnv({ children }) {
   let [user, _setUser] = useState(getKey('user'));
+  let [enums, _setEnums] = useState(getKey('enums'));
   let setUser = (user) => {
     setKey('user', user);
     _setUser(user);
@@ -21,18 +22,23 @@ export function AppEnv({ children }) {
     setUser(null);
     setKey('token', '');
   };
-  if (!window.userUpdated) {
-    API.get('/api/auth/self').then((user) => {
-      window.userUpdated = true;
+  console.log(user);
+  if (!window.contextFound) {
+    API.get('/api/context').then(({ user, enums }) => {
+      window.contextFound = true;
       if (user && user.id) {
         setUser(user);
       }
+      _setEnums(enums);
     });
   }
   return (
     <AppContext.Provider
       value={{
+        api: API,
+        userID: user?.id,
         user: user,
+        enums: enums,
         setUser: setUser,
         setKey: setKey,
         getKey: getKey,

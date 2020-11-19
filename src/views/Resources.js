@@ -15,20 +15,7 @@ import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import ResourceCard from '../components/ResourceCard';
 import API from '../api';
-
-let queryParamsFromProps = (props) => {
-  let queryString = props.location.search;
-  var query = {};
-  var pairs = (queryString[0] === '?'
-    ? queryString.substr(1)
-    : queryString
-  ).split('&');
-  for (var i = 0; i < pairs.length; i++) {
-    var pair = pairs[i].split('=');
-    query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
-  }
-  return query;
-};
+import { queryParamsFromProps } from '../util';
 
 function Resources(props) {
   let { q } = queryParamsFromProps(props);

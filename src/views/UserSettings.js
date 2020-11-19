@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   Layout,
   Content,
@@ -12,6 +12,7 @@ import {
   Table,
   Button,
   Tooltip,
+  notification,
 } from '../ant';
 
 import {
@@ -26,12 +27,17 @@ import LoginButton from '../components/LoginButton';
 import Sidebar from '../components/Sidebar';
 import ResourceTable from '../components/ResourceTable';
 import API from '../api';
+import { useAppEnv } from './../env';
 
 function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
 }
 
 function Dashboard({ user }) {
+  let resetPassword = async () => {
+    await API.post('/api/auth/reset/password');
+    notification.info({ message: 'Password reset email sent.' });
+  };
   return (
     <Card id="overview" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
@@ -74,7 +80,9 @@ function Dashboard({ user }) {
                 </Button>
               </Tooltip>
               <Tooltip title="Change your current password" placement="bottom">
-                <Button href="#">Change Password</Button>
+                <Button href="#" onClick={resetPassword}>
+                  Change Password
+                </Button>
               </Tooltip>
               {user.verified && (
                 <Tooltip title="Verify your account email" placement="bottom">
@@ -209,10 +217,8 @@ function Organizations({ organizations }) {
 }
 
 function UserSettings() {
-  let [user, setUsers] = useState([]);
-  useEffect(() => {
-    API.get('/api/users/').then(setUsers);
-  }, []);
+  let { user } = useAppEnv();
+
   let dashRef = useRef(null),
     resourceRef = useRef(null),
     orgRef = useRef(null);

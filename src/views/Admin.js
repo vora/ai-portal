@@ -99,12 +99,18 @@ function Dashboard({ users }) {
 }
 
 function Users({ users }) {
-  console.log(users);
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username',
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ['descend', 'ascend'],
     },

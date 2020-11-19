@@ -10,6 +10,17 @@ const app = express();
 require('./api/models/index');
 const userUtil = require('./api/models/user.util');
 
+// Force HTTPS
+app.use((req, res, next) => {
+  if (
+    process.env.NODE_ENV == 'production' &&
+    req.headers['x-forwarded-proto'] != 'https'
+  ) {
+    return res.redirect('https://' + req.headers.host + req.url);
+  }
+  next();
+});
+
 app.use((req, res, next) => {
   if (
     !req.originalUrl.startsWith('/api/') &&
@@ -72,7 +83,10 @@ let runServer = () => {
   mongoose.connection
     .on('error', console.warn)
     .on('disconnected', console.warn)
-    .once('open', () => app.listen(port));
+    .once('open', () => {
+      console.log(`Serving http://:${port}`);
+      app.listen(port);
+    });
   return mongoose.connect(process.env.MONGODB_URL, {
     keepAlive: 1,
     useNewUrlParser: true,
