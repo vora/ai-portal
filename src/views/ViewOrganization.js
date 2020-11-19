@@ -4,12 +4,8 @@ import {
   Content,
   Descriptions,
   Button,
-  Sider,
-  Menu,
-  Affix,
   PageHeader,
   Collapse,
-  Table,
   Tag,
 } from '../ant';
 import {
@@ -19,7 +15,8 @@ import {
   FolderOpenOutlined,
 } from '@ant-design/icons';
 import FormHeader from '../components/FormHeader';
-import { stringToColor } from './../util';
+import ResourceTable from '../components/ResourceTable';
+import Sidebar from '../components/Sidebar';
 
 const { Panel } = Collapse;
 const props = {
@@ -35,169 +32,30 @@ const props = {
   resources: [
     {
       key: '1',
-      resourceName: 'Living Dictionary',
-      description:
-        ' An interactive dictionary of technical computer science and social science terms in plain language',
-      date: 'n/a',
+      name: 'Living Dictionary',
+      uploadDate: 'n/a',
       topics: ['Other topic'],
+      path: ['Curious Path'],
+      type: ['Education Tool'],
       link: 'https://montrealethics.ai/dictionary/',
-      tags: ['education tool'],
+      keywords: [],
     },
     {
       key: '2',
-      resourceName: 'Response to COVI Contact Tracing App',
-      description:
+      name: 'Response to COVI Contact Tracing App',
+      desc:
         "A white paper on COVI, a contact tracing app, on the extent which diversity is considered on the app, assumptions surrounding users', and unanswered questions surrounding transparency, accountability, and security",
-      date: 'n/a',
+      uploadDate: 'n/a',
       topics: ['Health'],
+      path: ['Explorer Path'],
+      type: ['Research'],
       link:
         'https://montrealethics.ai/wp-content/uploads/2020/06/MAIEI-Official-COVI-Response.docx.pdf',
-      tags: ['research'],
+      keywords: [],
     },
   ],
   desc: 'Do we want a description?',
 };
-
-function FileTable(props) {
-  const resourcesColumns = [
-    {
-      title: 'Resource Name',
-      dataIndex: 'resourceName',
-      key: 'resourceName',
-      sorter: (a, b) => a.resourceName.localeCompare(b.resourceName),
-      sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-    },
-    {
-      title: 'Upload Date',
-      dataIndex: 'date',
-      sorter: (a, b) => {
-        let aDate = new Date(a.date);
-        let bDate = new Date(b.date);
-        return aDate.getTime() - bDate.getTime();
-      },
-    },
-    {
-      title: 'Topics',
-      key: 'topics',
-      dataIndex: 'topics',
-      sorter: (a, b) => a.topic.localeCompare(b.topic),
-      sortDirections: ['descend', 'ascend'],
-      render: (topics) => (
-        <>
-          {topics.map((topic) => {
-            let color = stringToColor(topic);
-            return (
-              <Tag
-                style={{
-                  color: 'black',
-                  fontWeight: 'bold',
-                }}
-                color={color}
-                key={topic}
-              >
-                {topic.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (tags) => (
-        <>
-          {tags.map((tag) => {
-            let color = stringToColor(tag);
-            return (
-              <Tag
-                style={{
-                  color: 'black',
-                  fontWeight: 'bold',
-                }}
-                color={color}
-                key={tag}
-              >
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: 'Link',
-      key: 'link',
-      dataIndex: 'link',
-      render: (
-        link // create clickable link to new tab
-      ) => (
-        <a href={link} rel="noopener noreferrer" target="_blank">
-          {link}
-        </a>
-      ),
-    },
-  ];
-
-  return (
-    <div>
-      <h1 style={{ padding: '10px', fontSize: '2em', fontWeight: 'bold' }}>
-        Resources
-      </h1>
-      <Table columns={resourcesColumns} dataSource={props.data} />
-    </div>
-  );
-}
-
-function SideBar(props) {
-  return (
-    <Affix offsetTop={60}>
-      <Sider width={250}>
-        <Menu
-          mode="inline"
-          theme="light"
-          defaultOpenKeys={['overview']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <Menu.Item
-            key="overview"
-            icon={<FileDoneOutlined />}
-            style={{ marginTop: '30px' }}
-            onClick={() => {
-              props.topRef.current.scrollIntoView();
-            }}
-          >
-            Overview
-          </Menu.Item>
-
-          <Menu.Item
-            key="details"
-            icon={<SearchOutlined />}
-            onClick={() => {
-              props.detailRef.current.scrollIntoView();
-            }}
-          >
-            Details
-          </Menu.Item>
-          <Menu.Item
-            key="resources"
-            icon={<FolderOpenOutlined />}
-            onClick={() => {
-              props.fileRef.current.scrollIntoView();
-            }}
-          >
-            Resources
-          </Menu.Item>
-        </Menu>
-      </Sider>
-    </Affix>
-  );
-}
 
 export default function ViewOrganization() {
   let topRef = useRef(null);
@@ -212,7 +70,15 @@ export default function ViewOrganization() {
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
       <FormHeader />
       <Layout>
-        <SideBar topRef={topRef} fileRef={fileRef} detailRef={detailRef} />
+        <Sidebar
+          headings={['Overview', 'Details', 'Uploaded Resources']}
+          icons={[
+            <FileDoneOutlined />,
+            <SearchOutlined />,
+            <FolderOpenOutlined />,
+          ]}
+          refs={[topRef, detailRef, fileRef]}
+        />
         <Content
           style={{
             padding: '24px 24px 24px',
@@ -232,7 +98,6 @@ export default function ViewOrganization() {
                 </Button>,
               ]}
             >
-              <h3> {props.desc} </h3>
             </PageHeader>
           </div>
           <div ref={detailRef}>
@@ -272,7 +137,11 @@ export default function ViewOrganization() {
             </Collapse>
           </div>
           <div ref={fileRef}>
-            <FileTable data={props.resources}></FileTable>
+            <ResourceTable
+              resources={props.resources}
+              admin={false}
+              edit={false}
+            />
           </div>
         </Content>
       </Layout>
