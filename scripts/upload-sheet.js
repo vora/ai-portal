@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('../api/models/index');
 const topicUtil = require('../api/models/topic.util');
 const resourceUtil = require('../api/models/resource.util');
+const organizationUtil = require('../api/models/organization.util');
 
 const filename = 'AI Global - Resource Portal - New External Resources.csv';
 
@@ -12,6 +13,12 @@ let uploadRow = async (row) => {
   let topic = row.Topic;
   try {
     await topicUtil.create({ name: topic, desc: 'A Topic' });
+  } catch (e) {}
+  try {
+    await organizationUtil.create({
+      name: row['Organization'],
+      type: row['Organization Type'],
+    });
   } catch (e) {}
   let res = {
     path: row.Path,

@@ -14,8 +14,11 @@ const UserSchema = new Schema({
   hashedPassword: { type: String },
   salt: { type: String, required: true },
   creationDate: { type: Date, default: Date.now },
-  orgs: [
+  organizations: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'Organization', default: [] },
+  ],
+  resources: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Resource', default: [] },
   ],
 });
 
@@ -48,16 +51,6 @@ UserSchema.methods = {
     } catch (err) {
       return '';
     }
-  },
-
-  toPrivateJSON: function () {
-    let { _id, email, name, username, role } = this;
-    return { _id, email, name, username, role };
-  },
-
-  toTokenJSON: function () {
-    let { _id, email, name, username, role } = this;
-    return { _id, email, name, username, role };
   },
 };
 

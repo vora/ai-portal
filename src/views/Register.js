@@ -8,18 +8,19 @@ import {
   Button,
   Input,
   Typography,
+  notification,
 } from '../ant';
 import Footer from '../components/Footer';
-import API from '../api';
 import { useHistory } from 'react-router';
-import { notification } from 'antd';
+import { useAppEnv } from './../env';
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function Register() {
   let history = useHistory();
+  let { api } = useAppEnv();
   let onSubmit = async (formVal) => {
-    let user = await API.post('/api/users', formVal);
+    let user = await api.post('/api/users', formVal);
     if (user.errors) {
       for (let msg of user.errors) {
         notification['error']({

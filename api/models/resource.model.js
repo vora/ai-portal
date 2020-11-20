@@ -37,6 +37,7 @@ const ResourceSchema = new Schema({
   individualsIdentified: { type: Boolean, default: false },
   noiseDescription: { type: String, default: '' },
   externalRestrictions: { type: String, default: '' },
+  reviewsRemaining: { type: [String], default: ['mod'] },
   files: [
     {
       type: mongoose.Schema.Types.ObjectId,
