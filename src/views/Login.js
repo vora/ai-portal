@@ -50,10 +50,9 @@ export default function Login(props) {
     }
   };
   let onFail = (values) => {
-    var i;
-    for (i in values) {
+    for (let err of values.errorFields) {
       notification.error({
-        message: values[i].msg,
+        message: err.errors[0],
       });
     }
   };
