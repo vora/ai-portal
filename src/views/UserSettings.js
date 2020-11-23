@@ -84,7 +84,7 @@ function Dashboard({ user }) {
                   Change Password
                 </Button>
               </Tooltip>
-              {user.verified && (
+              {!user.emailVerified && (
                 <Tooltip title="Verify your account email" placement="bottom">
                   <Button danger href="#">
                     <ExclamationCircleTwoTone twoToneColor="red" /> Verify Email

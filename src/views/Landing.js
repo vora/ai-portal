@@ -28,8 +28,8 @@ let TEMP_FRONTEND_ITEMS = [
       'A software that gives individuals the ability to limit how their own images can be used to track them',
   },
   {
-    name: 'The A-Z of AI',
-    logoURL: '/demo/theazlogo.png',
+    name: 'Data Nutrition Project',
+    logoURL: '/demo/nutrition-logo.png',
     description: 'A nutrition label for datasets',
   },
 ];
@@ -143,7 +143,9 @@ function Landing() {
 function FeatureCard({ feature }) {
   return (
     <Card
-      onClick={() => (window.location = 'https://google.com')}
+      onClick={() =>
+        window.open('https://google.com', '_blank', 'noopener noreferrer')
+      }
       hoverable
       style={{
         height: '100%',
