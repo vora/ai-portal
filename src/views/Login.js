@@ -13,7 +13,6 @@ import {
 } from '../ant';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Footer from '../components/Footer';
-import API from '../api';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
 import { queryParamsFromProps } from '../util';
@@ -21,7 +20,7 @@ import { queryParamsFromProps } from '../util';
 const { Title } = Typography;
 
 export default function Login(props) {
-  let { username } = queryParamsFromProps(props);
+  let { username, redirect } = queryParamsFromProps(props);
   useEffect(() => {
     if (username) {
       notification.info({
@@ -29,10 +28,10 @@ export default function Login(props) {
       });
     }
   }, [username]);
-  let { setUser, setKey } = useAppEnv();
+  let { setUser, setKey, api } = useAppEnv();
   let history = useHistory();
   let onSubmit = async (values) => {
-    let result = await API.post('/api/auth/login', values);
+    let result = await api.post('/api/auth/login', values);
     if (result.errors) {
       for (let error of result.errors) {
         notification.error({
@@ -43,13 +42,17 @@ export default function Login(props) {
     }
     setUser(result.user);
     setKey('token', result.token);
-    history.push('/resources');
+    if (redirect) {
+      // TODO: validate redirect & issue new token
+      window.location = redirect + '?token=' + result.token;
+    } else {
+      history.push('/resources');
+    }
   };
   let onFail = (values) => {
-    var i;
-    for (i in values) {
+    for (let err of values.errorFields) {
       notification.error({
-        message: values[i].msg,
+        message: err.errors[0],
       });
     }
   };

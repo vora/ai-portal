@@ -45,3 +45,12 @@ exports.sendReset = async (user) => {
     resetURL: `${process.env.BASE_URL}/reset?username=${user.username}&token=${token}`,
   });
 };
+
+exports.toTokenJSON = (user) => {
+  let { _id, email, name, username, role } = user;
+  return { _id, email, name, username, role };
+};
+
+exports.toPrivateJSON = (user) => {
+  return { ...user };
+};

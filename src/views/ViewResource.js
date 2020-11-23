@@ -4,9 +4,6 @@ import {
   Content,
   Descriptions,
   Button,
-  Sider,
-  Menu,
-  Affix,
   PageHeader,
   Collapse,
   Table,
@@ -19,7 +16,7 @@ import {
   FolderOpenOutlined,
 } from '@ant-design/icons';
 import FormHeader from '../components/FormHeader';
-
+import Sidebar from '../components/Sidebar';
 const { Panel } = Collapse;
 const props = {
   name: 'Living Dictionary',
@@ -96,51 +93,6 @@ function FileTable(props) {
   );
 }
 
-function SideBar(props) {
-  return (
-    <Affix offsetTop={60}>
-      <Sider width={250}>
-        <Menu
-          mode="inline"
-          theme="light"
-          defaultOpenKeys={['overview']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <Menu.Item
-            key="overview"
-            icon={<FileDoneOutlined />}
-            style={{ marginTop: '30px' }}
-            onClick={() => {
-              props.topRef.current.scrollIntoView();
-            }}
-          >
-            Overview
-          </Menu.Item>
-
-          <Menu.Item
-            key="details"
-            icon={<SearchOutlined />}
-            onClick={() => {
-              props.detailRef.current.scrollIntoView();
-            }}
-          >
-            Details
-          </Menu.Item>
-          <Menu.Item
-            key="files"
-            icon={<FolderOpenOutlined />}
-            onClick={() => {
-              props.fileRef.current.scrollIntoView();
-            }}
-          >
-            Files
-          </Menu.Item>
-        </Menu>
-      </Sider>
-    </Affix>
-  );
-}
-
 export default function ViewResource() {
   let topRef = useRef(null);
   let fileRef = useRef(null);
@@ -154,7 +106,15 @@ export default function ViewResource() {
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
       <FormHeader />
       <Layout>
-        <SideBar topRef={topRef} fileRef={fileRef} detailRef={detailRef} />
+        <Sidebar
+          headings={['Overview', 'Details', 'Files']}
+          icons={[
+            <FileDoneOutlined />,
+            <SearchOutlined />,
+            <FolderOpenOutlined />,
+          ]}
+          refs={[topRef, detailRef, fileRef]}
+        />
         <Content
           style={{
             padding: '24px 24px 24px',

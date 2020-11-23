@@ -8,9 +8,9 @@ module.exports = (app) => {
     if (!user || !user.authenticate(password)) {
       return res.json({ errors: [{ msg: 'Failed to login' }] });
     }
-    let token = req.jwtSign(user.toTokenJSON());
+    let token = req.jwtSign(userUtil.toTokenJSON(user));
     return res.json({
-      user: user.toPrivateJSON(),
+      user: userUtil.toPrivateJSON(user),
       token: token,
     });
   });
@@ -48,7 +48,7 @@ module.exports = (app) => {
           username,
           password,
         });
-        return res.json(newUser.toPrivateJSON());
+        return res.json(userUtil.toPrivateJSON(newUser));
       } catch (err) {
         res.json({ errors: [err] });
       }
