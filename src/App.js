@@ -14,6 +14,8 @@ import AddOrganization from './views/AddOrganization';
 import ViewOrganization from './views/ViewOrganization';
 import UserSettings from './views/UserSettings';
 import Mod from './views/Mod';
+import AddTopic from './views/AddTopic';
+import Feedback from './views/Feedback';
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
               path="/organizations/example"
               component={ViewOrganization}
             />
+            <Route exact path="/topics/create" component={AddTopic} />
+            <Route exact path="/feedback" component={Feedback} />
           </Switch>
         </BrowserRouter>
       </AppEnv>
