@@ -17,4 +17,8 @@ module.exports = (app) => {
       res.json({ errors: [err] });
     }
   });
+
+  app.delete('/api/topics/:_id', async (req, res) => {
+    return res.json({});
+  });
 };

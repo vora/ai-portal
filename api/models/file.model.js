@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
+const { FILE_EXTS } = require('./enums');
 
 const Schema = mongoose.Schema;
 
 const FileSchema = new Schema({
-  type: { type: String, default: '', required: true },
-  URL: { type: String, default: '', required: true },
+  name: { type: String, required: true },
+  type_ext: { type: String, enum: FILE_EXTS },
+  url: { type: String, default: '' },
   timeframe: { type: String, default: '' },
   purpose: { type: String, default: '' },
   dataCollectMech: { type: String, default: '' },
@@ -16,46 +18,12 @@ const FileSchema = new Schema({
   modelInputs: { type: String, default: '' },
   modelOutputs: { type: String, default: '' },
   datasetFieldRelationships: { type: String, default: '' },
+  resource: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Resource',
+    default: [],
+  },
 });
 
 mongoose.model('File', FileSchema);
-
-const defaultFile = {
-  type: '',
-  URL: '',
-};
-
-FileSchema.statics = {
-  createFile: function (fileAttributes) {
-    let newFileParams = Object.assign({}, defaultFile, fileAttributes);
-    let newFile = File.create(newFileParams, function (err, newFileParams) {
-      if (err) {
-        console.error('createFile', err);
-      }
-    });
-    return newFile;
-  },
-
-  editFile: function (filter, updateParams) {
-    let updated = File.updateOne(filter, updateParams, function (
-      err,
-      updateParams
-    ) {
-      if (err) {
-        console.error('editFile', err);
-      }
-    });
-    return updated.ok;
-  },
-
-  deleteFile: function (deleteQuery) {
-    let deleted = File.deleteOne(deleteQuery, function (err, deleteQuery) {
-      if (err) {
-        console.error('deleteFile', err);
-      }
-    });
-    return deleted.ok;
-  },
-};
-
 module.exports = FileSchema;
