@@ -20,3 +20,7 @@ exports.update = async (resource, params) => {
 exports.toJSON = async (resource) => {
   return { ...resource };
 };
+
+exports.searchById = async (id) => {
+  return await Resource.findById(id);
+};

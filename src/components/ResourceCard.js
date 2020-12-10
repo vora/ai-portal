@@ -46,7 +46,7 @@ class ResourceCard extends React.Component {
         </Card>
         <Modal
           title={
-            <a href={'/resources/' + resource.id} style={{ margin: '0' }}>
+            <a href={'/resources/' + resource._id} style={{ margin: '0' }}>
               &nbsp;
               <strong>{resource.name}</strong>
             </a>
@@ -56,7 +56,7 @@ class ResourceCard extends React.Component {
           onCancel={() => this.setModalVisible(false)}
           footer={[
             <Tooltip title="Click here for additional information">
-              <Button key="info" href={'/resources/' + resource.id}>
+              <Button key="info" href={'/resources/' + resource._id}>
                 More Information
               </Button>
             </Tooltip>,

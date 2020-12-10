@@ -25,8 +25,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/resources" component={Resources} />
-            <Route exact path="/resources/example" component={ViewResource} />
             <Route exact path="/resources/create" component={AddResources} />
+            <Route path="/resources/:resId" component={ViewResource} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/admin" component={Admin} />

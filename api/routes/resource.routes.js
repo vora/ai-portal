@@ -25,6 +25,11 @@ module.exports = (app) => {
     return await resourceUtil.update(req.params, req.body);
   });
 
+  app.get('/api/resources/:_id', async (req, res) => {
+    let resource = await resourceUtil.searchById(req.params);
+    res.json(resource);
+  });
+
   app.delete('/api/resources/:_id', async (req, res) => {
     return res.json({});
   });

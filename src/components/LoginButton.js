@@ -12,7 +12,7 @@ export default function LoginButton() {
         <Button type="primary" onClick={() => history.push('/settings')}>
           Account
         </Button>
-        {user.role == 'admin' && (
+        {user.role === 'admin' && (
           <Button
             style={{ marginLeft: '10px' }}
             type="danger"
@@ -21,7 +21,7 @@ export default function LoginButton() {
             Admin
           </Button>
         )}
-        {user.role == 'mod' && (
+        {user.role === 'mod' && (
           <Button
             style={{ marginLeft: '10px' }}
             type="danger"
