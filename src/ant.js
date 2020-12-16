@@ -26,7 +26,8 @@ import {
   Descriptions,
   Collapse,
   notification,
-  DatePicker
+  DatePicker,
+  Spin,
 } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -68,4 +69,5 @@ export {
   Descriptions,
   Collapse,
   notification,
+  Spin,
 };

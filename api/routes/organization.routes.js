@@ -6,15 +6,15 @@ module.exports = (app) => {
   });
 
   app.post('/api/organizations', async (req, res) => {
-    const { name, desc } = req.body;
     try {
-      let newOrganization = await organizationUtil.create({
-        name,
-        desc,
-      });
+      let newOrganization = await organizationUtil.create(req.body);
       return res.json(organizationUtil.toJSON(newOrganization));
     } catch (err) {
-      res.json({ errors: [err] });
+      res.json({ errors: [{ msg: '' + err }] });
     }
+  });
+
+  app.delete('/api/organizations/:_id', async (req, res) => {
+    return res.json({});
   });
 };

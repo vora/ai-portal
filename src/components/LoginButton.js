@@ -12,6 +12,24 @@ export default function LoginButton() {
         <Button type="primary" onClick={() => history.push('/settings')}>
           Account
         </Button>
+        {user.role === 'admin' && (
+          <Button
+            style={{ marginLeft: '10px' }}
+            type="danger"
+            onClick={() => history.push('/admin')}
+          >
+            Admin
+          </Button>
+        )}
+        {user.role === 'mod' && (
+          <Button
+            style={{ marginLeft: '10px' }}
+            type="danger"
+            onClick={() => history.push('/mod')}
+          >
+            Moderation
+          </Button>
+        )}
         <Button style={{ marginLeft: '10px' }} onClick={logout}>
           Logout
         </Button>

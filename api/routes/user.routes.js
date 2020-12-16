@@ -40,18 +40,17 @@ module.exports = (app) => {
       errors.push({ msg: 'Passwords do not match' });
     if (errors.length > 0) {
       return res.json({ errors: errors });
-    } else {
-      try {
-        let newUser = await userUtil.create({
-          name,
-          email,
-          username,
-          password,
-        });
-        return res.json(userUtil.toPrivateJSON(newUser));
-      } catch (err) {
-        res.json({ errors: [err] });
-      }
+    }
+    try {
+      let newUser = await userUtil.create({
+        name,
+        email,
+        username,
+        password,
+      });
+      return res.json(userUtil.toPrivateJSON(newUser));
+    } catch (err) {
+      res.json({ errors: [{ msg: '' + err }] });
     }
   });
 
@@ -62,6 +61,10 @@ module.exports = (app) => {
 
   app.put('/api/users/:_id', async (req, res) => {
     await userUtil.update(req.params, req.body);
+    return res.json({});
+  });
+
+  app.delete('/api/users/:_id', async (req, res) => {
     return res.json({});
   });
 

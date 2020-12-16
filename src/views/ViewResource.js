@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   Layout,
   Content,
@@ -8,6 +8,7 @@ import {
   Collapse,
   Table,
   Tag,
+  Spin,
 } from '../ant';
 import {
   FileDoneOutlined,
@@ -17,51 +18,40 @@ import {
 } from '@ant-design/icons';
 import FormHeader from '../components/FormHeader';
 import Sidebar from '../components/Sidebar';
+import API from '../api';
+import { useParams } from 'react-router-dom';
+
 const { Panel } = Collapse;
-const props = {
-  name: 'Living Dictionary',
-  desc:
-    'An interactive dictionary of technical computer science and social science terms in plain language',
-  type: ['Education Tool'],
-  path: ['Explorer Path'],
-  avatarIcon:
-    'https://cdn.substack.com/image/fetch/w_170,c_limit,f_auto,q_auto:best,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F3fcac70c-a37c-4152-a109-f702c6375c31_256x256.png',
+const emptyRes = {
+  name: 'HELLO',
+  desc: '',
+  type: [],
+  path: [],
+  avatarIcon: '',
   aiSystemsType: [],
   uploadDate: '',
   creationDate: '',
   modifiedDate: '',
   licenseName: '',
-  technical: '',
-  trustIndexCategories: ['Explainability & Interpretability'],
+  trustIndexCategories: [''],
   fundedBy: '',
   creator: '',
-  dataDictLink: '',
-  sensitiveData: '',
-  qualityReview: '',
-  ethicsReview: '',
-  usage: '',
-  isConfidential: '',
-  offensiveContent: '',
-  numInstances: '',
-  instances: [],
-  label: '',
-  rawData: '',
-  distribution: '',
-  personalInfoRemoved: '',
-  privacyProcedure: '',
-  individualsIdentified: '',
-  noiseDescription: ' ',
-  externalRestrictions: '',
   files: [
     {
-      name: 'Dictionary',
-      link: 'https://montrealethics.ai/dictionary/',
+      name: 'Resource A',
+      link:
+        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
       type: 'URL',
     },
-    { name: 'Click me', link: 'www.google.com', type: 'URL' },
+    {
+      name: 'Resource B',
+      link:
+        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
+      type: 'URL',
+    },
   ],
-  topics: ['Other topic'],
-  organizations: ['Montreal AI Ethics Institute'],
+  topics: ['A', 'B', 'C'],
+  organizations: [''],
 };
 
 function FileTable(props) {
@@ -94,95 +84,147 @@ function FileTable(props) {
 }
 
 export default function ViewResource() {
+  let [resource, setResource] = useState(null);
+  let [loading, setLoading] = useState(true);
+
+  let { resId } = useParams();
+
+  useEffect(() => {
+    let fetchResource = async () => {
+      let resource = await API.get('/api/resources/' + resId);
+      setResource(resource);
+      setLoading(false);
+    };
+    fetchResource();
+  });
+
   let topRef = useRef(null);
   let fileRef = useRef(null);
   let detailRef = useRef(null);
-  let children = [];
-  for (let i = 0; i < props.topics.length; i++) {
-    children.push(<Tag color="blue"> {props.topics[i]}</Tag>);
-  }
 
-  return (
-    <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
-      <FormHeader />
-      <Layout>
-        <Sidebar
-          headings={['Overview', 'Details', 'Files']}
-          icons={[
-            <FileDoneOutlined />,
-            <SearchOutlined />,
-            <FolderOpenOutlined />,
-          ]}
-          refs={[topRef, detailRef, fileRef]}
-        />
-        <Content
-          style={{
-            padding: '24px 24px 24px',
-          }}
-        >
-          <div ref={topRef}>
-            <PageHeader
-              title={props.name}
-              onBack={() => window.history.back()}
-              className="site-page-header"
-              subTitle={props.organizations.join(', ')}
-              tags={children}
-              avatar={{ src: props.avatarIcon }}
-              extra={[
-                <Button icon={<EditOutlined />} key="3" shape="round">
-                  Edit Resource
-                </Button>,
-              ]}
-            >
-              {props.desc}
-            </PageHeader>
-          </div>
-          <div ref={detailRef}>
-            <h1
-              style={{ padding: '10px', fontSize: '2em', fontWeight: 'bold' }}
-            >
-              Details
-            </h1>
-            <Collapse defaultActiveKey={['1']}>
-              <Panel
-                header="Primary Details"
-                key="1"
-                showArrow={false}
-                disabled={true}
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <Spin size="large"></Spin>
+      </div>
+    );
+  } else {
+    return (
+      <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
+        <FormHeader />
+        <Layout>
+          <Sidebar
+            headings={['Overview', 'Details', 'Files']}
+            icons={[
+              <FileDoneOutlined />,
+              <SearchOutlined />,
+              <FolderOpenOutlined />,
+            ]}
+            refs={[topRef, detailRef, fileRef]}
+          />
+          <Content
+            style={{
+              padding: '24px 24px 24px',
+            }}
+          >
+            <div ref={topRef}>
+              <PageHeader
+                title={resource.name}
+                onBack={() => window.history.back()}
+                className="site-page-header"
+                subTitle={resource.organizations.join(', ')}
+                tags={resource.topics.map((t) => {
+                  return (
+                    <Tag
+                      color={'#00CDFF'}
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        marginBottom: '2px',
+                      }}
+                    >
+                      {' '}
+                      {t}
+                    </Tag>
+                  );
+                })}
+                extra={[
+                  <Button
+                    icon={<EditOutlined />}
+                    key="3"
+                    shape="round"
+                    href={'/resources/' + resId + '/edit'}
+                  >
+                    Edit Resource
+                  </Button>,
+                ]}
               >
-                <Descriptions column={1}>
-                  <Descriptions.Item label="Resource Type/Format">
-                    {props.type.join(', ')}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Resource Path">
-                    {props.path.join(', ')}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Responsible AI Trust Index Categories">
-                    {props.trustIndexCategories.join(', ')}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="AI Systems Type">
-                    {props.aiSystemsType.join(', ')}
-                  </Descriptions.Item>
-                </Descriptions>
-              </Panel>
+                {resource.desc}
+              </PageHeader>
+            </div>
+            <div ref={detailRef}>
+              <h1
+                style={{ padding: '10px', fontSize: '2em', fontWeight: 'bold' }}
+              >
+                Details
+              </h1>
+              <Collapse defaultActiveKey={['1']}>
+                <Panel
+                  header="Primary Details"
+                  key="1"
+                  showArrow={false}
+                  disabled={true}
+                >
+                  <Descriptions column={1}>
+                    <Descriptions.Item label="Resource Type/Format">
+                      {resource.type.join(', ')}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Resource Path">
+                      {resource.path.join(', ')}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Responsible AI Trust Index Categories">
+                      {resource.trustIndexCategories.join(', ')}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="AI Systems Type">
+                      <text>Not available yet</text>
+                    </Descriptions.Item>
+                  </Descriptions>
+                </Panel>
 
-              <Panel header="More Details" key="2">
-                <Descriptions column={1}>
-                  <Descriptions.Item label="Creation Date"></Descriptions.Item>
-                  <Descriptions.Item label="Modified Date"></Descriptions.Item>
-                  <Descriptions.Item label="Upload Date"></Descriptions.Item>
-                  <Descriptions.Item label="Technical"></Descriptions.Item>
-                  <Descriptions.Item label="Creator"></Descriptions.Item>
-                  <Descriptions.Item label="Funded By"></Descriptions.Item>
-                </Descriptions>
-              </Panel>
-            </Collapse>
-          </div>
-          <div ref={fileRef}>
-            <FileTable data={props.files}></FileTable>
-          </div>
-        </Content>
+                <Panel header="More Details" key="2">
+                  <Descriptions column={1}>
+                    <Descriptions.Item label="Creation Date">
+                      {resource.creationDate}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Modified Date">
+                      {resource.modifiedDate}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Upload Date">
+                      {resource.uploadDate}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Creator">
+                      {resource.creator}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Funded By">
+                      {resource.fundedBy}
+                    </Descriptions.Item>
+                  </Descriptions>
+                </Panel>
+              </Collapse>
+            </div>
+            <div ref={fileRef}>
+              <FileTable data={emptyRes.files}></FileTable>
+            </div>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
-  );
+    );
+  }
 }

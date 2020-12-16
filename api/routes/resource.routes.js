@@ -13,28 +13,24 @@ module.exports = (app) => {
   });
 
   app.post('/api/resources', async (req, res) => {
-    const { name, type, desc } = req.body;
-    let errors = [];
-    if (!name || !type || !desc) {
-      errors.push({ msg: 'Please fill in all the required fields' });
-    }
-    if (errors.length > 0) {
-      return res.json({ errors: errors });
-    } else {
-      try {
-        let newResource = await resourceUtil.create({
-          name,
-          type,
-          desc,
-        });
-        return res.json(resourceUtil.toJSON(newResource));
-      } catch (err) {
-        res.json({ errors: [err] });
-      }
+    try {
+      let newResource = await resourceUtil.create(req.body);
+      return res.json(resourceUtil.toJSON(newResource));
+    } catch (err) {
+      res.json({ errors: [{ msg: '' + err }] });
     }
   });
 
   app.put('/api/resources/:_id', async (req, res) => {
     return await resourceUtil.update(req.params, req.body);
+  });
+
+  app.get('/api/resources/:_id', async (req, res) => {
+    let resource = await resourceUtil.searchById(req.params);
+    res.json(resource);
+  });
+
+  app.delete('/api/resources/:_id', async (req, res) => {
+    return res.json({});
   });
 };

@@ -1,16 +1,42 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const email = require('../lib/email');
+const crypto = require('crypto');
+const _email = require('../lib/email');
 
 exports.User = User;
 
-exports.create = async ({ name, email, username }) => {
+exports.makeSalt = () => {
+  return Math.round(new Date().valueOf() * Math.random()) + '';
+};
+
+exports.comparePassword = (user, passwordAttempt) => {
+  return (
+    crypto
+      .createHmac('sha1', user.salt)
+      .update(passwordAttempt)
+      .digest('hex') == user.hashedPassword
+  );
+};
+
+exports.create = async ({ name, email, username, password }) => {
   let emailToken = Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, '');
-  let user = new User({ name, email, username, emailToken });
+  let salt = exports.makeSalt();
+  let hashedPassword = crypto
+    .createHmac('sha1', salt)
+    .update(password)
+    .digest('hex');
+  let user = new User({
+    name,
+    email,
+    username,
+    emailToken,
+    salt,
+    hashedPassword,
+  });
   await user.save();
-  await email.send.createAccount(email, {
+  await _email.send.createAccount(email, {
     name: name,
     verifyUrl: `${process.env.BASE_URL}/verify?username=${username}&token=${emailToken}`,
   });
