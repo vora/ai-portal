@@ -46,7 +46,7 @@ class ResourceCard extends React.Component {
         </Card>
         <Modal
           title={
-            <a href={'/resources/' + resource.id} style={{ margin: '0' }}>
+            <a href={'/resources/' + resource._id} style={{ margin: '0' }}>
               &nbsp;
               <strong>{resource.name}</strong>
             </a>
@@ -56,7 +56,7 @@ class ResourceCard extends React.Component {
           onCancel={() => this.setModalVisible(false)}
           footer={[
             <Tooltip title="Click here for additional information">
-              <Button key="info" href={'/resources/' + resource.id}>
+              <Button key="info" href={'/resources/' + resource._id}>
                 More Information
               </Button>
             </Tooltip>,
@@ -64,8 +64,12 @@ class ResourceCard extends React.Component {
           width={600}
         >
           <p style={{ marginBottom: '5px' }}>
-            <strong style={{ marginRight: '10px' }}>Organization: </strong>{' '}
-            {resource.org}
+            <strong style={{ marginRight: '10px' }}>Organizations: </strong>{' '}
+            <Space>
+              {resource.organizations.map((org) => (
+                <span>org.name</span>
+              ))}
+            </Space>
           </p>
           <p style={{ marginBottom: '5px' }}>
             <strong style={{ marginRight: '10px' }}>Description: </strong>{' '}
@@ -74,7 +78,7 @@ class ResourceCard extends React.Component {
           <p style={{ marginBottom: '5px' }}>
             <strong style={{ marginRight: '10px' }}>Download Link: </strong>{' '}
             <a href={resource.link} target="_blank" rel="noopener noreferrer">
-              {resource.link}
+              {resource.downloadURL}
             </a>
           </p>
           <p style={{ marginBottom: '5px' }}>

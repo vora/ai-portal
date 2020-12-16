@@ -16,9 +16,11 @@ import LoginButton from '../components/LoginButton';
 import ResourceCard from '../components/ResourceCard';
 import API from '../api';
 import { queryParamsFromProps } from '../util';
+import { AppEnv } from './../env';
 
 function Resources(props) {
   let { q } = queryParamsFromProps(props);
+  let { enums } = AppEnv();
   let [resources, setResources] = useState([]);
   useEffect(() => {
     let fetchResources = async () => {
