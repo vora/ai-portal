@@ -16,7 +16,8 @@ import UserSettings from './views/UserSettings';
 import Mod from './views/Mod';
 import AddTopic from './views/AddTopic';
 import Feedback from './views/Feedback';
-
+import ResetPassword from './views/ResetPassword';
+import Verify from './views/Verify';
 function App() {
   return (
     <div className="App">
@@ -44,6 +45,8 @@ function App() {
             />
             <Route exact path="/topics/create" component={AddTopic} />
             <Route exact path="/feedback" component={Feedback} />
+            <Route exact path="/reset" component={ResetPassword} />
+            <Route exact path="/verify" component={Verify} />
           </Switch>
         </BrowserRouter>
       </AppEnv>

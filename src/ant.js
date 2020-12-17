@@ -27,6 +27,7 @@ import {
   Collapse,
   notification,
   DatePicker,
+  Switch,
   Spin,
 } from 'antd';
 
@@ -69,5 +70,6 @@ export {
   Descriptions,
   Collapse,
   notification,
+  Switch,
   Spin,
 };
