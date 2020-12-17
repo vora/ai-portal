@@ -46,12 +46,22 @@ let TEMP_TAGS = [
     type: 'topic',
   },
   {
-    name: 'designer',
+    name: 'education',
+    color: '#42D3D4',
+    type: 'topic',
+  },
+  {
+    name: 'explorer',
     color: '#097AE8',
     type: 'path',
   },
   {
     name: 'developer',
+    color: '#097AE8',
+    type: 'path',
+  },
+  {
+    name: 'designer',
     color: '#097AE8',
     type: 'path',
   },
@@ -62,6 +72,11 @@ let TEMP_TAGS = [
   },
   {
     name: 'library',
+    color: '#00CDFF',
+    type: 'type',
+  },
+  {
+    name: 'toolkit',
     color: '#00CDFF',
     type: 'type',
   },
@@ -97,33 +112,94 @@ function Landing() {
           </Col>
         </Row>
         <Row justify="center" style={{ marginTop: '20px' }}>
-          <Col span={12} style={{ textAlign: 'center' }}>
-            <Space>
-              {TEMP_TAGS.map((tag) => (
-                <Tooltip
-                  placement="bottom"
-                  title={
-                    <p
-                      style={{ textTransform: 'capitalize', marginBottom: '0' }}
+          <Col span={12}>
+            <h3>Filters:</h3>
+            <Space style={{ width: '100%' }}>
+              <div>
+                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                  Topics
+                </p>
+                <Space>
+                  {TEMP_TAGS.slice(0, 3).map((tag) => (
+                    <Tag
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '0.9em',
+                        padding: '5px',
+                      }}
+                      color={tag.color}
+                      key={tag.name}
                     >
-                      Search by {tag.type}
-                    </p>
-                  }
-                >
-                  <Tag
-                    style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      fontSize: '1em',
-                      padding: '5px',
-                    }}
-                    color={tag.color}
-                    key={tag.name}
-                  >
-                    <a href="/">{tag.name.toUpperCase()}</a>
-                  </Tag>
-                </Tooltip>
-              ))}
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push('/resources?q=' + tag.name);
+                        }}
+                      >
+                        {tag.name.toUpperCase()}
+                      </a>
+                    </Tag>
+                  ))}
+                </Space>
+              </div>
+              <div>
+                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>Path</p>
+                <Space>
+                  {TEMP_TAGS.slice(3, 6).map((tag) => (
+                    <Tag
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '0.9em',
+                        padding: '5px',
+                      }}
+                      color={tag.color}
+                      key={tag.name}
+                    >
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push('/resources?q=' + tag.name);
+                        }}
+                      >
+                        {tag.name.toUpperCase()}
+                      </a>
+                    </Tag>
+                  ))}
+                </Space>
+              </div>
+              <div>
+                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                  Topics
+                </p>
+                <Space>
+                  {TEMP_TAGS.slice(6, TEMP_TAGS.length).map((tag) => (
+                    <Tag
+                      style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '0.9em',
+                        padding: '5px',
+                      }}
+                      color={tag.color}
+                      key={tag.name}
+                    >
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push('/resources?q=' + tag.name);
+                        }}
+                      >
+                        {tag.name.toUpperCase()}
+                      </a>
+                    </Tag>
+                  ))}
+                </Space>
+              </div>
             </Space>
           </Col>
         </Row>
