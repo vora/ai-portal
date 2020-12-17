@@ -20,7 +20,7 @@ class ResourceCard extends React.Component {
     let tags = this.props.resource.type;
     let resource = this.props.resource;
     return (
-      <div class="resource-box">
+      <div className="resource-box">
         <Card
           title={
             <button

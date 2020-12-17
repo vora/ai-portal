@@ -16,18 +16,37 @@ import LoginButton from '../components/LoginButton';
 import ResourceCard from '../components/ResourceCard';
 import API from '../api';
 import { queryParamsFromProps } from '../util';
-import { AppEnv } from './../env';
+import { useAppEnv } from './../env';
+import { FilterTwoTone } from '@ant-design/icons';
 
 function Resources(props) {
   let { q } = queryParamsFromProps(props);
-  let { enums } = AppEnv();
+  let { enums } = useAppEnv();
+  let fileTypes = enums ? enums.FILE_TYPES : [];
+  let orgTypes = enums ? enums.ORG_TYPES : [];
+  let resourceTypes = enums ? enums.RESOURCE_TYPES : [];
+  let resourcePath = enums ? enums.RESOURCE_PATHS : [];
+
   let [resources, setResources] = useState([]);
+  let [topics, setTopics] = useState([]); // bug with number of topics
+  let [orgs, setOrgs] = useState([]);
+
   useEffect(() => {
     let fetchResources = async () => {
       let resources = await API.get('/api/resources', { query: q });
       setResources(resources);
     };
+    let fetchTopics = async () => {
+      let topics = await API.get('/api/topics');
+      setTopics(topics);
+    };
+    let fetchOrganizations = async () => {
+      let orgs = await API.get('/api/organizations');
+      setOrgs(orgs);
+    };
     fetchResources();
+    fetchTopics();
+    fetchOrganizations();
   }, [q]);
   return (
     <Layout>
@@ -71,37 +90,82 @@ function Resources(props) {
               defaultOpenKeys={['topics', 'groups']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <Menu.Item key="21" disabled>
+              <Menu.Item style={{ marginTop: '10px' }}>
+                <h1
+                  style={{
+                    fontSize: '1.2em',
+                    width: '100%',
+                    fontWeight: 'bolder',
+                  }}
+                >
+                  <FilterTwoTone style={{ fontSize: '1em' }} />
+                  Filters
+                </h1>
+              </Menu.Item>
+              <Menu.Item key="orgs" disabled>
                 <Select
                   showSearch
                   defaultValue="Organization"
                   style={{ width: '100%' }}
                 >
-                  <Select.Option value="lucy">
-                    World Economic Forum
-                  </Select.Option>
-                  <Select.Option value="lucy">AI Global</Select.Option>
+                  {orgs.map((res) => (
+                    <Select.Option value={res.name}>{res.name}</Select.Option>
+                  ))}
                 </Select>
               </Menu.Item>
-              <Menu.Item key="2" disabled>
+              <Menu.Item key="orgTypes" disabled>
+                <Select
+                  showSearch
+                  defaultValue="Organization Type"
+                  style={{ width: '100%' }}
+                >
+                  {orgTypes.map((res) => (
+                    <Select.Option value={res}>{res}</Select.Option>
+                  ))}
+                </Select>
+              </Menu.Item>
+              <Menu.Item key="resourceTypes" disabled>
+                <Select
+                  showSearch
+                  defaultValue="Resource Type"
+                  style={{ width: '100%' }}
+                >
+                  {resourceTypes.map((res) => (
+                    <Select.Option value={res}>{res}</Select.Option>
+                  ))}
+                </Select>
+              </Menu.Item>
+              <Menu.Item key="paths" disabled>
+                <Select
+                  showSearch
+                  defaultValue="Resource Path"
+                  style={{ width: '100%' }}
+                >
+                  {resourcePath.map((res) => (
+                    <Select.Option value={res}>{res}</Select.Option>
+                  ))}
+                </Select>
+              </Menu.Item>
+              <Menu.Item key="fileTypes" disabled>
                 <Select defaultValue="Format" style={{ width: '100%' }}>
-                  <Select.Option value="lucy">PDF</Select.Option>
-                  <Select.Option value="lucy">CSV</Select.Option>
-                  <Select.Option value="lucy">JSON</Select.Option>
-                  <Select.Option value="lucy">Excel</Select.Option>
+                  {fileTypes.map((res) => (
+                    <Select.Option value={res.ext}>{res.name}</Select.Option>
+                  ))}
                 </Select>
               </Menu.Item>
-              <Menu.Item key="3" disabled>
+              <Menu.Item key="sort" disabled>
                 <Select defaultValue="Sort By" style={{ width: '100%' }}>
-                  <Select.Option value="lucy">Relevance</Select.Option>
-                  <Select.Option value="lucy">Title</Select.Option>
-                  <Select.Option value="lucy">Date</Select.Option>
+                  <Select.Option value="relevance">Relevance</Select.Option>
+                  <Select.Option value="title">Title</Select.Option>
+                  <Select.Option value="date">Date</Select.Option>
                 </Select>
               </Menu.Item>
               <SubMenu key="topics" title="Topics">
-                <Menu.Item key="11">Economy</Menu.Item>
-                <Menu.Item key="12">Education</Menu.Item>
-                <Menu.Item key="13">Health</Menu.Item>
+                {topics.map((res, index) => (
+                  <Menu.Item key={'1' + String(index + 1)}>
+                    {res.name}
+                  </Menu.Item>
+                ))}
               </SubMenu>
               <SubMenu key="groups" title="Categories">
                 <Menu.Item key="21">Fairness</Menu.Item>
@@ -124,29 +188,5 @@ function Resources(props) {
     </Layout>
   );
 }
-
-// mock data for testing modal
-// I kept this in to show the visual if resources is empty
-// let MOCK_DATA = [
-//   {
-//     id: 1,
-//     name: 'Example 1',
-//     type: ['api'],
-//     desc: 'Lorem ipsum',
-//     link: 'https://www.google.com',
-//   },
-//   {
-//     id: 2,
-//     name: 'Example 2',
-//     type: ['algorithm', 'api'],
-//     desc: 'Lorem ipsum',
-//   },
-//   {
-//     id: 3,
-//     name: 'Example 3',
-//     type: ['algorithm'],
-//     desc: 'Lorem ipsum',
-//   },
-// ];
 
 export default Resources;

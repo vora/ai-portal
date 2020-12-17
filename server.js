@@ -9,6 +9,7 @@ const app = express();
 
 require('./api/models/index');
 const userUtil = require('./api/models/user.util');
+require('dotenv').config();
 
 // Force HTTPS
 app.use((req, res, next) => {
@@ -87,7 +88,6 @@ let runServer = () => {
       console.log(`Serving http://:${port}`);
       app.listen(port);
     });
-  console.log(process.env.MONGODB_URL);
   return mongoose.connect(process.env.MONGODB_URL, {
     keepAlive: 1,
     useNewUrlParser: true,

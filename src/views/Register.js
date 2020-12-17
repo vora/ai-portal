@@ -13,7 +13,6 @@ import {
 import Footer from '../components/Footer';
 import { useHistory } from 'react-router';
 import { useAppEnv } from './../env';
-
 const { Title, Paragraph, Text } = Typography;
 
 export default function Register() {

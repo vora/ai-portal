@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Layout,
   Content,
@@ -38,6 +38,7 @@ function Dashboard({ user }) {
     await API.post('/api/auth/reset/password');
     notification.info({ message: 'Password reset email sent.' });
   };
+
   return (
     <Card id="overview" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
@@ -123,7 +124,7 @@ function Dashboard({ user }) {
   );
 }
 
-function Organizations({ organizations }) {
+function Organizations({ orgs }) {
   const columns = [
     {
       title: 'Organization',
@@ -207,7 +208,7 @@ function Organizations({ organizations }) {
       </Tooltip>
       <Table
         columns={columns}
-        dataSource={organizations}
+        dataSource={orgs}
         onChange={onChange}
         pagination={{ pageSize: 10 }}
         scroll={{ y: 240 }}
@@ -217,11 +218,28 @@ function Organizations({ organizations }) {
 }
 
 function UserSettings() {
-  let { user } = useAppEnv();
+  let { user, userID } = useAppEnv();
+  // let q = queryParamsFromProps();
 
   let dashRef = useRef(null),
     resourceRef = useRef(null),
     orgRef = useRef(null);
+
+  let [resources, setResources] = useState([]);
+  let [orgs, setOrgs] = useState([]);
+
+  useEffect(() => {
+    let fetchResources = async () => {
+      let resources = await API.get('/api/users/' + userID + '/resources');
+      setResources(resources);
+    };
+    let fetchOrgs = async () => {
+      let orgs = await API.get('/api/users' + userID + '/organizations');
+      setOrgs(orgs);
+    };
+    fetchResources();
+    fetchOrgs();
+  });
 
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
@@ -270,16 +288,12 @@ function UserSettings() {
           )}
           {user && (
             <div ref={resourceRef}>
-              <ResourceTable
-                edit={true}
-                admin={false}
-                resources={user.resources}
-              />
+              <ResourceTable edit={true} admin={false} resources={resources} />
             </div>
           )}
           {user && (
             <div ref={orgRef}>
-              <Organizations organizations={user.organizations} />
+              <Organizations organizations={orgs} />
             </div>
           )}
         </Content>

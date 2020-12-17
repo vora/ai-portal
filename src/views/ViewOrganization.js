@@ -97,8 +97,7 @@ export default function ViewOrganization() {
                   Edit Organization
                 </Button>,
               ]}
-            >
-            </PageHeader>
+            ></PageHeader>
           </div>
           <div ref={detailRef}>
             <h1
