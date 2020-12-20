@@ -20,7 +20,7 @@ class ResourceCard extends React.Component {
     let tags = this.props.resource.type;
     let resource = this.props.resource;
     return (
-      <div class="resource-box">
+      <div className="resource-box">
         <Card
           title={
             <button
@@ -64,8 +64,12 @@ class ResourceCard extends React.Component {
           width={600}
         >
           <p style={{ marginBottom: '5px' }}>
-            <strong style={{ marginRight: '10px' }}>Organization: </strong>{' '}
-            {resource.org}
+            <strong style={{ marginRight: '10px' }}>Organizations: </strong>{' '}
+            <Space>
+              {resource.organizations.map((org) => (
+                <span>org.name</span>
+              ))}
+            </Space>
           </p>
           <p style={{ marginBottom: '5px' }}>
             <strong style={{ marginRight: '10px' }}>Description: </strong>{' '}
@@ -74,7 +78,7 @@ class ResourceCard extends React.Component {
           <p style={{ marginBottom: '5px' }}>
             <strong style={{ marginRight: '10px' }}>Download Link: </strong>{' '}
             <a href={resource.link} target="_blank" rel="noopener noreferrer">
-              {resource.link}
+              {resource.downloadURL}
             </a>
           </p>
           <p style={{ marginBottom: '5px' }}>

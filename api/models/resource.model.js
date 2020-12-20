@@ -10,6 +10,7 @@ const ResourceSchema = new Schema({
   desc: { type: String, required: true },
   type: [{ type: String, enum: RESOURCE_TYPES }],
   path: [{ type: String, enum: RESOURCE_PATHS }],
+  keywords: [{ type: String }],
   uploadDate: { type: Date, default: Date.now },
   creationDate: { type: Date, default: Date.now },
   modifiedDate: { type: Date, default: Date.now },
