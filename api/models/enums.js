@@ -24,6 +24,7 @@ module.exports.RESOURCE_TYPES = [
   'Vision Tool',
   'Working Groups',
   'Workshop',
+  'Dataset',
 ];
 module.exports.RESOURCE_PATHS = [
   'Designer Path',

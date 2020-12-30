@@ -16,3 +16,7 @@ exports.getAll = async () => {
 exports.toJSON = async (topic) => {
   return { ...topic };
 };
+
+exports.getByName = async (name) => {
+  return await Topic.findOne({ name: name });
+};

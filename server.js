@@ -60,13 +60,19 @@ app.use((req, res, next) => {
       algorithm: 'HS256',
     });
   };
+  req.jwtDecode = (token) => {
+    return jwt.verify(token, secret);
+  };
   req.getUser = async () => {
     if (req.user) {
       return await userUtil.get({ _id: req.user._id });
     }
     return null;
   };
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  let fetchOrigin = req.headers.origin;
+  // TODO: validate fetchOrigin
+  res.header('Access-Control-Allow-Origin', fetchOrigin);
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   res.header(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization'

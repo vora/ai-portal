@@ -5,10 +5,10 @@ module.exports = (app) => {
   app.post('/api/auth/login', async (req, res) => {
     const { username, password } = req.body;
     let user = await userUtil.getByUsernameOrEmail(username);
-    if (!user || !user.authenticate(password)) {
+    if (!user || !userUtil.comparePassword(user, password)) {
       return res.json({ errors: [{ msg: 'Failed to login' }] });
     }
-    let token = req.jwtSign(userUtil.toTokenJSON(user));
+    let token = req.jwtSign(userUtil.toTokenJSON(user, 'portal'));
     return res.json({
       user: userUtil.toPrivateJSON(user),
       token: token,
@@ -25,9 +25,28 @@ module.exports = (app) => {
   });
 
   app.post('/api/auth/reset/password', async (req, res) => {
+    // avoid timing attacks
+    setTimeout(() => res.json({ done: true }), 1000);
+    let { username, token, password } = req.body;
     let user = await req.getUser();
-    await userUtil.sendReset(user);
-    return res.json({ sent: true });
+    if (!user && username) {
+      user = await userUtil.getByUsernameOrEmail(username);
+    }
+    if (!token) {
+      // user is requesting reset
+      await userUtil.sendReset(user);
+    } else {
+      // user is using reset link
+      await userUtil.resetPassword(user, token, password);
+    }
+    return;
+  });
+
+  app.post('/api/auth/verify/email', async (req, res) => {
+    const { username, token } = req.body;
+    let user = await userUtil.getByUsernameOrEmail(username);
+    let verified = await userUtil.verifyEmail(user, token);
+    return res.json({ verified: verified });
   });
 
   app.post('/api/users', async (req, res) => {
@@ -59,9 +78,14 @@ module.exports = (app) => {
     return res.json(users);
   });
 
+  app.get('/api/users/:_id', async (req, res) => {
+    let user = await userUtil.getById(req.params);
+    return res.json(userUtil.toJSON(user));
+  });
+
   app.put('/api/users/:_id', async (req, res) => {
     await userUtil.update(req.params, req.body);
-    return res.json({});
+    return res.json(Object.assign({}, req.params, req.body));
   });
 
   app.delete('/api/users/:_id', async (req, res) => {

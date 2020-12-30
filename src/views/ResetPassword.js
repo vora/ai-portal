@@ -12,23 +12,32 @@ import {
 } from '../ant';
 import Footer from '../components/Footer';
 import FormHeader from '../components/FormHeader';
+import { useAppEnv } from './../env';
+import { queryParamsFromProps } from '../util';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
-function ResetPassword() {
+function ResetPassword(props) {
+  let { api } = useAppEnv();
+  let { username, token } = queryParamsFromProps(props);
   let onSubmit = async (values) => {
     if (values['password'] !== values['confirm-password']) {
       notification.error({ message: 'Please retype. Passwords do not match' });
     }
-
-    let result = '....';
-    if (result.errors) {
-      for (let error of result.errors) {
+    let resp = await api.post('/api/auth/reset/password', {
+      username: username,
+      token: token,
+      password: values['password'],
+    });
+    if (resp.errors) {
+      for (let error of resp.errors) {
         notification.error({
           message: error.msg,
         });
       }
       return;
+    } else {
+      window.location = '/login';
     }
   };
   let onFail = (values) => {
@@ -57,10 +66,6 @@ function ResetPassword() {
             >
               <Typography>
                 <Title style={{ minWidth: '500px' }}>Reset Password</Title>
-                <Paragraph>
-                  A link will be sent to your email address to reset your
-                  password.
-                </Paragraph>
               </Typography>
               <Form
                 name="basic"
@@ -71,6 +76,9 @@ function ResetPassword() {
                 labelCol={{ span: 6 }}
                 wrapperCol={{ span: 14 }}
               >
+                <Form.Item name="username" justify="center">
+                  <span>{username}</span>
+                </Form.Item>
                 <Form.Item
                   name="password"
                   rules={[

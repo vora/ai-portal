@@ -6,14 +6,12 @@ import {
   Row,
   Col,
   Card,
-  Breadcrumb,
-  Space,
   Tag,
   Table,
   Statistic,
   Tooltip,
+  Button,
 } from '../ant';
-
 import {
   QuestionCircleTwoTone,
   AreaChartOutlined,
@@ -24,52 +22,10 @@ import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import Sidebar from '../components/Sidebar';
 import ResourceTable from '../components/ResourceTable';
-import API from '../api';
+import { useAppEnv } from './../env';
+import ManageUserModal from './../components/ManageUserModal';
 
-const resourcesData = [
-  {
-    key: '1',
-    name: 'IBM AI Fairness 360',
-    desc:
-      ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    uploadDate: '2015-03-25',
-    topics: ['Banking'],
-    path: ['Designer'],
-    type: ['Research'],
-    link: 'https://aif360.mybluemix.net/',
-    keywords: ['NLP', 'CV'],
-  },
-  {
-    key: '2',
-    name: 'IBM AI Fairness 360',
-    desc:
-      ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    uploadDate: '2015-03-25',
-    topics: ['Finance'],
-    path: ['Developer'],
-    type: ['Podcast'],
-    link: 'https://aif360.mybluemix.net/',
-    keywords: ['Data Analytics', 'IPA'],
-  },
-  {
-    key: '3',
-    name: 'IBM AI Fairness 360',
-    desc:
-      ' Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    uploadDate: '2015-03-25',
-    topics: ['Banking', 'Other'],
-    path: ['Designer'],
-    type: ['Research'],
-    link: 'https://aif360.mybluemix.net/',
-    keywords: ['NLP'],
-  },
-];
-
-function onChange(pagination, filters, sorter, extra) {
-  console.log('params', pagination, filters, sorter, extra);
-}
-
-function Dashboard({ users }) {
+function Dashboard({ users, pendingResources }) {
   return (
     <Card id="overview" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
@@ -88,7 +44,10 @@ function Dashboard({ users }) {
       </h1>
       <Row gutter={16}>
         <Col span={4}>
-          <Statistic title="Pending Resources" value={resourcesData.length} />
+          <Statistic
+            title="Pending Resources"
+            value={pendingResources.length}
+          />
         </Col>
         <Col span={4}>
           <Statistic title="Accounts" value={users.length} />
@@ -98,7 +57,8 @@ function Dashboard({ users }) {
   );
 }
 
-function Users({ users }) {
+function ManageUsersTable({ users }) {
+  let [manageUser, setManageUser] = useState(null);
   const columns = [
     {
       title: 'Name',
@@ -140,12 +100,10 @@ function Users({ users }) {
       },
     },
     {
-      title: 'Action',
+      title: 'Manage',
       key: 'action',
-      render: (text, record) => (
-        <Space size="middle">
-          <a href="/">Delete</a> | <a href="/">Change Role</a>
-        </Space>
+      render: (text, user) => (
+        <Button onClick={() => setManageUser(user)}>Edit</Button>
       ),
     },
   ];
@@ -173,23 +131,30 @@ function Users({ users }) {
           onSearch={console.log}
         />
       </Tooltip>
-
       <Table
         columns={columns}
         dataSource={users}
-        onChange={onChange}
+        onChange={console.log}
         pagination={{ pageSize: 10 }}
         scroll={{ y: 240 }}
+      />
+      <ManageUserModal
+        user={manageUser}
+        modalVisible={manageUser != null}
+        setModalVisible={() => setManageUser(null)}
       />
     </Card>
   );
 }
 
 function Admin() {
+  let { api } = useAppEnv();
   let [users, setUsers] = useState([]);
+  let [pendingResources, setPendingResources] = useState([]);
   useEffect(() => {
-    API.get('/api/users/').then(setUsers);
-  }, []);
+    api.get('/api/users').then(setUsers);
+    api.get('/api/resources?pending=true').then(setPendingResources);
+  }, [api]);
 
   let dashRef = useRef(null),
     resourceRef = useRef(null),
@@ -203,17 +168,7 @@ function Admin() {
             <img alt="logo" src="/logo.png" width={'160px'} />
           </a>
         </Col>
-        <Col span={17}>
-          <Breadcrumb style={{ marginLeft: '20px' }}>
-            <Breadcrumb.Item>
-              <a href="/">Home</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <a href="/">User Name</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Administration</Breadcrumb.Item>
-          </Breadcrumb>
-        </Col>
+        <Col span={17}></Col>
         <Col span={4}>
           <LoginButton />
         </Col>
@@ -237,13 +192,17 @@ function Admin() {
         >
           {users && (
             <div ref={dashRef}>
-              <Dashboard users={users} />
+              <Dashboard users={users} pendingResources={pendingResources} />
             </div>
           )}
           <div ref={resourceRef}>
-            <ResourceTable resources={resourcesData} admin={true} edit={true} />
+            <ResourceTable
+              resources={pendingResources}
+              admin={true}
+              edit={true}
+            />
           </div>
-          <div ref={userRef}>{users && <Users users={users} />}</div>
+          <div ref={userRef}>{users && <ManageUsersTable users={users} />}</div>
         </Content>
       </Layout>
       <Footer />

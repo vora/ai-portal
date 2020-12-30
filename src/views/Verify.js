@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
-import { Layout, Content, Row, Col, Switch } from '../ant';
+import React, { useState, useEffect } from 'react';
+import { Layout, Content, Row, Col, Spin } from '../ant';
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import Footer from '../components/Footer';
+import { queryParamsFromProps } from '../util';
+import { useAppEnv } from './../env';
 
-export default function Verify() {
-  let [check, setChecked] = useState(true);
-
-  let toggleChecked = (checked) => {
-    setChecked(checked);
-  };
-
+export default function Verify(props) {
+  let { api } = useAppEnv();
+  let { username, token } = queryParamsFromProps(props);
+  let [status, setStatus] = useState('Loading...');
+  let [success, setSuccess] = useState(false);
+  let [loading, setLoading] = useState(true);
+  useEffect(() => {
+    api.post('/api/auth/verify/email', { username, token }).then((res) => {
+      if (res.verified) {
+        setStatus('Verified!');
+        setSuccess(true);
+        setTimeout(() => (window.location = '/'), 5000);
+      } else {
+        setSuccess(false);
+        setStatus('Looks like something went wrong. Try again.');
+      }
+      setLoading(false);
+    });
+  }, [api, username, token]);
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
       <Content
@@ -27,35 +41,29 @@ export default function Verify() {
               minWidth: '700px',
             }}
           >
-            <Switch
-              defaultChecked
-              onChange={toggleChecked}
-              style={{ marginBottom: '20px' }}
-            />
-            <div>
-              {check && (
+            {loading ? (
+              <Spin />
+            ) : (
+              <>
                 <div>
                   <div style={{ marginBottom: '20px' }}>
-                    <CheckCircleTwoTone
-                      style={{ fontSize: '160px' }}
-                      twoToneColor="#00adee"
-                    />
+                    {success ? (
+                      <CheckCircleTwoTone
+                        style={{ fontSize: '160px' }}
+                        twoToneColor="#00adee"
+                      />
+                    ) : (
+                      <CloseCircleTwoTone
+                        style={{ fontSize: '160px' }}
+                        twoToneColor="#00adee"
+                      />
+                    )}
                   </div>
-                  <b>Verified!</b>
+                  <b>{status}</b>
                 </div>
-              )}
-              {!check && (
-                <div>
-                  <div style={{ marginBottom: '20px' }}>
-                    <CloseCircleTwoTone
-                      style={{ fontSize: '160px' }}
-                      twoToneColor="#00adee"
-                    />
-                  </div>
-                  <b>Looks like something went wrong. Try again</b>
-                </div>
-              )}
-            </div>
+              </>
+            )}
+            <div></div>
           </Col>
         </Row>
       </Content>
