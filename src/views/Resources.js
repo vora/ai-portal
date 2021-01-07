@@ -160,16 +160,12 @@ function Resources(props) {
                   <Select.Option value="date">Date</Select.Option>
                 </Select>
               </Menu.Item>
-              <SubMenu key="topics" title="Topics">
+              <SubMenu key="topics" title="Topics" disabled>
                 {topics.map((res, index) => (
                   <Menu.Item key={'1' + String(index + 1)}>
                     {res.name}
                   </Menu.Item>
                 ))}
-              </SubMenu>
-              <SubMenu key="groups" title="Categories">
-                <Menu.Item key="21">Fairness</Menu.Item>
-                <Menu.Item key="22">Bias</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>

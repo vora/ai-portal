@@ -31,58 +31,6 @@ export default function ViewOrganization() {
   let topRef = useRef(null);
   let fileRef = useRef(null);
   let detailRef = useRef(null);
-<<<<<<< HEAD
-  let children = [];
-  for (let i = 0; i < props.type.length; i++) {
-    children.push(<Tag color="blue"> {props.type[i]}</Tag>);
-  }
-
-  return (
-    <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
-      <FormHeader />
-      <Layout>
-        <Sidebar
-          headings={['Overview', 'Details', 'Uploaded Resources']}
-          icons={[
-            <FileDoneOutlined />,
-            <SearchOutlined />,
-            <FolderOpenOutlined />,
-          ]}
-          refs={[topRef, detailRef, fileRef]}
-        />
-        <Content
-          style={{
-            padding: '24px 24px 24px',
-          }}
-        >
-          <div ref={topRef}>
-            <PageHeader
-              title={props.name}
-              onBack={() => window.history.back()}
-              className="site-page-header"
-              subTitle={props.shortName}
-              tags={children}
-              avatar={{ src: props.logoURL }}
-              extra={[
-                <Button icon={<EditOutlined />} key="3" shape="round">
-                  Edit Organization
-                </Button>,
-              ]}
-            ></PageHeader>
-          </div>
-          <div ref={detailRef}>
-            <h1
-              style={{ padding: '10px', fontSize: '2em', fontWeight: 'bold' }}
-            >
-              Details
-            </h1>
-            <Collapse defaultActiveKey={['1']}>
-              <Panel
-                header="Primary Details"
-                key="1"
-                showArrow={false}
-                disabled={true}
-=======
   useEffect(() => {
     api.get('/api/organizations/' + orgId).then((org) => {
       setOrg(org);
@@ -142,7 +90,6 @@ export default function ViewOrganization() {
             <div ref={detailRef}>
               <h1
                 style={{ padding: '10px', fontSize: '2em', fontWeight: 'bold' }}
->>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
               >
                 Details
               </h1>

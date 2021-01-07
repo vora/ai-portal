@@ -96,7 +96,9 @@ function Landing() {
       <Content style={{ padding: '0 50px' }}>
         <Row justify="center" style={{ marginTop: '4rem' }}>
           <Col span={12} style={{ textAlign: 'center' }}>
-            <h1 style={{ fontSize: '2rem' }}>Responsible AI Resource Search</h1>
+            <h1 style={{ fontSize: '2rem' }}>
+              Responsible AI Community Portal
+            </h1>
             <Tooltip
               placement="bottom"
               title="Search for relevant resources here"
@@ -172,9 +174,7 @@ function Landing() {
                 </Space>
               </div>
               <div>
-                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>
-                  Topics
-                </p>
+                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>Type</p>
                 <Space>
                   {TEMP_TAGS.slice(6, TEMP_TAGS.length).map((tag) => (
                     <Tag

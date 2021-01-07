@@ -205,11 +205,7 @@ function Organizations({ orgs }) {
       <Table
         columns={columns}
         dataSource={orgs}
-<<<<<<< HEAD
-        onChange={onChange}
-=======
         onChange={console.log}
->>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
         pagination={{ pageSize: 10 }}
         scroll={{ y: 240 }}
       />
@@ -218,12 +214,7 @@ function Organizations({ orgs }) {
 }
 
 function UserSettings() {
-<<<<<<< HEAD
-  let { user, userID } = useAppEnv();
-  // let q = queryParamsFromProps();
-=======
   let { api, user, userID } = useAppEnv();
->>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
 
   let dashRef = useRef(null),
     resourceRef = useRef(null),
@@ -233,19 +224,6 @@ function UserSettings() {
   let [orgs, setOrgs] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
-    let fetchResources = async () => {
-      let resources = await API.get('/api/users/' + userID + '/resources');
-      setResources(resources);
-    };
-    let fetchOrgs = async () => {
-      let orgs = await API.get('/api/users' + userID + '/organizations');
-      setOrgs(orgs);
-    };
-    fetchResources();
-    fetchOrgs();
-  });
-=======
     api
       .get('/api/users/' + userID + '/resources')
       .then((resources) => setResources(resources));
@@ -253,7 +231,6 @@ function UserSettings() {
       .get('/api/users/' + userID + '/organizations')
       .then((orgs) => setOrgs(orgs));
   }, [api, userID]);
->>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
 
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
