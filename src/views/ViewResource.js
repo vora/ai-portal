@@ -18,41 +18,25 @@ import {
 } from '@ant-design/icons';
 import FormHeader from '../components/FormHeader';
 import Sidebar from '../components/Sidebar';
-import API from '../api';
 import { useParams } from 'react-router-dom';
+import { useAppEnv } from './../env';
+import ManageResourceModal from './../components/ManageResourceModal';
 
 const { Panel } = Collapse;
-const emptyRes = {
-  name: 'HELLO',
-  desc: '',
-  type: [],
-  path: [],
-  avatarIcon: '',
-  aiSystemsType: [],
-  uploadDate: '',
-  creationDate: '',
-  modifiedDate: '',
-  licenseName: '',
-  trustIndexCategories: [''],
-  fundedBy: '',
-  creator: '',
-  files: [
-    {
-      name: 'Resource A',
-      link:
-        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-      type: 'URL',
-    },
-    {
-      name: 'Resource B',
-      link:
-        'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-      type: 'URL',
-    },
-  ],
-  topics: ['A', 'B', 'C'],
-  organizations: [''],
-};
+const demoFiles = [
+  {
+    name: 'Resource A',
+    link:
+      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
+    type: 'URL',
+  },
+  {
+    name: 'Resource B',
+    link:
+      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
+    type: 'URL',
+  },
+];
 
 function FileTable(props) {
   const columns = [
@@ -86,22 +70,20 @@ function FileTable(props) {
 export default function ViewResource() {
   let [resource, setResource] = useState(null);
   let [loading, setLoading] = useState(true);
-
+  let [showModal, setShowModal] = useState(false);
+  let { api } = useAppEnv();
   let { resId } = useParams();
-
   useEffect(() => {
     let fetchResource = async () => {
-      let resource = await API.get('/api/resources/' + resId);
+      let resource = await api.get('/api/resources/' + resId);
       setResource(resource);
       setLoading(false);
     };
     fetchResource();
-  });
-
+  }, [api, resId]);
   let topRef = useRef(null);
   let fileRef = useRef(null);
   let detailRef = useRef(null);
-
   if (loading) {
     return (
       <div
@@ -118,6 +100,11 @@ export default function ViewResource() {
   } else {
     return (
       <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
+        <ManageResourceModal
+          resource={resource}
+          modalVisible={showModal}
+          setModalVisible={(v) => setShowModal(v)}
+        />
         <FormHeader />
         <Layout>
           <Sidebar
@@ -139,7 +126,7 @@ export default function ViewResource() {
                 title={resource.name}
                 onBack={() => window.history.back()}
                 className="site-page-header"
-                subTitle={resource.organizations.join(', ')}
+                subTitle={resource.organizations.map((o) => o.name).join(', ')}
                 tags={resource.topics.map((t) => {
                   return (
                     <Tag
@@ -151,7 +138,7 @@ export default function ViewResource() {
                       }}
                     >
                       {' '}
-                      {t}
+                      {t.name}
                     </Tag>
                   );
                 })}
@@ -160,7 +147,7 @@ export default function ViewResource() {
                     icon={<EditOutlined />}
                     key="3"
                     shape="round"
-                    href={'/resources/' + resId + '/edit'}
+                    onClick={() => setShowModal(true)}
                   >
                     Edit Resource
                   </Button>,
@@ -220,7 +207,7 @@ export default function ViewResource() {
               </Collapse>
             </div>
             <div ref={fileRef}>
-              <FileTable data={emptyRes.files}></FileTable>
+              <FileTable data={demoFiles}></FileTable>
             </div>
           </Content>
         </Layout>

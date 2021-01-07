@@ -1,12 +1,10 @@
-import React from 'react';
-import { Search, Card, Space, Tag, Table, Tooltip } from '../ant';
+import React, { useState } from 'react';
+import { Search, Card, Button, Tag, Table, Tooltip } from '../ant';
 import { QuestionCircleTwoTone } from '@ant-design/icons';
-
-function onChange(pagination, filters, sorter, extra) {
-  console.log('params', pagination, filters, sorter, extra);
-}
+import ManageResourceModal from './ManageResourceModal';
 
 function ResourceTable({ resources, edit, admin }) {
+  let [manageResource, setManageResource] = useState(null);
   const resourcesColumns = [
     {
       title: 'Resource Name',
@@ -27,30 +25,6 @@ function ResourceTable({ resources, edit, admin }) {
         let bDate = new Date(b.uploadDate);
         return aDate.getTime() - bDate.getTime();
       },
-    },
-    {
-      title: 'Topics',
-      key: 'topics',
-      dataIndex: 'topics',
-      render: (topics) => (
-        <>
-          {topics.map((topic) => {
-            return (
-              <Tag
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  marginBottom: '2px',
-                }}
-                color={'#42D3D4'}
-                key={topic}
-              >
-                {topic.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
     },
     {
       title: 'Path',
@@ -101,30 +75,6 @@ function ResourceTable({ resources, edit, admin }) {
       ),
     },
     {
-      title: 'Keywords',
-      key: 'keywords',
-      dataIndex: 'keywords',
-      render: (keywords) => (
-        <>
-          {keywords.map((keyword) => {
-            return (
-              <Tag
-                style={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  marginBottom: '2px',
-                }}
-                color={'#009B72'}
-                key={keyword}
-              >
-                {keyword.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
       title: 'Link',
       key: 'link',
       dataIndex: 'link',
@@ -137,31 +87,13 @@ function ResourceTable({ resources, edit, admin }) {
       ),
     },
     {
-      title: 'Action',
+      title: 'Manage',
       key: 'action',
-      render: (text, record) => (
-        <Space size="middle">
-          <a href="/">Edit</a> | <a href="/">Remove</a>
-        </Space>
+      render: (text, resource) => (
+        <Button onClick={() => setManageResource(resource)}>Edit</Button>
       ),
     },
   ];
-
-  // remove last column if no privilege (regular user)
-  if (!edit) {
-    resourcesColumns.pop();
-  } else if (admin) {
-    resourcesColumns.pop();
-    resourcesColumns.push({
-      title: 'Action',
-      key: 'action',
-      render: (text, record) => (
-        <Space size="middle">
-          <a href="/">Accept</a> | <a href="/">Edit</a> | <a href="/">Remove</a>
-        </Space>
-      ),
-    });
-  }
 
   let title = 'Uploaded Resources';
   if (admin) title = 'Pending Resources';
@@ -191,9 +123,14 @@ function ResourceTable({ resources, edit, admin }) {
       <Table
         columns={resourcesColumns}
         dataSource={resources}
-        onChange={onChange}
+        onChange={console.log}
         pagination={{ pageSize: 10 }}
         scroll={{ y: 240 }}
+      />
+      <ManageResourceModal
+        resource={manageResource}
+        modalVisible={manageResource != null}
+        setModalVisible={() => setManageResource(null)}
       />
     </Card>
   );

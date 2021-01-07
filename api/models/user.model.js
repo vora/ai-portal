@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   emailVerified: { type: Boolean, default: false },
   emailToken: { type: String },
+  resetToken: { type: String },
   username: { type: String, unique: true, required: true },
   role: { type: String, default: 'member', enum: USER_ROLES },
   hashedPassword: { type: String },

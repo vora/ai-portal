@@ -29,6 +29,16 @@ let post = async (path, data = {}) => {
   return await resp.json();
 };
 
-window.api = { get, post };
+let put = async (path, data = {}) => {
+  let resp = await fetch(BASE_URL + path, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken(),
+    },
+  });
+  return await resp.json();
+};
 
-export default window.api;
+export default { get, post, put };

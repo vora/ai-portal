@@ -6,7 +6,6 @@ import {
   Row,
   Col,
   Card,
-  Breadcrumb,
   Space,
   Tag,
   Table,
@@ -26,21 +25,24 @@ import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import Sidebar from '../components/Sidebar';
 import ResourceTable from '../components/ResourceTable';
-import API from '../api';
+import ManageUserModal from './../components/ManageUserModal';
 import { useAppEnv } from './../env';
 
-function onChange(pagination, filters, sorter, extra) {
-  console.log('params', pagination, filters, sorter, extra);
-}
-
 function Dashboard({ user }) {
+  let { api } = useAppEnv();
+  let [showEditModal, setShowEditModal] = useState(null);
   let resetPassword = async () => {
-    await API.post('/api/auth/reset/password');
+    await api.post('/api/auth/reset/password');
     notification.info({ message: 'Password reset email sent.' });
   };
 
   return (
     <Card id="overview" style={{ marginBottom: '20px' }}>
+      <ManageUserModal
+        user={user}
+        modalVisible={showEditModal}
+        setModalVisible={(v) => setShowEditModal(v)}
+      />
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
         User Overview &nbsp;
         <Tooltip title="View your profile information" placement="right">
@@ -76,7 +78,7 @@ function Dashboard({ user }) {
             <hr />
             <Space>
               <Tooltip title="Edit your profile information" placement="bottom">
-                <Button type="primary" href="#">
+                <Button type="primary" onClick={() => setShowEditModal(true)}>
                   Edit Information
                 </Button>
               </Tooltip>
@@ -109,12 +111,6 @@ function Dashboard({ user }) {
               <strong>Role:</strong>{' '}
               <span id="role" style={{ fontWeight: 'normal' }}>
                 {user.role}
-              </span>
-            </h3>
-            <h3>
-              <strong>Description: </strong>
-              <span id="description" style={{ fontWeight: 'normal' }}>
-                {user.description}
               </span>
             </h3>
           </div>
@@ -209,7 +205,11 @@ function Organizations({ orgs }) {
       <Table
         columns={columns}
         dataSource={orgs}
+<<<<<<< HEAD
         onChange={onChange}
+=======
+        onChange={console.log}
+>>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
         pagination={{ pageSize: 10 }}
         scroll={{ y: 240 }}
       />
@@ -218,8 +218,12 @@ function Organizations({ orgs }) {
 }
 
 function UserSettings() {
+<<<<<<< HEAD
   let { user, userID } = useAppEnv();
   // let q = queryParamsFromProps();
+=======
+  let { api, user, userID } = useAppEnv();
+>>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
 
   let dashRef = useRef(null),
     resourceRef = useRef(null),
@@ -229,6 +233,7 @@ function UserSettings() {
   let [orgs, setOrgs] = useState([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     let fetchResources = async () => {
       let resources = await API.get('/api/users/' + userID + '/resources');
       setResources(resources);
@@ -240,6 +245,15 @@ function UserSettings() {
     fetchResources();
     fetchOrgs();
   });
+=======
+    api
+      .get('/api/users/' + userID + '/resources')
+      .then((resources) => setResources(resources));
+    api
+      .get('/api/users/' + userID + '/organizations')
+      .then((orgs) => setOrgs(orgs));
+  }, [api, userID]);
+>>>>>>> 46510e1a1926db91446477aa930e6669ca7df890
 
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
@@ -249,17 +263,7 @@ function UserSettings() {
             <img alt="logo" src="/logo.png" width={'160px'} />
           </a>
         </Col>
-        <Col span={17}>
-          <Breadcrumb style={{ marginLeft: '20px' }}>
-            <Breadcrumb.Item>
-              <a href="/">Home</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <a href="/">User Name</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Settings</Breadcrumb.Item>
-          </Breadcrumb>
-        </Col>
+        <Col span={17}></Col>
         <Col span={4}>
           <LoginButton />
         </Col>

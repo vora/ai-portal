@@ -22,12 +22,13 @@ module.exports = (app) => {
   });
 
   app.put('/api/resources/:_id', async (req, res) => {
-    return await resourceUtil.update(req.params, req.body);
+    await resourceUtil.update(req.params, req.body);
+    res.json({});
   });
 
   app.get('/api/resources/:_id', async (req, res) => {
-    let resource = await resourceUtil.searchById(req.params);
-    res.json(resource);
+    let resource = await resourceUtil.getById(req.params);
+    res.json(resourceUtil.toJSON(resource));
   });
 
   app.delete('/api/resources/:_id', async (req, res) => {

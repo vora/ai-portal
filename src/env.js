@@ -14,19 +14,26 @@ let getKey = (key) => {
 export function AppEnv({ children }) {
   let [user, _setUser] = useState(getKey('user'));
   let [enums, _setEnums] = useState(getKey('enums'));
+  let [api, setAPI] = useState({ ...API, refreshKey: 0 });
   let setUser = (user) => {
     setKey('user', user);
     _setUser(user);
   };
+  // This will force any components that rely on an API call
+  // to retrigger and refresh content.
+  let refreshAPI = () => {
+    console.log('Refreshing all remote data...');
+    setAPI({ ...API, refreshKey: api.refreshKey++ });
+  };
   let logout = () => {
     setUser(null);
     setKey('token', '');
+    refreshAPI();
   };
-  console.log(user);
   if (!window.contextFound) {
     API.get('/api/context').then(({ user, enums }) => {
       window.contextFound = true;
-      if (user && user.id) {
+      if (user && user._id) {
         setUser(user);
       }
       _setEnums(enums);
@@ -35,7 +42,7 @@ export function AppEnv({ children }) {
   return (
     <AppContext.Provider
       value={{
-        api: API,
+        api: api,
         userID: user?.id,
         user: user,
         enums: enums,
@@ -43,6 +50,7 @@ export function AppEnv({ children }) {
         setKey: setKey,
         getKey: getKey,
         logout: logout,
+        refresh: refreshAPI,
       }}
     >
       {children}
