@@ -6,7 +6,7 @@ import { AppEnv } from './env';
 import Landing from './views/Landing';
 import Login from './views/Login';
 import Register from './views/Register';
-import AddResources from './views/AddResource';
+import AddResource from './views/AddResource';
 import Admin from './views/Admin';
 import ViewResource from './views/ViewResource';
 import AddOrganization from './views/AddOrganization';
@@ -27,7 +27,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/resources" component={SearchResults} />
-            <Route exact path="/resources/create" component={AddResources} />
+            <Route exact path="/resources/create" component={AddResource} />
             <Route path="/resources/:resId" component={ViewResource} />
             {/* auth is just alias for login */}
             <Route path="/auth" component={Login} />

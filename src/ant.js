@@ -27,9 +27,12 @@ import {
   Collapse,
   notification,
   DatePicker,
+  Steps,
+  message,
   Switch,
   Spin,
   Modal,
+  Upload,
 } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -71,7 +74,10 @@ export {
   Descriptions,
   Collapse,
   notification,
+  Steps,
+  message,
   Switch,
   Spin,
   Modal,
+  Upload,
 };
