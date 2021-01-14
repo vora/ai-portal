@@ -39,6 +39,13 @@ module.exports.ORG_TYPES = [
   'Government',
   'Civil Society',
 ];
+
+module.exports.TRUST_INDEX_CATEGORIES = [
+  'Explainability & Interpretability',
+  'Data Quality',
+  'Bias & Fairness',
+  'Accountability, Robustness',
+];
 module.exports.FILE_TYPES = [
   { name: 'DOCX', ext: 'doc', app: 'Microsoft Word' },
   { name: 'CSV', ext: 'csv', app: 'Comma Separated Values' },
