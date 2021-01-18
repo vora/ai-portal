@@ -1,7 +1,22 @@
 const mongoose = require('mongoose');
 const Organization = mongoose.model('Organization');
+const queryUtil = require('./query.util');
 
 exports.Organization = Organization;
+
+exports.search = async (query, fields) => {
+  let result = queryUtil.searchQuery(
+    Organization,
+    {
+      queryFields: ['name', 'desc', 'url'],
+      anyFields: ['type'],
+      sorts: { byNameAsc: ['name', 1] },
+    },
+    query,
+    fields
+  );
+  return await result;
+};
 
 exports.create = async (params) => {
   let organization = new Organization(params);

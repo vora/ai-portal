@@ -13,11 +13,15 @@ import { useAppEnv } from '../env';
 import { FilterTwoTone } from '@ant-design/icons';
 import OrganizationCard from './OrganizationCard';
 
-export default function ListAndFilterOrganizations({ orgTypes, query }) {
+export default function ListAndFilterOrganizations({
+  orgTypes,
+  query,
+  filterVals,
+  updateSearch,
+}) {
   let { api } = useAppEnv();
   let [loading, setLoading] = useState(true);
   let [orgs, setOrgs] = useState(null);
-  let [filterVals, setFilterVals] = useState({});
   useEffect(() => {
     setLoading(true);
     api
@@ -28,7 +32,7 @@ export default function ListAndFilterOrganizations({ orgTypes, query }) {
       });
   }, [query, api, filterVals]);
   let updateFilters = (newFilters) => {
-    setFilterVals({ ...filterVals, ...newFilters });
+    updateSearch(query, { ...filterVals, ...newFilters });
   };
   return (
     <Layout>
@@ -55,7 +59,7 @@ export default function ListAndFilterOrganizations({ orgTypes, query }) {
             </Menu.Item>
             <Menu.Item key="orgTypes" disabled>
               <Select
-                onChange={(v) => updateFilters({ organizationType: v })}
+                onChange={(v) => updateFilters({ type: v })}
                 showSearch
                 defaultValue="Organization Type"
                 style={{ width: '100%' }}

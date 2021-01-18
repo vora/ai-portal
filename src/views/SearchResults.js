@@ -15,12 +15,21 @@ export default function SearchResults(props) {
   let orgTypes = enums ? enums.ORG_TYPES : [];
   let resourceTypes = enums ? enums.RESOURCE_TYPES : [];
   let resourcePath = enums ? enums.RESOURCE_PATHS : [];
-  let { q } = queryParamsFromProps(props);
+  let { q, ...filterParams } = queryParamsFromProps(props);
   let isResourceView = history.location.pathname.includes('/resources');
   let View = isResourceView
     ? ListAndFilterResources
     : ListAndFilterOrganizations;
-  let search = history.location.search;
+  let updateSearch = (query, filters) => {
+    let segments = [];
+    segments.push('q=' + (query || ''));
+    for (let filter in filters) {
+      segments.push(filter + '=' + filters[filter]);
+    }
+    let url =
+      (isResourceView ? '/resources?' : '/organizations?') + segments.join('&');
+    history.push(url);
+  };
   return (
     <Layout>
       <Affix offsetTop={0}>
@@ -42,18 +51,18 @@ export default function SearchResults(props) {
                   isResourceView ? 'resources' : 'organizations'
                 }`}
                 enterButton
-                onSearch={console.log}
+                onSearch={(q) => updateSearch(q, filterParams)}
               />
             </Menu.Item>
             <Menu.Item
               key="resources"
-              onClick={() => history.push('/resources' + search)}
+              onClick={() => history.push('/resources')}
             >
               Resources
             </Menu.Item>
             <Menu.Item
               key="organizations"
-              onClick={() => history.push('/organizations' + search)}
+              onClick={() => history.push('/organizations')}
             >
               Organizations
             </Menu.Item>
@@ -78,7 +87,9 @@ export default function SearchResults(props) {
         fileTypes={fileTypes}
         resourcePath={resourcePath}
         location={props.location}
-        query={q}
+        updateSearch={updateSearch}
+        filterVals={filterParams || {}}
+        query={q || ''}
       />
       <Footer />
     </Layout>

@@ -115,33 +115,35 @@ export default function ManageResourceModal({
           <Form.Item label="Topics">
             <Select
               showSearch
-              defaultValue={editedResource.topics.map((topic) => topic.name)}
+              defaultValue={editedResource.topics.map((topic) => topic._id)}
               style={{ width: '100%' }}
               mode="multiple"
               onChange={(newTopics) => {
                 setEditedResource({
                   ...editedResource,
-                  topics: newTopics.map((topic) => {
-                    return { desc: 'A topic', name: topic };
+                  topics: newTopics.map((topicId) => {
+                    return topics.find((o) => o._id === topicId);
                   }),
                 });
               }}
             >
               {topics.map((topic) => (
-                <Select.Option value={topic.name}>{topic.name}</Select.Option>
+                <Select.Option value={topic._id}>{topic.name}</Select.Option>
               ))}
             </Select>
           </Form.Item>
           <Form.Item label="Organizations">
             <Select
               showSearch
-              defaultValue={editedResource?.organizations}
+              defaultValue={editedResource?.organizations.map((org) => org._id)}
               style={{ width: '100%' }}
               mode="tags"
               onChange={(newOrgs) => {
                 setEditedResource({
                   ...editedResource,
-                  organizations: newOrgs,
+                  organizations: newOrgs.map((orgId) => {
+                    return organizations.find((o) => o._id === orgId);
+                  }),
                 });
               }}
             >

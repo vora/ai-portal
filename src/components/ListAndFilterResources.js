@@ -19,13 +19,14 @@ export default function ListAndFilterResources({
   fileTypes,
   resourcePath,
   query,
+  filterVals,
+  updateSearch,
 }) {
   let { api } = useAppEnv();
   let [resources, setResources] = useState(null);
   let [loading, setLoading] = useState(true);
   let [topics, setTopics] = useState([]);
   let [orgs, setOrgs] = useState([]);
-  let [filterVals, setFilterVals] = useState({});
   useEffect(() => {
     api.get('/api/organizations').then((orgs) => setOrgs(orgs));
     api.get('/api/topics').then((topics) => setTopics(topics));
@@ -40,7 +41,7 @@ export default function ListAndFilterResources({
       });
   }, [query, filterVals, api]);
   let updateFilters = (newFilters) => {
-    setFilterVals({ ...filterVals, ...newFilters });
+    updateSearch(query, { ...filterVals, ...newFilters });
   };
   return (
     <Layout>
@@ -67,7 +68,7 @@ export default function ListAndFilterResources({
             </Menu.Item>
             <Menu.Item key="orgs" disabled>
               <Select
-                onChange={(v) => updateFilters({ organizationId: v })}
+                onChange={(v) => updateFilters({ organizations: v })}
                 showSearch
                 defaultValue="Organization"
                 style={{ width: '100%' }}
@@ -92,7 +93,7 @@ export default function ListAndFilterResources({
             <Menu.Item key="resourceTypes" disabled>
               <Select
                 showS
-                onChange={(e) => updateFilters({ resourceType: e })}
+                onChange={(e) => updateFilters({ type: e })}
                 defaultValue="Resource Type"
                 style={{ width: '100%' }}
               >
@@ -104,23 +105,12 @@ export default function ListAndFilterResources({
             <Menu.Item key="paths" disabled>
               <Select
                 showSearch
-                onChange={(e) => updateFilters({ resourcePath: e })}
+                onChange={(e) => updateFilters({ path: e })}
                 defaultValue="Resource Path"
                 style={{ width: '100%' }}
               >
                 {resourcePath.map((res) => (
                   <Select.Option value={res}>{res}</Select.Option>
-                ))}
-              </Select>
-            </Menu.Item>
-            <Menu.Item key="fileTypes" disabled>
-              <Select
-                onChange={(e) => updateFilters({ format: e })}
-                defaultValue="Format"
-                style={{ width: '100%' }}
-              >
-                {fileTypes.map((res) => (
-                  <Select.Option value={res.ext}>{res.name}</Select.Option>
                 ))}
               </Select>
             </Menu.Item>
@@ -130,19 +120,20 @@ export default function ListAndFilterResources({
                 defaultValue="Sort By"
                 style={{ width: '100%' }}
               >
-                <Select.Option value="relevance">Relevance</Select.Option>
-                <Select.Option value="title">Title</Select.Option>
-                <Select.Option value="date">Date</Select.Option>
+                <Select.Option value="byNameAsc">Name</Select.Option>
+                <Select.Option value="byUploadDateAsc">
+                  Upload Date
+                </Select.Option>
               </Select>
             </Menu.Item>
             <Menu.Item key="topics" disabled>
               <Select
-                onChange={(e) => updateFilters({ topic: e })}
+                onChange={(e) => updateFilters({ topics: e })}
                 defaultValue="Topics"
                 style={{ width: '100%' }}
               >
                 {topics.map((res) => (
-                  <Select.Option value={res.name}>{res.name}</Select.Option>
+                  <Select.Option value={res._id}>{res.name}</Select.Option>
                 ))}
               </Select>
             </Menu.Item>

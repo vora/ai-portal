@@ -3,7 +3,8 @@ const resourceUtil = require('../models/resource.util');
 
 module.exports = (app) => {
   app.get('/api/organizations', async (req, res) => {
-    let orgs = await organizationUtil.getAll();
+    let { query, ...filters } = req.query;
+    let orgs = await organizationUtil.search(query, filters);
     res.json(orgs.map((o) => organizationUtil.toJSON(o)));
   });
 

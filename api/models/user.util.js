@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Organization = mongoose.model('Organization');
 const crypto = require('crypto');
 const _email = require('../lib/email');
+const queryUtil = require('./query.util');
 
 exports.User = User;
 
@@ -57,8 +59,28 @@ exports.get = async (where) => {
   return User.findOne(where);
 };
 
-exports.update = async (user, params) => {
-  return await User.update({ _id: user._id }, { $set: params }).exec();
+exports.update = async (user, rawParams) => {
+  let result = await queryUtil.execUpdateQuery(
+    User,
+    {
+      setParams: ['name', 'username', 'email', 'role'],
+      setRefFuncs: { organizations: exports.setOrganizations },
+    },
+    user,
+    rawParams
+  );
+  return result;
+};
+
+exports.setOrganizations = async (user, orgs) => {
+  return await queryUtil.execUpdateSetManyToMany(
+    User,
+    'users',
+    user,
+    Organization,
+    'organizations',
+    orgs
+  );
 };
 
 exports.getByUsernameOrEmail = async (userOrEmail) => {

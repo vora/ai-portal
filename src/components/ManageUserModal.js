@@ -32,7 +32,6 @@ export default function ManageUserModal({
       })
       .then(() => refresh());
   };
-  console.log(JSON.stringify(editedUser));
   return (
     <Modal
       title={user ? `${user.name} (${user.username})` : 'Loading...'}
