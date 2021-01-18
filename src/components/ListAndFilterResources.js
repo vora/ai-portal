@@ -3,7 +3,6 @@ import {
   Layout,
   Content,
   Menu,
-  SubMenu,
   Sider,
   Select,
   Affix,
@@ -81,6 +80,7 @@ export default function ListAndFilterResources({
             <Menu.Item key="orgTypes" disabled>
               <Select
                 showSearch
+                onChange={(e) => updateFilters({ organizationType: e })}
                 defaultValue="Organization Type"
                 style={{ width: '100%' }}
               >
@@ -91,7 +91,8 @@ export default function ListAndFilterResources({
             </Menu.Item>
             <Menu.Item key="resourceTypes" disabled>
               <Select
-                showSearch
+                showS
+                onChange={(e) => updateFilters({ resourceType: e })}
                 defaultValue="Resource Type"
                 style={{ width: '100%' }}
               >
@@ -103,6 +104,7 @@ export default function ListAndFilterResources({
             <Menu.Item key="paths" disabled>
               <Select
                 showSearch
+                onChange={(e) => updateFilters({ resourcePath: e })}
                 defaultValue="Resource Path"
                 style={{ width: '100%' }}
               >
@@ -112,28 +114,38 @@ export default function ListAndFilterResources({
               </Select>
             </Menu.Item>
             <Menu.Item key="fileTypes" disabled>
-              <Select defaultValue="Format" style={{ width: '100%' }}>
+              <Select
+                onChange={(e) => updateFilters({ format: e })}
+                defaultValue="Format"
+                style={{ width: '100%' }}
+              >
                 {fileTypes.map((res) => (
                   <Select.Option value={res.ext}>{res.name}</Select.Option>
                 ))}
               </Select>
             </Menu.Item>
             <Menu.Item key="sort" disabled>
-              <Select defaultValue="Sort By" style={{ width: '100%' }}>
+              <Select
+                onChange={(e) => updateFilters({ sortBy: e })}
+                defaultValue="Sort By"
+                style={{ width: '100%' }}
+              >
                 <Select.Option value="relevance">Relevance</Select.Option>
                 <Select.Option value="title">Title</Select.Option>
                 <Select.Option value="date">Date</Select.Option>
               </Select>
             </Menu.Item>
-            <SubMenu key="topics" title="Topics">
-              {topics.map((res, index) => (
-                <Menu.Item key={'1' + String(index + 1)}>{res.name}</Menu.Item>
-              ))}
-            </SubMenu>
-            <SubMenu key="groups" title="Categories">
-              <Menu.Item key="21">Fairness</Menu.Item>
-              <Menu.Item key="22">Bias</Menu.Item>
-            </SubMenu>
+            <Menu.Item key="topics" disabled>
+              <Select
+                onChange={(e) => updateFilters({ topic: e })}
+                defaultValue="Topics"
+                style={{ width: '100%' }}
+              >
+                {topics.map((res) => (
+                  <Select.Option value={res.name}>{res.name}</Select.Option>
+                ))}
+              </Select>
+            </Menu.Item>
           </Menu>
         </Sider>
       </Affix>

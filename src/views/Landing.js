@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -9,10 +9,14 @@ import {
   Tooltip,
   Space,
   Tag,
+  Modal,
+  Button,
 } from '../ant';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
+import { notification } from 'antd';
+import { DatabaseTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
 
 let TEMP_FRONTEND_ITEMS = [
   {
@@ -96,28 +100,48 @@ function Landing() {
       <Content style={{ padding: '0 50px' }}>
         <Row justify="center" style={{ marginTop: '4rem' }}>
           <Col span={12} style={{ textAlign: 'center' }}>
-            <h1 style={{ fontSize: '2rem' }}>Responsible AI Resource Search</h1>
-            <Tooltip
-              placement="bottom"
-              title="Search for relevant resources here"
+            <h1 style={{ fontSize: '2rem' }}>
+              Responsible AI Community Portal
+            </h1>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+              }}
             >
-              <Search
-                placeholder="Responsible AI Design Assistant"
-                enterButton
-                size="large"
-                onChange={(e) => setQuery(e.target.value)}
-                onSearch={() => history.push('/resources?q=' + query)}
-              />
-            </Tooltip>
+              <Tooltip
+                placement="bottom"
+                title="Search for relevant resources here"
+              >
+                <Search
+                  placeholder="Responsible AI Design Assistant"
+                  enterButton
+                  size="large"
+                  onChange={(e) => setQuery(e.target.value)}
+                  onSearch={() => history.push('/resources?q=' + query)}
+                  style={{ marginBottom: '5px' }}
+                />
+              </Tooltip>
+              <a style={{ fontSize: '1.2em' }} href="/faq">
+                <QuestionCircleOutlined /> Learn More About the Portal
+              </a>
+            </div>
           </Col>
         </Row>
         <Row justify="center" style={{ marginTop: '20px' }}>
-          <Col span={12}>
-            <h3>Filters:</h3>
+          <Col>
             <Space style={{ width: '100%' }}>
-              <div>
+              <div
+                style={{
+                  borderRight: '1px solid #cdcdcd',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
                 <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>
-                  Topics
+                  Filter by Topics
                 </p>
                 <Space>
                   {TEMP_TAGS.slice(0, 3).map((tag) => (
@@ -144,8 +168,17 @@ function Landing() {
                   ))}
                 </Space>
               </div>
-              <div>
-                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>Path</p>
+              <div
+                style={{
+                  borderRight: '1px solid #cdcdcd',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                  Filter by Path
+                </p>
                 <Space>
                   {TEMP_TAGS.slice(3, 6).map((tag) => (
                     <Tag
@@ -171,9 +204,15 @@ function Landing() {
                   ))}
                 </Space>
               </div>
-              <div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
                 <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>
-                  Topics
+                  Filter by Type
                 </p>
                 <Space>
                   {TEMP_TAGS.slice(6, TEMP_TAGS.length).map((tag) => (
@@ -203,16 +242,112 @@ function Landing() {
             </Space>
           </Col>
         </Row>
-        <Row justify="center" style={{ marginTop: '2rem' }} gutter={[24, 16]}>
+        <Row justify="center" style={{ marginTop: '4rem' }} gutter={[24, 16]}>
           {TEMP_FRONTEND_ITEMS.map((feat) => (
             <Col span={4}>
               <FeatureCard feature={feat} />
             </Col>
           ))}
         </Row>
+        <FirstTime />
       </Content>
       <Footer />
     </Layout>
+  );
+}
+
+function FirstTime() {
+  let [hasVisited, setVisited] = useState(
+    localStorage.getItem('raiportal:visited')
+  );
+  let setLSHasVisited = () => {
+    localStorage.setItem('raiportal:visited', true);
+    setVisited(true);
+  };
+
+  useEffect(() => {
+    setLSHasVisited();
+  });
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const message = (
+    <p style={{ fontWeight: 'bold', marginBottom: '0' }}>First Time?</p>
+  );
+  const description = (
+    <>
+      <p style={{ marginBottom: '10px' }}>
+        Learn more by the Responsible AI Portal
+      </p>
+      <Button
+        type="primary"
+        size="small"
+        onClick={() => {
+          setModalVisible(true);
+        }}
+      >
+        Explore
+      </Button>
+    </>
+  );
+
+  const openNotification = () => {
+    setVisited(true);
+    notification.info({
+      key: 'first',
+      message,
+      placement: 'bottomRight',
+      duration: 0,
+      description,
+      hoverable: true,
+    });
+  };
+
+  return (
+    <>
+      {!hasVisited && openNotification()}
+      <Modal
+        title={
+          <p style={{ marginBottom: '0', fontSize: '1.2em' }}>
+            <DatabaseTwoTone /> Welcome to the Portal!
+          </p>
+        }
+        visible={isModalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={[<Button onClick={() => setModalVisible(false)}>Close</Button>]}
+        centered
+        width={700}
+      >
+        <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+          What is the Responsible AI Community Portal?
+        </p>
+        <p style={{ marginBottom: '15px' }}>
+          The Responsible AI Community Portal is a curated repository of
+          reports, standards, models, government policies, datasets, and
+          open-source software designed to support Responsible AI development.
+          If you'd like to learn more, watch the demo below or{' '}
+          <a href="/faq">click here for our FAQ</a>.
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+          <p style={{ fontWeight: 'bold' }}>Video Demonstration</p>
+          <iframe
+            title="ex"
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/eaEMSKzqGAg"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </Modal>
+    </>
   );
 }
 
