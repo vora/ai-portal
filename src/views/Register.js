@@ -28,6 +28,9 @@ export default function Register() {
       }
       return;
     }
+    window.gtag('event', 'account_create', {
+      event_category: 'accout',
+    });
     history.push('/login?username=' + user.username);
   };
   let onFail = (values) => {

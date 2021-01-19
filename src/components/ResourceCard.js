@@ -10,7 +10,13 @@ export default function ResourceCard({ resource }) {
         title={
           <button
             className="resource-button"
-            onClick={() => setModalVisible(true)}
+            onClick={() => {
+              setModalVisible(true);
+              window.gtag('event', 'resource_modal_click', {
+                event_label: resource.name,
+                event_category: 'view_resource',
+              });
+            }}
           >
             {resource.name}
           </button>
@@ -41,7 +47,14 @@ export default function ResourceCard({ resource }) {
         onCancel={() => setModalVisible(false)}
         footer={[
           <Tooltip title="Click here for additional information">
-            <Button key="info" href={'/resources/' + resource._id}>
+            <Button
+              key="info"
+              href={'/resources/' + resource._id}
+              onClick={window.gtag('event', 'resource_page_view', {
+                event_label: resource._name,
+                event_category: 'view_resource',
+              })}
+            >
               More Information
             </Button>
           </Tooltip>,
@@ -62,7 +75,15 @@ export default function ResourceCard({ resource }) {
         </p>
         <p style={{ marginBottom: '5px' }}>
           <strong style={{ marginRight: '10px' }}>Download Link: </strong>{' '}
-          <a href={resource.link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={resource.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={window.gtag('event', 'resource_shortcut_download', {
+              event_label: resource.name,
+              event_category: 'view_resource',
+            })}
+          >
             {resource.downloadURL}
           </a>
         </p>

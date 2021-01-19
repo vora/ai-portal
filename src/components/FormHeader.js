@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Header, Search, Affix } from '../ant';
+import { Header, Affix } from '../ant';
 
 function FormHeader() {
   return (
@@ -13,17 +13,6 @@ function FormHeader() {
             width={'160px'}
           />
         </a>
-        <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
-          <Menu.Item key="s" disabled>
-            <Search
-              className="menu-search"
-              style={{ marginTop: '20px' }}
-              placeholder="Search for Resources"
-              enterButton
-              onSearch={console.log}
-            />
-          </Menu.Item>
-        </Menu>
       </Header>
     </Affix>
   );

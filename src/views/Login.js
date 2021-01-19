@@ -138,6 +138,9 @@ function LoginView({ setShowLogin, redirect }) {
       }
       return;
     }
+    window.gtag('event', 'login_success', {
+      event_category: 'accout',
+    });
     setUser(result.user);
     setKey('token', result.token);
     history.push(redirect);

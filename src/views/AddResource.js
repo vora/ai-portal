@@ -84,6 +84,9 @@ function AddResource() {
     if (current === steps.length - 1) {
       message.success('Form completed!');
       console.log('answers are ', JSON.stringify(form.getFieldValue()));
+      window.gtag('event', 'resource_form_submit', {
+        event_category: 'upload_resource',
+      });
     } else {
       setCurrent(current + 1);
     }
