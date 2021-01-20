@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -17,7 +17,13 @@ const { Title, Paragraph, Text } = Typography;
 
 export default function Register() {
   let history = useHistory();
-  let { api } = useAppEnv();
+  let { api, user } = useAppEnv();
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    }
+  });
+
   let onSubmit = async (formVal) => {
     let user = await api.post('/api/users', formVal);
     if (user.errors) {

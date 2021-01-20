@@ -12,6 +12,8 @@ import {
   Button,
   Tooltip,
   notification,
+  Breadcrumb,
+  Menu,
 } from '../ant';
 
 import {
@@ -27,6 +29,7 @@ import Sidebar from '../components/Sidebar';
 import ResourceTable from '../components/ResourceTable';
 import ManageUserModal from './../components/ManageUserModal';
 import { useAppEnv } from './../env';
+import { useHistory } from 'react-router';
 
 function Dashboard({ user }) {
   let { api } = useAppEnv();
@@ -214,6 +217,12 @@ function Organizations({ orgs }) {
 
 function UserSettings() {
   let { api, user, userID } = useAppEnv();
+  let history = useHistory();
+  useEffect(() => {
+    if (user === null) {
+      history.push('/');
+    }
+  }, [user, history]);
 
   let dashRef = useRef(null),
     resourceRef = useRef(null),
@@ -230,7 +239,20 @@ function UserSettings() {
       .get('/api/users/' + userID + '/organizations')
       .then((orgs) => setOrgs(orgs));
   }, [api, userID]);
-
+  const breadcrumb_menu = (
+    <Menu>
+      <Menu.Item>
+        <a href="/resources">Resources</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a href="/organizations">Organizations</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a href="/feedback">Suggestions</a>
+      </Menu.Item>
+      <Menu.Item></Menu.Item>
+    </Menu>
+  );
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Row justify="start" align="middle">
@@ -239,7 +261,28 @@ function UserSettings() {
             <img alt="logo" src="/logo.png" width={'160px'} />
           </a>
         </Col>
-        <Col span={17}></Col>
+        <Col span={5}>
+          <Breadcrumb
+            style={{
+              paddingTop: '40px',
+              paddingLeft: '80px',
+            }}
+          >
+            <Breadcrumb.Item>
+              <a href="/" style={{ fontSize: '16px' }}>
+                Home
+              </a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item
+              style={{ fontSize: '16px' }}
+              overlay={breadcrumb_menu}
+            >
+              Account
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Settings</Breadcrumb.Item>
+          </Breadcrumb>
+        </Col>
+        <Col span={12}></Col>
         <Col span={4}>
           <LoginButton />
         </Col>
