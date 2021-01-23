@@ -8,18 +8,30 @@ import {
   Button,
   Typography,
   Input,
+  notification,
 } from '../ant';
 import Footer from '../components/Footer';
 import FormHeader from '../components/FormHeader';
 import MultiSelectField from '../components/FormMultiSelectField';
 import FormField from '../components/FormField';
+import { useAppEnv } from './../env';
 const { TextArea } = Input;
 
 const { Title } = Typography;
 
 export default function Feedback(props) {
-  let onSubmit = async (values) => {};
-  let onFail = (values) => {};
+  let { api } = useAppEnv();
+  let onSubmit = async (values) => {
+    await api.post('/api/feedback/submit', values);
+    notification.info({ message: 'Sent!' });
+  };
+  let onFail = (values) => {
+    for (let err of values.errorFields) {
+      notification.error({
+        message: err.errors[0],
+      });
+    }
+  };
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'scroll' }}>
       <FormHeader />
