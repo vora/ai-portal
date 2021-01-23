@@ -23,20 +23,6 @@ import { useAppEnv } from './../env';
 import ManageResourceModal from './../components/ManageResourceModal';
 
 const { Panel } = Collapse;
-const demoFiles = [
-  {
-    name: 'Resource A',
-    link:
-      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    type: 'URL',
-  },
-  {
-    name: 'Resource B',
-    link:
-      'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-    type: 'URL',
-  },
-];
 
 function FileTable(props) {
   const columns = [
@@ -46,13 +32,8 @@ function FileTable(props) {
       key: 'name',
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
       title: 'Link',
-      dataIndex: 'link',
+      dataIndex: 'url',
       key: 'link',
       render: (text) => <a href={text}>{text}</a>,
     },
@@ -207,7 +188,7 @@ export default function ViewResource() {
               </Collapse>
             </div>
             <div ref={fileRef}>
-              <FileTable data={demoFiles}></FileTable>
+              <FileTable data={resource.files}></FileTable>
             </div>
           </Content>
         </Layout>

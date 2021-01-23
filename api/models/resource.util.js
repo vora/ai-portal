@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Resource = mongoose.model('Resource');
 const Organization = mongoose.model('Organization');
 const Topic = mongoose.model('Topic');
+const File = mongoose.model('File');
+const fileUtil = require('./file.util');
 const queryUtil = require('./query.util');
 
 exports.Resource = Resource;
@@ -20,11 +22,15 @@ exports.search = async (query, fields) => {
     }).select('id');
     fields.organizations = orgs.map((org) => org._id).join(',');
   }
+  if (fields.approved) {
+    fields.reviewsRemaining = [];
+  }
   let result = queryUtil.searchQuery(
     Resource,
     {
       queryFields: ['name', 'desc'],
       anyFields: ['topics', 'organizations', 'type', 'path'],
+      exactFields: ['reviewsRemaining'],
       sorts: { byUploadDateAsc: ['uploadDate', 1], byNameAsc: ['name', 1] },
     },
     query,
@@ -41,6 +47,16 @@ exports.create = async (params) => {
 };
 
 exports.update = async (resource, rawParams) => {
+  if (rawParams.files?.length && typeof rawParams.files[0] === 'object') {
+    rawParams.files = await Promise.all(
+      rawParams.files.map(async (fl) => {
+        if (fl.awsStoragePath) {
+          return await fileUtil.createFromAWSUpload(fl);
+        }
+        return fl;
+      })
+    );
+  }
   let result = await queryUtil.execUpdateQuery(
     Resource,
     {
@@ -54,10 +70,12 @@ exports.update = async (resource, rawParams) => {
         'trustIndexCategories',
         'keywords',
         'creator',
+        'reviewsRemaining',
       ],
       setRefFuncs: {
         topics: exports.setTopics,
         organizations: exports.setOrganizations,
+        files: exports.setFiles,
       },
     },
     resource,
@@ -72,6 +90,12 @@ exports.toJSON = (resource) => {
 
 exports.getById = async (id) => {
   return await populate(Resource.findById(id));
+};
+
+exports.getAllPending = async (id) => {
+  return await populate(
+    Resource.find({ reviewsRemaining: { $exists: true, $not: { $size: 0 } } })
+  );
 };
 
 exports.delete = async (resource) => {
@@ -100,10 +124,21 @@ exports.addOrganization = async (resource, org) => {
   return updatedResource;
 };
 
+exports.setFiles = async (resource, files) => {
+  return await queryUtil.execUpdateSetManyToOne(
+    Resource,
+    'resource',
+    resource,
+    File,
+    'files',
+    files
+  );
+};
+
 exports.setTopics = async (resource, topics) => {
   return await queryUtil.execUpdateSetManyToMany(
     Resource,
-    'resources',
+    null,
     resource,
     Topic,
     'topics',

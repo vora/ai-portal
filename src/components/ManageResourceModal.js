@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button, DatePicker, Form, Input, Modal, Select, Upload } from '../ant';
-import { UploadOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Input, Modal, Select } from '../ant';
 import { useAppEnv } from './../env';
 import moment from 'moment';
+import FileUpload from './FilesUpload';
 export default function ManageResourceModal({
   resource,
   modalVisible,
@@ -27,27 +27,6 @@ export default function ManageResourceModal({
       .then((organizations) => setOrganizations(organizations));
   }, [api]);
 
-  const FILE_UPLOAD_PROPS = {
-    onChange({ file, fileList }) {
-      setEditedResource({ ...editedResource, files: fileList });
-    },
-    defaultFileList: [
-      {
-        uid: 'Testing 1',
-        name: 'xxx.png',
-        status: 'done',
-        response: 'Server Error 500',
-        url: 'http://www.baidu.com/xxx.png',
-      },
-      {
-        uid: 'Testing 2',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'http://www.baidu.com/yyy.png',
-      },
-    ],
-  };
-
   let unsavedEdit = JSON.stringify(resource) !== JSON.stringify(editedResource);
   let saveChanges = () => {
     api
@@ -64,6 +43,7 @@ export default function ManageResourceModal({
         organizations: editedResource.organizations,
         files: editedResource.files,
         creator: editedResource.creator,
+        reviewsRemaining: editedResource.reviewsRemaining,
       })
       .then(() => refresh());
   };
@@ -199,10 +179,12 @@ export default function ManageResourceModal({
             />
           </Form.Item>
           <Form.Item label="Files">
-            <Upload {...FILE_UPLOAD_PROPS}>
-              <Button icon={<UploadOutlined />}>Upload Files</Button>
-            </Upload>
-            ,
+            <FileUpload
+              files={editedResource.files}
+              setFiles={(files) =>
+                setEditedResource({ ...editedResource, files: files })
+              }
+            />
           </Form.Item>
           <Form.Item label="Keywords">
             <Select
@@ -245,6 +227,24 @@ export default function ManageResourceModal({
                 })
               }
             />
+          </Form.Item>
+          <Form.Item label="Remaining Approvals">
+            <Select
+              showSearch
+              defaultValue={editedResource.reviewsRemaining}
+              style={{ width: '100%' }}
+              mode="multiple"
+              onChange={(newReviews) => {
+                setEditedResource({
+                  ...editedResource,
+                  reviewsRemaining: newReviews,
+                });
+              }}
+            >
+              {enums?.REVIEW_TYPES.map((category) => (
+                <Select.Option value={category}>{category}</Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Button
             type="primary"

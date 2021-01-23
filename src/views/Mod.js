@@ -68,7 +68,7 @@ function Mod() {
   }, [user, history]);
   useEffect(() => {
     api.get('/api/users').then(setUsers);
-    api.get('/api/resources?pending=true').then(setPendingResources);
+    api.get('/api/resources/all/pendingReview').then(setPendingResources);
   }, [api]);
   let dashRef = useRef(null);
   let resourceRef = useRef(null);

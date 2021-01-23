@@ -1,9 +1,12 @@
 exports.searchQuery = (
   model,
-  { queryFields, anyFields, sorts },
+  { queryFields, anyFields, exactFields, sorts },
   query,
   fields
 ) => {
+  queryFields = queryFields || [];
+  anyFields = anyFields || [];
+  exactFields = exactFields || [];
   let searchSpecs = [];
   if (query) {
     searchSpecs.push({
@@ -14,11 +17,19 @@ exports.searchQuery = (
   }
   for (let field of anyFields) {
     let val = fields[field];
-    if (!val) {
+    if (typeof val === 'undefined') {
       continue;
     }
-    val = val.trim().split(',');
+    val = typeof val === 'string' ? val.trim().split(',') : val;
     searchSpecs.push({ [field]: { $in: val } });
+  }
+  for (let field of exactFields) {
+    let val = fields[field];
+    if (typeof val === 'undefined') {
+      continue;
+    }
+    val = typeof val === 'string' ? val.trim().split(',') : val;
+    searchSpecs.push({ [field]: val });
   }
   let findOpts = {};
   if (searchSpecs.length > 0) {
@@ -56,9 +67,11 @@ exports.execUpdateQuery = async (
       object = await setRefFuncs[param](object, refObjs);
     }
   }
-  let objUpdated = await model
-    .update({ _id: object._id }, { $set: updateParams }, { new: true })
-    .exec();
+  let objUpdated = await model.updateOne(
+    { _id: object._id },
+    { $set: updateParams },
+    { new: true }
+  );
   return objUpdated;
 };
 
@@ -75,10 +88,12 @@ exports.execUpdateSetManyToMany = async (
     { [primaryKeyOfSecondary]: secondaryObjects },
     { new: true, useFindAndModify: false }
   );
-  await secondaryModel.update(
-    {},
-    { $pull: { [secondaryKeyOfPrimary]: primaryObj._id } }
-  );
+  if (secondaryKeyOfPrimary) {
+    await secondaryModel.updateMany(
+      {},
+      { $pull: { [secondaryKeyOfPrimary]: primaryObj._id } }
+    );
+  }
   await Promise.all(
     secondaryObjects.map((sObj) =>
       secondaryModel.findByIdAndUpdate(
@@ -89,4 +104,31 @@ exports.execUpdateSetManyToMany = async (
     )
   );
   return updatedPrimaryObj;
+};
+
+exports.execUpdateSetManyToOne = async (
+  oneModel,
+  manyKeyOfOne,
+  oneObj,
+  manyModel,
+  oneKeyOfMany,
+  manyObjs
+) => {
+  if (manyKeyOfOne) {
+    await Promise.all(
+      manyObjs.map(async (manyObj) => {
+        await manyModel.updateOne(
+          { _id: manyObj._id },
+          { $set: { [manyKeyOfOne]: oneObj._id } },
+          { new: true }
+        );
+      })
+    );
+  }
+  let updatedOneModel = await oneModel.findByIdAndUpdate(
+    oneObj._id,
+    { $set: { [oneKeyOfMany]: manyObjs.map((fl) => fl._id) } },
+    { new: true, useFindAndModify: false }
+  );
+  return updatedOneModel;
 };

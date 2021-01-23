@@ -34,7 +34,7 @@ export default function ListAndFilterResources({
   useEffect(() => {
     setLoading(true);
     api
-      .get('/api/resources', { query: query, ...filterVals })
+      .get('/api/resources', { query: query, approved: true, ...filterVals })
       .then((resources) => {
         setResources(resources);
         setLoading(false);

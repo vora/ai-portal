@@ -39,7 +39,7 @@ module.exports.ORG_TYPES = [
   'Government',
   'Civil Society',
 ];
-
+module.exports.REVIEW_TYPES = ['mod'];
 module.exports.TRUST_INDEX_CATEGORIES = [
   'Explainability & Interpretability',
   'Data Quality',

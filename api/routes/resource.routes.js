@@ -9,7 +9,17 @@ module.exports = (app) => {
     try {
       await searchUtil.create(JSON.stringify(req.query));
     } catch (e) {}
-    res.json(resources);
+    res.json(resources.map(resourceUtil.toJSON));
+  });
+
+  app.get('/api/resources/:_id', async (req, res) => {
+    let resource = await resourceUtil.getById(req.params);
+    res.json(resourceUtil.toJSON(resource));
+  });
+
+  app.get('/api/resources/all/pendingReview', async (req, res) => {
+    let resources = await resourceUtil.getAllPending();
+    res.json(resources.map(resourceUtil.toJSON));
   });
 
   app.post('/api/resources', async (req, res) => {
@@ -24,11 +34,6 @@ module.exports = (app) => {
   app.put('/api/resources/:_id', async (req, res) => {
     await resourceUtil.update(req.params, req.body);
     res.json({});
-  });
-
-  app.get('/api/resources/:_id', async (req, res) => {
-    let resource = await resourceUtil.getById(req.params);
-    res.json(resourceUtil.toJSON(resource));
   });
 
   app.delete('/api/resources/:_id', async (req, res) => {

@@ -7,6 +7,7 @@ const FileSchema = new Schema({
   name: { type: String, required: true },
   type_ext: { type: String, enum: FILE_EXTS },
   url: { type: String, default: '' },
+  inAWS: { type: Boolean, default: true },
   timeframe: { type: String, default: '' },
   purpose: { type: String, default: '' },
   dataCollectMech: { type: String, default: '' },
@@ -18,10 +19,10 @@ const FileSchema = new Schema({
   modelInputs: { type: String, default: '' },
   modelOutputs: { type: String, default: '' },
   datasetFieldRelationships: { type: String, default: '' },
+  uploadDate: { type: Date, default: Date.now },
   resource: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Resource',
-    default: [],
   },
 });
 
