@@ -9,9 +9,12 @@ import {
   Typography,
   Input,
   notification,
+  Header,
+  Affix,
+  Breadcrumb,
+  Menu,
 } from '../ant';
 import Footer from '../components/Footer';
-import FormHeader from '../components/FormHeader';
 import MultiSelectField from '../components/FormMultiSelectField';
 import FormField from '../components/FormField';
 import { useAppEnv } from './../env';
@@ -32,9 +35,47 @@ export default function Feedback(props) {
       });
     }
   };
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <a href="/resources">Resources</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a href="/organizations">Organizations</a>
+      </Menu.Item>
+      <Menu.Item></Menu.Item>
+    </Menu>
+  );
+
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'scroll' }}>
-      <FormHeader />
+      <Affix offsetTop={0}>
+        <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
+          <a href="/">
+            <img
+              alt="logo"
+              style={{ float: 'left', marginRight: '40px' }}
+              src="/logo.png"
+              width={'160px'}
+            />
+          </a>
+          <Breadcrumb
+            style={{
+              paddingTop: '40px',
+            }}
+          >
+            <Breadcrumb.Item>
+              <a href="/" style={{ fontSize: '16px' }}>
+                Home
+              </a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item style={{ fontSize: '16px' }} overlay={menu}>
+              Suggestions
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Header>
+      </Affix>
       <Content
         style={{
           padding: '0 50px',
@@ -107,7 +148,6 @@ export default function Feedback(props) {
           </Col>
         </Row>
       </Content>
-
       <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
         <Footer />
       </div>

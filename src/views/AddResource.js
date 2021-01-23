@@ -9,9 +9,12 @@ import {
   Row,
   Steps,
   message,
+  Header,
+  Affix,
+  Breadcrumb,
+  Menu,
 } from '../ant';
 import Footer from '../components/Footer';
-import FormHeader from '../components/FormHeader';
 import FormQuestion from '../components/FormQuestion';
 
 import {
@@ -84,6 +87,9 @@ function AddResource() {
     if (current === steps.length - 1) {
       message.success('Form completed!');
       console.log('answers are ', JSON.stringify(form.getFieldValue()));
+      window.gtag('event', 'resource_form_submit', {
+        event_category: 'upload_resource',
+      });
     } else {
       setCurrent(current + 1);
     }
@@ -95,9 +101,54 @@ function AddResource() {
     setCurrent(current - 1);
   };
 
+  const breadcrumb_menu = (
+    <Menu>
+      <Menu.Item>
+        <a href="/resources">Resources</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a href="/organizations">Organizations</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a href="/feedback">Suggestions</a>
+      </Menu.Item>
+      <Menu.Item></Menu.Item>
+    </Menu>
+  );
+
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'scroll' }}>
-      <FormHeader />
+      <Affix offsetTop={0}>
+        <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
+          <a href="/">
+            <img
+              alt="logo"
+              style={{ float: 'left', marginRight: '40px' }}
+              src="/logo.png"
+              width={'160px'}
+            />
+          </a>
+          <Breadcrumb
+            style={{
+              paddingTop: '40px',
+            }}
+          >
+            <Breadcrumb.Item>
+              <a href="/" style={{ fontSize: '16px' }}>
+                Home
+              </a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item overlay={breadcrumb_menu}>
+              <a href="/resources" style={{ fontSize: '16px' }}>
+                Resources
+              </a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item style={{ fontSize: '16px' }}>
+              Create
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Header>
+      </Affix>
       <Content
         style={{
           padding: '0 50px',

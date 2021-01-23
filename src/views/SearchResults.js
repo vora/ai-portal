@@ -28,6 +28,10 @@ export default function SearchResults(props) {
     }
     let url =
       (isResourceView ? '/resources?' : '/organizations?') + segments.join('&');
+    window.gtag('event', 'search_bar_query', {
+      event_label: query,
+      event_category: 'search',
+    });
     history.push(url);
   };
   return (
