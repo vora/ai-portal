@@ -142,3 +142,7 @@ exports.toTokenJSON = (user, accessClient) => {
 exports.toPrivateJSON = (user) => {
   return JSON.parse(JSON.stringify(user));
 };
+
+exports.delete = async (user) => {
+  await User.deleteOne({ _id: user._id });
+};

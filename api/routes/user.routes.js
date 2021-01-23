@@ -89,6 +89,7 @@ module.exports = (app) => {
   });
 
   app.delete('/api/users/:_id', async (req, res) => {
+    await userUtil.delete(await userUtil.getById(req.params));
     return res.json({});
   });
 

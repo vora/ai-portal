@@ -25,7 +25,7 @@ exports.search = async (query, fields) => {
     {
       queryFields: ['name', 'desc'],
       anyFields: ['topics', 'organizations', 'type', 'path'],
-      sorts: { byNameAsc: ['name', 1], byUploadDateAsc: ['uploadDate', 1] },
+      sorts: { byUploadDateAsc: ['uploadDate', 1], byNameAsc: ['name', 1] },
     },
     query,
     fields
@@ -72,6 +72,10 @@ exports.toJSON = (resource) => {
 
 exports.getById = async (id) => {
   return await populate(Resource.findById(id));
+};
+
+exports.delete = async (resource) => {
+  await Resource.deleteOne({ _id: resource._id });
 };
 
 exports.addTopic = async (resource, tag) => {

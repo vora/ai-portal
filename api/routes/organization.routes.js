@@ -33,6 +33,7 @@ module.exports = (app) => {
   });
 
   app.delete('/api/organizations/:_id', async (req, res) => {
+    await organizationUtil.delete(await organizationUtil.getById(req.params));
     return res.json({});
   });
 };

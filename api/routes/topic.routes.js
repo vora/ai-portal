@@ -19,6 +19,7 @@ module.exports = (app) => {
   });
 
   app.delete('/api/topics/:_id', async (req, res) => {
+    await topicUtil.delete(await topicUtil.getById(req.params));
     return res.json({});
   });
 };

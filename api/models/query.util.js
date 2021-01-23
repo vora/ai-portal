@@ -50,8 +50,8 @@ exports.execUpdateQuery = async (
   for (let param in setRefFuncs) {
     if (param in params) {
       let refObjs = params[param];
-      if (refObjs.length > 0 && typeof refObjs[0] === 'string') {
-        refObjs = refObjs.map((refId) => ({ _id: refId }));
+      if (typeof refObjs === 'string') {
+        refObjs = refObjs.split(',').map((refId) => ({ _id: refId }));
       }
       object = await setRefFuncs[param](object, refObjs);
     }

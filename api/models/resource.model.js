@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const topic = require('./topic.model');
-const file = require('./file.model');
 const { RESOURCE_TYPES, RESOURCE_PATHS } = require('./enums');
 
 const Schema = mongoose.Schema;

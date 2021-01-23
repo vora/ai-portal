@@ -40,12 +40,29 @@ exports.getById = async (id) => {
   return await Organization.findById(id);
 };
 
-exports.update = async (organization, params) => {
-  let { _id, __v, ...cleanParams } = params;
-  return await Organization.update(
-    { _id: organization._id },
-    { $set: cleanParams }
-  ).exec();
+exports.update = async (organization, rawParams) => {
+  let result = await queryUtil.execUpdateQuery(
+    Organization,
+    {
+      setParams: [
+        'name',
+        'shortName',
+        'country',
+        'city',
+        'logoURL',
+        'websiteURL',
+        'type',
+      ],
+      setRefFuncs: {},
+    },
+    organization,
+    rawParams
+  );
+  return result;
+};
+
+exports.delete = async (org) => {
+  await Organization.deleteOne({ _id: org._id });
 };
 
 exports.getResources = async (org) => {
