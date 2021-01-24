@@ -19,6 +19,7 @@ import {
   AreaChartOutlined,
   TeamOutlined,
   FileProtectOutlined,
+  OrderedListOutlined,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
@@ -150,10 +151,71 @@ function ManageUsersTable({ users }) {
   );
 }
 
+function ManageTopicsTable({ topics }) {
+  // let { api } = useAppEnv;
+  // let [manageTopic, setManageTopic] = useState([]);
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'Name',
+      key: 'Name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Description',
+      dataIndex: 'desc',
+      key: 'desc',
+      sorter: (a, b) => a.desc.localeCompare(b.desc),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Manage',
+      key: 'action',
+      render: (text, topic) => <Button onClick={() => {}}>Remove</Button>,
+    },
+  ];
+  return (
+    <Card id="users">
+      <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
+        Manage Topics &nbsp;
+        <Tooltip
+          title={
+            <p style={{ textAlign: 'center', marginBottom: '0' }}>
+              List of active topics that can be removed
+            </p>
+          }
+          placement="right"
+        >
+          <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
+        </Tooltip>
+      </h1>
+      <Tooltip title="Search for a user" placement="right">
+        <Search
+          style={{ width: '50%', marginBottom: '20px' }}
+          placeholder="Law Enforcement"
+          enterButton
+          onSearch={console.log}
+        />
+      </Tooltip>
+      <Table
+        columns={columns}
+        dataSource={topics}
+        onChange={console.log}
+        pagination={{ pageSize: 10 }}
+        scroll={{ y: 240 }}
+      />
+      <Button href="/topics/create">Add a new Topic</Button>
+    </Card>
+  );
+}
+
 function Admin() {
   let { api, user } = useAppEnv();
   let [users, setUsers] = useState([]);
   let [pendingResources, setPendingResources] = useState([]);
+  let [topics, setTopics] = useState([]);
+
   let history = useHistory();
   useEffect(() => {
     if (user === null || (user && user.role !== 'admin')) {
@@ -163,12 +225,14 @@ function Admin() {
 
   useEffect(() => {
     api.get('/api/users').then(setUsers);
+    api.get('/api/topics').then(setTopics);
     api.get('/api/resources/all/pendingReview').then(setPendingResources);
   }, [api]);
 
   let dashRef = useRef(null),
     resourceRef = useRef(null),
-    userRef = useRef(null);
+    userRef = useRef(null),
+    topicRef = useRef(null);
 
   const breadcrumb_menu = (
     <Menu>
@@ -220,13 +284,19 @@ function Admin() {
       </Row>
       <Layout>
         <Sidebar
-          headings={['Overview', 'Pending Resources', 'Manage Users']}
+          headings={[
+            'Overview',
+            'Pending Resources',
+            'Manage Users',
+            'Manage Topics',
+          ]}
           icons={[
             <AreaChartOutlined />,
             <FileProtectOutlined />,
             <TeamOutlined />,
+            <OrderedListOutlined />,
           ]}
-          refs={[dashRef, resourceRef, userRef]}
+          refs={[dashRef, resourceRef, userRef, topicRef]}
         />
         <Content
           style={{
@@ -248,6 +318,9 @@ function Admin() {
             />
           </div>
           <div ref={userRef}>{users && <ManageUsersTable users={users} />}</div>
+          <div ref={topicRef}>
+            <ManageTopicsTable topics={topics} />
+          </div>
         </Content>
       </Layout>
       <Footer />

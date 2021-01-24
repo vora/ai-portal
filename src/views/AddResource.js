@@ -11,11 +11,13 @@ import {
   message,
   Header,
   Affix,
-  Breadcrumb,
+  Search,
   Menu,
 } from '../ant';
 import Footer from '../components/Footer';
 import FormQuestion from '../components/FormQuestion';
+import LoginButton from '../components/LoginButton';
+import { useHistory } from 'react-router';
 
 import {
   QUESTIONS_CORE1,
@@ -101,23 +103,20 @@ function AddResource() {
     setCurrent(current - 1);
   };
 
-  const breadcrumb_menu = (
-    <Menu>
-      <Menu.Item>
-        <a href="/resources">Resources</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="/organizations">Organizations</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="/feedback">Suggestions</a>
-      </Menu.Item>
-      <Menu.Item></Menu.Item>
-    </Menu>
-  );
+  let history = useHistory();
+  let updateSearch = (query) => {
+    let segments = [];
+    segments.push('q=' + (query || ''));
+    let url = '/resources?' + segments.join('&');
+    window.gtag('event', 'search_bar_query', {
+      event_label: query,
+      event_category: 'search',
+    });
+    history.push(url);
+  };
 
   return (
-    <Layout style={{ height: `${window.innerHeight}px`, overflow: 'scroll' }}>
+    <Layout>
       <Affix offsetTop={0}>
         <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
           <a href="/">
@@ -128,25 +127,44 @@ function AddResource() {
               width={'160px'}
             />
           </a>
-          <Breadcrumb
-            style={{
-              paddingTop: '40px',
-            }}
-          >
-            <Breadcrumb.Item>
-              <a href="/" style={{ fontSize: '16px' }}>
-                Home
-              </a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item overlay={breadcrumb_menu}>
-              <a href="/resources" style={{ fontSize: '16px' }}>
-                Resources
-              </a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item style={{ fontSize: '16px' }}>
-              Create
-            </Breadcrumb.Item>
-          </Breadcrumb>
+          <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
+            <Menu.Item key="s" disabled>
+              <Search
+                className="menu-search"
+                style={{ marginTop: '20px' }}
+                placeholder={'Search for resources'}
+                enterButton
+                onSearch={(q) => updateSearch(q)}
+              />
+            </Menu.Item>
+            <Menu.Item
+              key="resources"
+              onClick={() => history.push('/resources')}
+            >
+              Resources
+            </Menu.Item>
+            <Menu.Item
+              key="organizations"
+              onClick={() => history.push('/organizations')}
+            >
+              Organizations
+            </Menu.Item>
+            <Menu.Item
+              key="upload"
+              onClick={() => history.push('/resources/create')}
+            >
+              Upload
+            </Menu.Item>
+            <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
+              Feedback
+            </Menu.Item>
+            <Menu.Item key="faq" onClick={() => history.push('/faq')}>
+              FAQ
+            </Menu.Item>
+          </Menu>
+          <div style={{ position: 'absolute', top: '0px', right: '20px' }}>
+            <LoginButton />
+          </div>
         </Header>
       </Affix>
       <Content

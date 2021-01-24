@@ -13,6 +13,7 @@ import {
 import Footer from '../components/Footer';
 import { useHistory } from 'react-router';
 import { useAppEnv } from './../env';
+import FormHeader from '../components/FormHeader';
 const { Title, Paragraph, Text } = Typography;
 
 export default function Register() {
@@ -49,14 +50,7 @@ export default function Register() {
   };
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
-      <a href="/">
-        <img
-          alt="logo"
-          style={{ float: 'left', marginRight: '40px' }}
-          src="/logo.png"
-          width={'160px'}
-        />
-      </a>
+      <FormHeader />
       <Content
         style={{
           padding: '0 50px',

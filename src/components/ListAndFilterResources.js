@@ -50,8 +50,6 @@ export default function ListAndFilterResources({
           <Menu
             mode="inline"
             theme="light"
-            defaultSelectedKeys={['topics']}
-            defaultOpenKeys={['topics', 'groups']}
             style={{ height: '100%', borderRight: 0 }}
           >
             <Menu.Item style={{ marginTop: '10px' }}>

@@ -16,6 +16,7 @@ import Footer from '../components/Footer';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
 import { queryParamsFromProps } from '../util';
+import FormHeader from '../components/FormHeader';
 
 const { Title } = Typography;
 
@@ -46,14 +47,7 @@ export default function Login(props) {
     : '/resources';
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
-      <a href="/">
-        <img
-          alt="logo"
-          style={{ float: 'left', marginRight: '40px' }}
-          src="/logo.png"
-          width={'160px'}
-        />
-      </a>
+      <FormHeader />
       <Content
         style={{
           padding: '0 50px',

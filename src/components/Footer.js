@@ -6,7 +6,7 @@ function Footer() {
     <AntFooter
       style={{ textAlign: 'center', backgroundColor: '#fff', width: '100%' }}
     >
-      &copy; AI Global 2020
+      &copy; AI Global 2021
     </AntFooter>
   );
 }
