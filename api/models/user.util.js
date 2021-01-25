@@ -3,7 +3,7 @@ const User = mongoose.model('User');
 const Organization = mongoose.model('Organization');
 const crypto = require('crypto');
 const _email = require('../lib/email');
-const queryUtil = require('./query.util');
+const querys = require('../lib/querys');
 
 exports.User = User;
 
@@ -60,7 +60,7 @@ exports.get = async (where) => {
 };
 
 exports.update = async (user, rawParams) => {
-  let result = await queryUtil.execUpdateQuery(
+  let result = await querys.execUpdateQuery(
     User,
     {
       setParams: ['name', 'username', 'email', 'role'],
@@ -73,7 +73,7 @@ exports.update = async (user, rawParams) => {
 };
 
 exports.setOrganizations = async (user, orgs) => {
-  return await queryUtil.execUpdateSetManyToMany(
+  return await querys.execUpdateSetManyToMany(
     User,
     'users',
     user,

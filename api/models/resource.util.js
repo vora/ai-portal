@@ -4,7 +4,7 @@ const Organization = mongoose.model('Organization');
 const Topic = mongoose.model('Topic');
 const File = mongoose.model('File');
 const fileUtil = require('./file.util');
-const queryUtil = require('./query.util');
+const querys = require('../lib/querys');
 
 exports.Resource = Resource;
 
@@ -25,7 +25,7 @@ exports.search = async (query, fields) => {
   if (fields.approved) {
     fields.reviewsRemaining = [];
   }
-  let result = queryUtil.searchQuery(
+  let result = querys.searchQuery(
     Resource,
     {
       queryFields: ['name', 'desc'],
@@ -57,7 +57,7 @@ exports.update = async (resource, rawParams) => {
       })
     );
   }
-  let result = await queryUtil.execUpdateQuery(
+  let result = await querys.execUpdateQuery(
     Resource,
     {
       setParams: [
@@ -125,7 +125,7 @@ exports.addOrganization = async (resource, org) => {
 };
 
 exports.setFiles = async (resource, files) => {
-  return await queryUtil.execUpdateSetManyToOne(
+  return await querys.execUpdateSetManyToOne(
     Resource,
     'resource',
     resource,
@@ -136,7 +136,7 @@ exports.setFiles = async (resource, files) => {
 };
 
 exports.setTopics = async (resource, topics) => {
-  return await queryUtil.execUpdateSetManyToMany(
+  return await querys.execUpdateSetManyToMany(
     Resource,
     null,
     resource,
@@ -147,7 +147,7 @@ exports.setTopics = async (resource, topics) => {
 };
 
 exports.setOrganizations = async (resource, orgs) => {
-  return await queryUtil.execUpdateSetManyToMany(
+  return await querys.execUpdateSetManyToMany(
     Resource,
     'resources',
     resource,

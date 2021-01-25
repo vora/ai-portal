@@ -64,10 +64,10 @@ app.use((req, res, next) => {
     return jwt.verify(token, secret);
   };
   req.getUser = async () => {
-    if (req.user) {
-      return await userUtil.get({ _id: req.user._id });
+    if (!req.userObj && req.user) {
+      req.userObj = await userUtil.get({ _id: req.user._id });
     }
-    return null;
+    return req.userObj || null;
   };
   let fetchOrigin = req.headers.origin;
   // TODO: validate fetchOrigin
@@ -81,8 +81,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', express.static(path.join(__dirname, 'build')));
-
 app.use(express.json());
+
 require('./api/routes/index')(app);
 
 let runServer = () => {

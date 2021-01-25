@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Organization = mongoose.model('Organization');
-const queryUtil = require('./query.util');
+const querys = require('../lib/querys');
 
 exports.Organization = Organization;
 
 exports.search = async (query, fields) => {
-  let result = queryUtil.searchQuery(
+  let result = querys.searchQuery(
     Organization,
     {
       queryFields: ['name', 'desc', 'url'],
@@ -41,7 +41,7 @@ exports.getById = async (id) => {
 };
 
 exports.update = async (organization, rawParams) => {
-  let result = await queryUtil.execUpdateQuery(
+  let result = await querys.execUpdateQuery(
     Organization,
     {
       setParams: [

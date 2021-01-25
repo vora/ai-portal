@@ -232,12 +232,14 @@ function UserSettings() {
   let [orgs, setOrgs] = useState([]);
 
   useEffect(() => {
-    api
-      .get('/api/users/' + userID + '/resources')
-      .then((resources) => setResources(resources));
-    api
-      .get('/api/users/' + userID + '/organizations')
-      .then((orgs) => setOrgs(orgs));
+    if (userID) {
+      api
+        .get('/api/users/' + userID + '/resources')
+        .then((resources) => setResources(resources));
+      api
+        .get('/api/users/' + userID + '/organizations')
+        .then((orgs) => setOrgs(orgs));
+    }
   }, [api, userID]);
   const breadcrumb_menu = (
     <Menu>

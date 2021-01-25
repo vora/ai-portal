@@ -2,38 +2,71 @@ const organizationUtil = require('../models/organization.util');
 const resourceUtil = require('../models/resource.util');
 
 module.exports = (app) => {
-  app.get('/api/organizations', async (req, res) => {
-    let { query, ...filters } = req.query;
-    let orgs = await organizationUtil.search(query, filters);
-    res.json(orgs.map((o) => organizationUtil.toJSON(o)));
-  });
+  const firewall = require('../lib/firewall')(app);
 
-  app.get('/api/organizations/:_id', async (req, res) => {
-    let org = await organizationUtil.getById(req.params);
-    res.json(organizationUtil.toJSON(org));
-  });
+  firewall.get(
+    '/api/organizations',
+    async (req, res) => {
+      let { query, ...filters } = req.query;
+      let orgs = await organizationUtil.search(query, filters);
+      res.json(orgs.map((o) => organizationUtil.toJSON(o)));
+    },
+    { public: ['query', 'type'] }
+  );
 
-  app.put('/api/organizations/:_id', async (req, res) => {
-    await organizationUtil.update(req.params, req.body);
-    res.json({});
-  });
+  firewall.get(
+    '/api/organizations/:_id',
+    async (req, res) => {
+      let org = await organizationUtil.getById(req.params);
+      res.json(organizationUtil.toJSON(org));
+    },
+    { public: ['_id'] }
+  );
 
-  app.get('/api/organizations/:_id/resources', async (req, res) => {
-    let resources = await organizationUtil.getResources(req.params);
-    res.json(resources.map((r) => resourceUtil.toJSON(r)));
-  });
+  firewall.put(
+    '/api/organizations/:_id',
+    async (req, res) => {
+      await organizationUtil.update(req.params, req.body);
+      res.json({});
+    },
+    { owner: ['_id', 'fillme'], mod: ['_id', 'fillme'] },
+    userPartOfOrg
+  );
 
-  app.post('/api/organizations', async (req, res) => {
-    try {
-      let newOrganization = await organizationUtil.create(req.body);
-      return res.json(organizationUtil.toJSON(newOrganization));
-    } catch (err) {
-      res.json({ errors: [{ msg: '' + err }] });
-    }
-  });
+  firewall.get(
+    '/api/organizations/:_id/resources',
+    async (req, res) => {
+      let resources = await organizationUtil.getResources(req.params);
+      res.json(resources.map((r) => resourceUtil.toJSON(r)));
+    },
+    { public: ['_id'] }
+  );
 
-  app.delete('/api/organizations/:_id', async (req, res) => {
-    await organizationUtil.delete(await organizationUtil.getById(req.params));
-    return res.json({});
-  });
+  firewall.post(
+    '/api/organizations',
+    async (req, res) => {
+      try {
+        let newOrganization = await organizationUtil.create(req.body);
+        return res.json(organizationUtil.toJSON(newOrganization));
+      } catch (err) {
+        res.json({ errors: [{ msg: '' + err }] });
+      }
+    },
+    { mod: ['fillme'] }
+  );
+
+  firewall.delete(
+    '/api/organizations/:_id',
+    async (req, res) => {
+      await organizationUtil.delete(await organizationUtil.getById(req.params));
+      return res.json({});
+    },
+    { mod: ['_id'], owner: ['_id'] },
+    userPartOfOrg
+  );
+};
+
+let userPartOfOrg = async (user, fields) => {
+  console.log('WARNING: TODO userPartOfOrg(...)');
+  return true;
 };
