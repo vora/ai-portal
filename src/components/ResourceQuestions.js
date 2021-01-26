@@ -3,26 +3,17 @@ export const EXAMPLE = {
   name: 'Where in the Word is AI? Map',
   desc:
     'An interactive web visualization and dataset with 300+ helpful and harmful AI cases worldwide',
-  formats: ['Education Tool', 'Dataset'],
-  topics: [
-    'Banking',
-    'Health',
-    'Insurance',
-    'Labor',
-    'Retail',
-    'Education',
-    'Law Enforcement',
-    'Media',
-  ],
-  organization: ['AI Global'],
-  org_types: ['Civil Society'],
-  trust_index: ['Explainbility & Interpretability'],
-  paths: ['Policymaker Path', 'Risk Manager Path', 'Explorer Path'],
-  ai_system_type: 'OECD',
+  formats: 'Education Tool, Dataset',
+  topics: [],
+  organization: [],
+  org_types: 'Civil Society',
+  trust_index: 'Explainbility & Interpretability',
+  paths: 'Policymaker Path, Risk Manager Path, Explorer Path',
+  ai_system_type: 'Other',
   url: 'https://map.ai-global.org/',
   creation_date: '03/01/2020',
   modified_data: '11/15/2020',
-  keywords: ['Data Visualization', 'Helpful AI', 'Harmful AI'],
+  keywords: 'Data Visualization, Helpful AI, Harmful AI',
   version: 2.0,
   update_frequency: 'Weekly',
   license: 'Creative Commons (CC BY 4.0)',
@@ -101,243 +92,268 @@ export const EXAMPLE = {
   removalRequest: 'Not applicable because no personal information is used',
 };
 
-export const QUESTIONS_CORE1 = [
-  {
-    string: 'Do you own this resource (Yes/No)?',
-    val: 'isOwner',
-    type: 'select',
-    options: ['Yes', 'No'],
-    required: true,
-    tip: '',
-    example_ans: '',
-  },
-  {
-    string: 'Resource Title',
-    val: 'name',
-    type: 'type',
-    options: null,
-    required: true,
-    tips: '',
-    example_ans: EXAMPLE.name,
-  },
-  {
-    string: 'Resource Description',
-    val: 'desc',
-    type: 'text-area',
-    options: null,
-    required: true,
-    tip: 'A short summary sentence of the resource',
-    example_ans: EXAMPLE.desc,
-  },
-  {
-    string: 'Format(s)',
-    val: 'formats',
-    type: 'multiple',
-    options: [
-      'Algorithm',
-      'API',
-      'Assessment',
-      'Benchmark',
-      'Datasets',
-      'Design Tool',
-      'Education Tool',
-      'Framework',
-      'Inspection',
-      'Library',
-      'Machine Learning Tool',
-      'Podcast',
-      'Principles',
-      'Research',
-      'Software',
-      'Strategy & Implementation',
-      'Toolkit',
-      'Vision Tool',
-      'Working Groups',
-      'Workshops',
-      'Other',
-    ],
-    required: true,
-    tip:
-      'Select any tags that are relevant. If we are missing a tag, please let us know.',
-    example_ans: EXAMPLE.formats,
-  },
-  {
-    string: 'Topic of Resource (Ex: Health Services, Law Enforcement)',
-    val: 'topics',
-    type: 'multiple',
-    options: [
-      'Banking',
-      'Health',
-      'Insurance',
-      'Labor',
-      'Retail',
-      'Education',
-      'Law Enforcement',
-      'Media',
-      'Other',
-    ],
-    required: true,
-    tip: 'Select any topics that are relevant',
-    example_ans: EXAMPLE.topics,
-  },
-  {
-    string: 'Which organization(s) is the resource from?',
-    val: 'organizations',
-    type: 'tags',
-    options: ['Org A', 'Org B', 'Org C'],
-    required: true,
-    tip: 'Please avoid any abbreviations or acronyms',
-    example_ans: EXAMPLE.organization,
-  },
-  {
-    string: 'What type(s) of organization(s) (Ex: Industry, Academia)',
-    val: 'org_types',
-    type: 'multiple',
-    options: [
-      'Industry',
-      'Academia',
-      'Government',
-      'Civil Society',
-      'International Organization',
-      'Other',
-    ],
-    required: true,
-    tip:
-      'If you are unsure of what the organization type is, select civil society',
-    example_ans: EXAMPLE.org_types,
-  },
-  {
-    string: 'Responsible AI Trust Index',
-    val: 'trust-index',
-    type: 'multiple',
-    options: [
-      'Explainability & Interpretability',
-      'Data Quality',
-      'Bias & Fairness',
-      'Accountability',
-      'Robustness',
-      'Other',
-    ],
-    required: true,
-    tip: (
-      <t>
-        Learn more about our Trust Index Values
-        <a href="https://ai-global.org/2020/04/28/creating-a-responsible-ai-trust-index-a-unified-assessment-to-assure-the-responsible-design-development-and-deployment-of-ai/">
-          {' '}
-          here
-        </a>
-      </t>
-    ),
-    example_ans: EXAMPLE.trust_index,
-  },
-  {
-    string: 'Who is your resource intended for?',
-    val: 'paths',
-    type: 'multiple',
-    options: [
-      'Designer Path',
-      'Developer Path',
-      'Policymaker Path',
-      'Risk Manager Path',
-      'Explorer Path',
-      'Other',
-    ],
-    required: true,
-    tip: '',
-    example_ans: EXAMPLE.paths,
-  },
-  {
-    string: 'Which AI System type does the resource align with?',
-    val: 'ai-system-type',
-    type: 'multiple',
-    options: [
-      'Intelligent Process Automation',
-      'Image and Object Recognition',
-      'Text and Speech Analysis',
-      'Advanced Data Analytics',
-      'NLP/ Content Generation',
-      'Other',
-    ],
-    required: true,
-    tip: 'AI System type values are defined by OECD.',
-    example_ans: EXAMPLE.ai_system_type,
-  },
-  {
-    //TODO: make new question type for this one
-    string: 'Where can we access the resource?',
-    val: 'resources',
-    type: 'type',
-    options: null,
-    required: true,
-    tip: 'Please add a url or upload any files via Google Drive url.',
-    example_ans: EXAMPLE.url,
-  },
-  {
-    string: 'When was the resource created?',
-    val: 'creationDate',
-    type: 'date',
-    options: null,
-    required: true,
-    tip: '',
-    example_ans: '',
-  },
-  {
-    string: 'If applicable, when was the resource modified?',
-    val: 'modifiedDate',
-    type: 'date',
-    options: null,
-    required: false,
-    tip: 'If resource was not modified, enter resource created',
-    example_ans: '',
-  },
-  {
-    string: 'What version is the resource?',
-    val: 'version',
-    type: 'type',
-    options: null,
-    required: false,
-    tip: 'Please list any version numbers of indicators',
-    example_ans: EXAMPLE.version,
-  },
-  {
-    string: 'How often is this resource updated?',
-    val: 'updateFrequency',
-    type: 'select',
-    options: ['Weekly', 'Monthly', 'Annually'],
-    required: false,
-    tip: 'Maintenance/Update Frequency',
-    example_ans: EXAMPLE.update_frequency,
-  },
-  {
-    string: 'If applicable, are there any licenses to this resource?',
-    val: 'licenseName',
-    type: 'type',
-    options: null,
-    required: false,
-    tip: 'List any licenses or acknowledgements to the resource',
-    example_ans: EXAMPLE.license,
-  },
-  {
-    string: 'Select up to 5 keywords for the resource',
-    val: 'keywords',
-    type: 'tags',
-    options: [],
-    required: true,
-    tip: '',
-    example_ans: EXAMPLE.keywords,
-  },
+export function getQuestionsCore1(topics, orgs) {
+  return [
+    {
+      string: 'Do you own this resource (Yes/No)?',
+      val: 'isOwner',
+      type: 'select',
+      options: [
+        { name: true, label: 'Yes' },
+        { name: false, label: 'No' },
+      ],
+      required: true,
+      tip: '',
+      example_ans: '',
+    },
+    {
+      string: 'Resource Title',
+      val: 'name',
+      type: 'type',
+      options: null,
+      required: true,
+      tips: '',
+      example_ans: EXAMPLE.name,
+    },
+    {
+      string: 'Resource Description',
+      val: 'desc',
+      type: 'text-area',
+      options: null,
+      required: true,
+      tip: 'A short summary sentence of the resource',
+      example_ans: EXAMPLE.desc,
+    },
+    {
+      string: 'Format(s)',
+      val: 'formats',
+      type: 'multiple',
+      options: [
+        { name: 'Algorithm', label: 'Algorithm' },
+        { name: 'API', label: 'API' },
+        { name: 'Assessment', label: 'Assessment' },
+        { name: 'Benchmark', label: 'Benchmark' },
+        { name: 'Best Practices', label: 'Best Practices' },
+        { name: 'Dataset', label: 'Dataset' },
+        { name: 'Design Tool', label: 'Design Tool' },
+        { name: 'Education Tool', label: 'Education Tool' },
+        { name: 'Framework', label: 'Framework' },
+        { name: 'Governance Process', label: 'Governance Process' },
+        { name: 'Inspection', label: 'Inspection' },
+        { name: 'Library', label: 'Library' },
+        { name: 'Model', label: 'Model' },
+        { name: 'Podcast', label: 'Podcast' },
+        { name: 'Principles', label: 'Principle' },
+        { name: 'Regulations and Laws', label: 'Regulations and Laws' },
+        { name: 'Research', label: 'Principle' },
+        { name: 'Software', label: 'Software' },
+        { name: 'Standards', label: 'Standards' },
+        {
+          name: 'Strategy & Implementation',
+          label: 'Strategy & Implementation',
+        },
 
-  // {
-  //   string: ,
-  //   val: ,
-  //   type: ,
-  //   options: ,
-  //   required: ,
-  //   tip: ,
-  //   example_ans:
-  // }
-];
+        { name: 'Toolkit', label: 'Toolkit' },
+        { name: 'Vision Tool', label: 'Vision Tool' },
+        { name: 'Working Groups', label: 'Working Groups' },
+        { name: 'Workshop', label: 'Workshop' },
+        { name: 'Other', label: 'Other' },
+      ],
 
+      required: true,
+      tip:
+        'Select any tags that are relevant. If we are missing a tag, please let us know.',
+      example_ans: EXAMPLE.formats,
+    },
+    {
+      string: 'Topic of Resource (Ex: Health Services, Law Enforcement)',
+      val: 'topics',
+      type: 'multiple',
+      options: topics.map((topic) => {
+        return { name: topic._id, label: topic.name };
+      }),
+      required: true,
+      tip: 'Select any topics that are relevant',
+      example_ans: EXAMPLE.topics,
+    },
+    {
+      string: (
+        <t>
+          Which organization(s) is the resource from? If organization is not
+          listed, please fill out this <a href="/feedback">Suggestions form</a>{' '}
+          and our admins can add it.
+        </t>
+      ),
+      val: 'organizations',
+      type: 'multiple',
+      options: orgs.map((org) => {
+        return { name: org._id, label: org.name };
+      }),
+      required: true,
+      tip: 'Please avoid any abbreviations or acronyms',
+      example_ans: EXAMPLE.organization,
+    },
+    {
+      string: 'What type(s) of organization(s) (Ex: Industry, Academia)',
+      val: 'org_types',
+      type: 'multiple',
+      options: [
+        { name: 'Industry', label: 'Industry' },
+        { name: 'Academia', label: 'Academia' },
+        { name: 'Government', label: 'Government' },
+        { name: 'Civil Society', label: 'Civil Society' },
+        {
+          name: 'International Organization',
+          label: 'International Organization',
+        },
+        { name: 'Other', label: 'Other' },
+      ],
+
+      required: true,
+      tip:
+        'If you are unsure of what the organization type is, select civil society',
+      example_ans: EXAMPLE.org_types,
+    },
+    {
+      string: 'Responsible AI Trust Index',
+      val: 'trust-index',
+      type: 'multiple',
+      options: [
+        {
+          name: 'Explainability & Interpretability',
+          label: 'Explainability & Interpretability',
+        },
+        { name: 'Data Quality', label: 'Data Quality' },
+        { name: 'Bias & Fairness', label: 'Bias & Fairness' },
+        { name: 'Accountability', label: 'Accountability' },
+        { name: 'Robustness', label: 'Robustness' },
+        { name: 'Other', label: 'Other' },
+      ],
+      required: true,
+      tip: (
+        <t>
+          Learn more about our Trust Index Values
+          <a href="https://ai-global.org/2020/04/28/creating-a-responsible-ai-trust-index-a-unified-assessment-to-assure-the-responsible-design-development-and-deployment-of-ai/">
+            {' '}
+            here
+          </a>
+        </t>
+      ),
+      example_ans: EXAMPLE.trust_index,
+    },
+    {
+      string: 'Who is your resource intended for?',
+      val: 'paths',
+      type: 'multiple',
+      options: [
+        { name: 'Designer Path', label: 'Designer Path' },
+        {
+          name: 'Developer Path',
+          label: 'Developer Path',
+        },
+        { name: 'Policymaker Path', label: 'Policymaker Path' },
+        { name: 'Risk Manager Path', label: 'Risk Manager Path' },
+        { name: 'Explorer Path', label: 'Explorer Path' },
+        { name: 'Other', label: 'Other' },
+      ],
+      required: true,
+      tip: '',
+      example_ans: EXAMPLE.paths,
+    },
+    {
+      string: 'Which AI System type does the resource align with?',
+      val: 'ai-system-type',
+      type: 'multiple',
+      options: [
+        {
+          name: 'Intelligent Process Automation',
+          label: 'Intelligent Process Automation',
+        },
+        {
+          name: 'Image and Object Recognition',
+          label: 'Image and Object Recognition',
+        },
+        {
+          name: 'Text and Speech Analysis',
+          label: 'Text and Speech Analysis',
+        },
+        { name: 'Advanced Data Analytics', label: 'Advanced Data Analytics' },
+        { name: 'NLP/Content Generation', label: 'NLP/Content Generation' },
+        { name: 'Other', label: 'Other' },
+      ],
+      required: true,
+      tip: 'AI System type values are defined by OECD.',
+      example_ans: EXAMPLE.ai_system_type,
+    },
+    {
+      string: 'Where can we access the resource?',
+      val: 'resources',
+      type: 'type',
+      options: null,
+      required: true,
+      tip: 'Please add a url or upload any files via Google Drive url.',
+      example_ans: EXAMPLE.url,
+    },
+    {
+      string: 'When was the resource created?',
+      val: 'creationDate',
+      type: 'date',
+      options: null,
+      required: true,
+      tip: '',
+      example_ans: '',
+    },
+    {
+      string: 'If applicable, when was the resource modified?',
+      val: 'modifiedDate',
+      type: 'date',
+      options: null,
+      required: false,
+      tip: 'If resource was not modified, enter resource created',
+      example_ans: '',
+    },
+    {
+      string: 'What version is the resource?',
+      val: 'version',
+      type: 'type',
+      options: null,
+      required: false,
+      tip: 'Please list any version numbers of indicators',
+      example_ans: EXAMPLE.version,
+    },
+    {
+      string: 'How often is this resource updated?',
+      val: 'updateFrequency',
+      type: 'select',
+      options: [
+        { name: 'Weekly', label: 'Weekly' },
+        { name: 'Monthly', label: 'Monthly' },
+        { name: 'Annually', label: 'Annually' },
+      ],
+      required: false,
+      tip: 'Maintenance/Update Frequency',
+      example_ans: EXAMPLE.update_frequency,
+    },
+    {
+      string: 'If applicable, are there any licenses to this resource?',
+      val: 'licenseName',
+      type: 'type',
+      options: null,
+      required: false,
+      tip: 'List any licenses or acknowledgements to the resource',
+      example_ans: EXAMPLE.license,
+    },
+    {
+      string: 'Select up to 5 keywords for the resource',
+      val: 'keywords',
+      type: 'tags',
+      options: [],
+      required: true,
+      tip: '',
+      example_ans: EXAMPLE.keywords,
+    },
+  ];
+}
 export const QUESTIONS_CORE2 = [
   {
     string: 'What is the purpose of the resource?',
@@ -350,7 +366,7 @@ export const QUESTIONS_CORE2 = [
   },
   {
     string: 'What should this resource not be used for?',
-    val: 'unrelated-tasks',
+    val: 'unrelatedTasks',
     type: 'text-area',
     options: null,
     required: false,
@@ -443,15 +459,7 @@ export const QUESTIONS_CORE2 = [
     example_ans: EXAMPLE.removalRequest,
   },
 ];
-// {
-//   string: ,
-//   val: ,
-//   type: ,
-//   options: ,
-//   required: ,
-//   tip: ,
-//   example_ans:
-// }
+
 export const QUESTIONS_DATASET = [
   {
     string: 'If applicable, upload data dictionary',
@@ -537,7 +545,10 @@ export const QUESTIONS_DATASET = [
       'Is it possible to identify individuals (i.e., one or more natural persons), either directly or indirectly (i.e., in combination with other data) from the dataset?',
     val: 'individualsIdentified',
     type: 'select',
-    options: ['Yes', 'No'],
+    options: [
+      { name: true, label: 'Yes' },
+      { name: false, label: 'No' },
+    ],
     required: false,
     tip: null,
     example_ans: EXAMPLE.individualsIdentified,
@@ -547,7 +558,10 @@ export const QUESTIONS_DATASET = [
       'Does the dataset contain data that might be considered confidential (e.g., data that is protected by legal privilege or by doctor patient confidentiality, data that includes the content of individuals’ non-public communications)?',
     val: 'isConfidential',
     type: 'select',
-    options: ['Yes', 'No'],
+    options: [
+      { name: true, label: 'Yes' },
+      { name: false, label: 'No' },
+    ],
     required: false,
     tip: null,
     example_ans: EXAMPLE.isConfidential,
@@ -568,7 +582,10 @@ export const QUESTIONS_DATASET = [
       "If individuals' data is included in this dataset, was this data altered to ensure higher levels of privacy?",
     val: 'personalInfoRemoved',
     type: 'select',
-    options: ['Yes', 'No'],
+    options: [
+      { name: 'Yes', label: 'Yes' },
+      { name: 'No', label: 'No' },
+    ],
     required: false,
     tip: 'Data altered to ensure higher levels of privacy',
     example_ans: EXAMPLE.personalInfoRemoved,
@@ -645,7 +662,7 @@ export const QUESTIONS_DATASET = [
   {
     string:
       'Was any preprocessing/cleaning/labeling of the data done? If so, please provide a description.',
-    val: 'preprocessing',
+    val: 'labels',
     type: 'type',
     options: null,
     required: false,
@@ -667,9 +684,13 @@ export const QUESTIONS_DATASET = [
     string: 'Is your dataset a sample?',
     val: 'sample',
     type: 'select',
-    options: ['Yes', 'No', 'N/A'],
+    options: [
+      { name: true, label: 'Yes' },
+      { name: false, label: 'No' },
+      { name: false, label: 'N/A' },
+    ],
     required: false,
-    tip: 'Describe sampling strategy',
+    tip: '',
     example_ans: EXAMPLE.sample,
   },
   {
@@ -714,7 +735,11 @@ export const QUESTIONS_DATASET = [
       'Is data used in the training or implementation of this system handled with care?',
     val: 'handledCarefully',
     type: 'select',
-    options: ['Yes', 'No', 'N/A'],
+    options: [
+      { name: 'Yes', label: 'Yes' },
+      { name: 'No', label: 'No' },
+      { name: 'N/A', label: 'N/A' },
+    ],
     required: false,
     tip: ['Yes', 'No', 'N/A'],
     example_ans: 'N/A',
@@ -724,7 +749,11 @@ export const QUESTIONS_DATASET = [
       'Is your system trained on data that accurately represents your entire user base?',
     val: 'accurateRepresentation',
     type: 'select',
-    options: ['Yes', 'No', 'N/A'],
+    options: [
+      { name: 'Yes', label: 'Yes' },
+      { name: 'No', label: 'No' },
+      { name: 'N/A', label: 'N/A' },
+    ],
     required: false,
     tip: 'Yes, No, N/A',
     example_ans: EXAMPLE.accurateRepresentation,
@@ -761,12 +790,12 @@ export const QUESTIONS_DATASET = [
     val: 'lifecycleState',
     type: 'select',
     options: [
-      'Generate Schema',
-      'Create Dataset',
-      'Populate Dataset',
-      'Validate Dataset',
-      'Update Dataset',
-      'Annihilate Dataset',
+      { name: 'Generate Schema', label: 'Generate Schema' },
+      { name: 'Create Dataset', label: 'Create Dataset' },
+      { name: 'Populate Dataset', label: 'Populate Dataset' },
+      { name: 'Validate Dataset', label: 'Validate Dataset' },
+      { name: 'Update Dataset', label: 'Update Dataset' },
+      { name: 'Annihilate Dataset', label: 'Annihilate Dataset' },
     ],
     required: false,
     tip:
@@ -813,15 +842,6 @@ export const QUESTIONS_DATASET = [
     tip: '',
     example_ans: '',
   },
-  // {
-  //   string: ,
-  //   val: ,
-  //   type: ,
-  //   options: null ,
-  //   required: false,
-  //   tip: ,
-  //   example_ans:
-  // }
 ];
 
 export const QUESTIONS_MODEL = [
@@ -893,7 +913,11 @@ export const QUESTIONS_MODEL = [
     string: 'What type of learning is this model?',
     val: 'learningType',
     type: 'select',
-    options: ['Unsupervised', 'Supervised', 'Reinforcement'],
+    options: [
+      { name: 'Unsupervised', label: 'Unsupervised' },
+      { name: 'Supervised', label: 'Supervised' },
+      { name: 'Reinforcement', label: 'Reinforcement' },
+    ],
     required: false,
     tip: 'Unsupervised, Supervised, or Reinforcement Learning',
     example_ans: EXAMPLE.learningType,

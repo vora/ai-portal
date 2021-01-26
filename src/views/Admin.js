@@ -146,6 +146,7 @@ function ManageUsersTable({ users }) {
         user={manageUser}
         modalVisible={manageUser != null}
         setModalVisible={() => setManageUser(null)}
+        mode="admin"
       />
     </Card>
   );
@@ -215,7 +216,6 @@ function Admin() {
   let [users, setUsers] = useState([]);
   let [pendingResources, setPendingResources] = useState([]);
   let [topics, setTopics] = useState([]);
-
   let history = useHistory();
   useEffect(() => {
     if (user === null || (user && user.role !== 'admin')) {

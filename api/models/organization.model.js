@@ -10,7 +10,7 @@ const OrganizationSchema = new Schema({
   city: { type: String, default: '' },
   logoURL: { type: String, default: '' },
   websiteURL: { type: String, default: '' },
-  type: { type: String, enum: ORG_TYPES },
+  type: [{ type: String, enum: ORG_TYPES, default: [] }],
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: [] }],
   resources: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'Resource', default: [] },

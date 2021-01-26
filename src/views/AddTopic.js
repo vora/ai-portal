@@ -3,27 +3,68 @@ import {
   Layout,
   Content,
   Button,
-  Input,
   Form,
   Col,
   Typography,
-  Tooltip,
   Row,
+  message,
+  notification,
 } from '../ant';
 import Footer from '../components/Footer';
-import FormField from '../components/FormField';
 import FormHeader from '../components/FormHeader';
+import FormQuestion from '../components/FormQuestion';
+import { useAppEnv } from './../env';
+import { useHistory } from 'react-router';
 
-const { TextArea } = Input;
 const { Title } = Typography;
-// let example = { name: '', desc: '' };
 
 function AddTopic() {
-  let onSubmit = async (values) => {};
-  let onFail = (values) => {};
+  let { api } = useAppEnv();
+  let history = useHistory();
+  let onSubmit = async (formVal) => {
+    let result = await api.post('/api/topics', formVal);
+    if (result.errors) {
+      for (let msg of result.errors) {
+        notification['error']({
+          message: msg.msg,
+        });
+      }
+      return;
+    }
+    message.success('Form successfully submitted');
+
+    history.push('/resources');
+  };
+  let onFail = (values) => {
+    console.log(values);
+    for (let err of values.errorFields) {
+      notification['error']({
+        message: err.errors[0],
+      });
+    }
+  };
+
+  const questions = [
+    {
+      string: 'Topic Name',
+      val: 'name',
+      type: 'type',
+      required: true,
+      tip:
+        'e.g. Banking, Health, Insurance, Labor, Retail, Education, Law Enforcement, Media, Other',
+    },
+    {
+      string: 'Description',
+      val: 'desc',
+      type: 'text-area',
+      required: true,
+      tip: 'A brief description about the topic',
+    },
+  ];
+
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
-      <FormHeader />
+      <FormHeader></FormHeader>
       <Content style={{ padding: '0 50px' }}>
         <Row justify="center" style={{ marginTop: '4rem' }}>
           <Col
@@ -47,21 +88,9 @@ function AddTopic() {
               onFinishFailed={onFail}
               style={{ minWidth: '1000px', overflow: 'auto' }}
             >
-              <FormField field="Topic Name" text="..." req="true" />
-              <Tooltip title="A brief description about the topic">
-                <Form.Item
-                  name="Description"
-                  label="Description"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please add the description',
-                    },
-                  ]}
-                >
-                  <TextArea rows={4}></TextArea>
-                </Form.Item>
-              </Tooltip>
+              {questions.map((question) => (
+                <FormQuestion question={question} />
+              ))}
               <Form.Item>
                 <Button
                   type="primary"

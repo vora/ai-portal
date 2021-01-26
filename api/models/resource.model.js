@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const { RESOURCE_TYPES, RESOURCE_PATHS } = require('./enums');
+const topic = require('./topic.model');
+const file = require('./file.model');
+const { RESOURCE_TYPES, RESOURCE_PATHS, AI_SYSTEM_TYPES } = require('./enums');
 
 const Schema = mongoose.Schema;
 
@@ -37,6 +39,61 @@ const ResourceSchema = new Schema({
   noiseDescription: { type: String, default: '' },
   externalRestrictions: { type: String, default: '' },
   reviewsRemaining: { type: [String], default: ['mod'] },
+  aiSystemTypes: [{ type: String, enum: AI_SYSTEM_TYPES, default: [] }],
+  version: { type: String, default: '' },
+  updateFrequency: { type: String, default: '' },
+  purpose: { type: String, default: '' },
+  unintendedUse: { type: String, default: '' },
+  ownerEmail: { type: String, default: '' },
+  location: { type: String, default: '' },
+  missingInfo: { type: String, default: '' },
+  audience: { type: String, default: '' },
+  removalRequest: { type: String, default: '' },
+  dataset: {
+    collectorOwnerRelation: { type: String, default: '' },
+    collectionProcess: { type: String, default: '' },
+    infoCollected: { type: String, default: '' },
+    accessPermissions: { type: String, default: '' },
+    tasks: { type: String, default: '' },
+    populationDemographics: { type: String, default: '' },
+    consentProcedures: { type: String, default: '' },
+    fieldsRelationship: { type: String, default: '' },
+    instanceRepresentation: { type: String, default: '' },
+    multipleInstanceTypes: { type: String, default: '' },
+    completeness: { type: String, default: '' },
+    isSample: { type: Boolean, default: false },
+    sampleStrategy: { type: String, default: '' },
+    populationDataSource: { type: String, default: '' },
+    sampleCoverage: { type: String, default: '' },
+    recommendedSplit: { type: String, default: '' },
+    carefulHandling: { type: String, default: '' },
+    accurateUserRepresentation: { type: String, default: '' },
+    rawOrProcessed: { type: String, default: '' },
+    driftProtection: { type: String, default: '' },
+    reusedOrReinterpreted: { type: String, default: '' },
+    lifeCycleState: { type: String, default: '' },
+    selfContainmen: { type: String, default: '' },
+    stabilityOverTime: { type: String, default: '' },
+    archivalVersions: { type: String, default: '' },
+    externalResourcesRestrictions: { type: String, default: '' },
+  },
+  model: {
+    modelType: { type: String, default: '' },
+    inputs: { type: String, default: '' },
+    outputs: { type: String, default: '' },
+    limitations: { type: String, default: '' },
+    hyperparameters: { type: String, default: '' },
+    architecture: { type: String, default: '' },
+    taskType: { type: String, default: '' },
+    learningType: { type: String, default: '' },
+    numParameters: { type: String, default: '' },
+    attributes: { type: String, default: '' },
+    framework: { type: String, default: '' },
+    libraryDependencies: { type: String, default: '' },
+    hardware: { type: String, default: '' },
+    otherPretrainedModels: { type: String, default: '' },
+    metrics: { type: String, default: '' },
+  },
   files: [
     {
       type: mongoose.Schema.Types.ObjectId,

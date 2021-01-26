@@ -6,6 +6,7 @@ export default function ManageUserModal({
   user,
   modalVisible,
   setModalVisible,
+  mode,
 }) {
   let [editedUser, setEditedUser] = useState(JSON.parse(JSON.stringify(user)));
   useEffect(() => {
@@ -86,20 +87,22 @@ export default function ManageUserModal({
             </Select>
           </Form.Item>
 
-          <Form.Item label="User Role">
-            <Select
-              showSearch
-              defaultValue={user?.role}
-              style={{ width: '100%' }}
-              onChange={(newRole) => {
-                setEditedUser({ ...editedUser, role: newRole });
-              }}
-            >
-              {enums?.USER_ROLES.map((role) => (
-                <Select.Option value={role}>{role}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+          {mode === 'admin' && (
+            <Form.Item label="User Role">
+              <Select
+                showSearch
+                defaultValue={user?.role}
+                style={{ width: '100%' }}
+                onChange={(newRole) => {
+                  setEditedUser({ ...editedUser, role: newRole });
+                }}
+              >
+                {enums?.USER_ROLES.map((role) => (
+                  <Select.Option value={role}>{role}</Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
 
           <Button
             type="primary"

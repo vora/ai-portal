@@ -92,6 +92,7 @@ module.exports = (app) => {
         res.json({ errors: [{ msg: '' + err }] });
       }
     },
+    { public: ['name', 'email', 'username', 'password', 'confirmPassword'] },
     { mod: [] }
   );
 

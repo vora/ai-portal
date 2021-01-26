@@ -44,6 +44,7 @@ function Dashboard({ user }) {
         user={user}
         modalVisible={showEditModal}
         setModalVisible={(v) => setShowEditModal(v)}
+        mode="user"
       />
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
         User Overview &nbsp;

@@ -8,23 +8,29 @@ module.exports.RESOURCE_TYPES = [
   'API',
   'Assessment',
   'Benchmark',
+  'Best Practices',
   'Datasets',
+  'Dataset',
   'Design Tool',
   'Education Tool',
   'Framework',
+  'Governance Process',
   'Inspection',
   'Library',
-  'Machine Learning Tool',
+  'Model',
   'Podcast',
   'Principles',
+  'Regulations and Laws',
   'Research',
   'Software',
+  'Standards',
   'Strategy & Implementation',
   'Toolkit',
   'Vision Tool',
   'Working Groups',
   'Workshop',
-  'Dataset',
+
+  'Other',
 ];
 module.exports.RESOURCE_PATHS = [
   'Designer Path',
@@ -32,19 +38,33 @@ module.exports.RESOURCE_PATHS = [
   'Policymaker Path',
   'Risk Manager Path',
   'Explorer Path',
+  'Other',
 ];
 module.exports.ORG_TYPES = [
   'Industry',
   'Academia',
   'Government',
   'Civil Society',
+  'International Organization',
+  'Other',
 ];
 module.exports.REVIEW_TYPES = ['mod'];
 module.exports.TRUST_INDEX_CATEGORIES = [
   'Explainability & Interpretability',
   'Data Quality',
   'Bias & Fairness',
-  'Accountability, Robustness',
+  'Accountability',
+  'Robustness',
+  'Other',
+];
+
+module.exports.AI_SYSTEM_TYPES = [
+  'Intelligent Process Automation',
+  'Image and Object Recognition',
+  'Text and Speech Analysis',
+  'Advanced Data Analytics',
+  'NLP/Content Generation',
+  'Other',
 ];
 module.exports.FILE_TYPES = [
   { name: 'DOCX', ext: 'doc', app: 'Microsoft Word' },

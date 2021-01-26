@@ -40,7 +40,7 @@ exports.search = async (query, fields) => {
 };
 
 exports.create = async (params) => {
-  let resource = new Resource({});
+  let resource = new Resource(params);
   await resource.save();
   resource = exports.update(resource, params);
   return resource;
@@ -61,16 +61,47 @@ exports.update = async (resource, rawParams) => {
     Resource,
     {
       setParams: [
+        'reviewsRemaining',
         'name',
         'desc',
         'type',
         'path',
-        'downloadURL',
-        'modifiedDate',
-        'trustIndexCategories',
         'keywords',
+        'creationDate',
+        'modifiedDate',
+        'licenseName',
+        'downloadURL',
+        'technical',
+        'trustIndexCategories',
+        'fundedBy',
         'creator',
-        'reviewsRemaining',
+        'dataDictLink',
+        'sensitiveData',
+        'qualityReview',
+        'ethicsReview',
+        'usage',
+        'isConfidential',
+        'offensiveContent',
+        'numInstances',
+        'instances',
+        'label',
+        'rawData',
+        'personalInfoRemoved',
+        'privacyProcedure',
+        'individualsIdentified',
+        'noiseDescription',
+        'externalRestrictions',
+        'aiSystemTyupes',
+        'version',
+        'updateFrequency',
+        'unintendedUse',
+        'ownerEmail',
+        'location',
+        'missingInfo',
+        'audience',
+        'removalRequest',
+        'dataset',
+        'model',
       ],
       setRefFuncs: {
         topics: exports.setTopics,
@@ -155,4 +186,8 @@ exports.setOrganizations = async (resource, orgs) => {
     'organizations',
     orgs
   );
+};
+
+exports.delete = async (id) => {
+  return await Resource.deleteOne(id);
 };

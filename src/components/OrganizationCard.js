@@ -3,7 +3,7 @@ import { Modal, Button, Card, Tag, Tooltip } from '../ant';
 
 export default function OrganizationCard({ organization }) {
   let [modalVisible, setModalVisible] = useState(false);
-  let tags = [organization.type];
+  let tags = organization.type;
   return (
     <div className="resource-box">
       <Card

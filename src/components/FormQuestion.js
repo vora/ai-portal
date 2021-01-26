@@ -23,6 +23,7 @@ function FormQuestion(props) {
       defaultValue={uploadURL ? 'URL ' : 'FileUpload'}
       className="uploadTypes"
       onChange={handleUploadType}
+      disabled //for now, just allow to upload URL
     >
       <Option value="URL">URL</Option>
       <Option value="FileUpload">File Upload</Option>
@@ -44,16 +45,15 @@ function FormQuestion(props) {
           name={props.question.val}
           label={props.question.string}
           rules={[{ required: props.question.required }]}
-          initialValue={props.question.example_ans}
         >
           <Select
             showSearch
             allowClear
             style={{ width: '100%' }}
-            defaultValue={props.question.example_ans}
+            placeholder={props.question.example_ans}
           >
             {props.question.options.map((option) => (
-              <Option value={option}>{option} </Option>
+              <Option value={option.name}>{option.label} </Option>
             ))}
           </Select>
         </Form.Item>
@@ -64,17 +64,16 @@ function FormQuestion(props) {
           name={props.question.val}
           label={props.question.string}
           rules={[{ required: props.question.required }]}
-          initialValue={props.question.example_ans}
         >
           <Select
             showSearch
             mode={props.question.type}
             allowClear
             style={{ width: '100%' }}
-            defaultValue={props.question.example_ans}
+            placeholder={props.question.example_ans}
           >
             {props.question.options.map((option) => (
-              <Option value={option}>{option} </Option>
+              <Option value={option.name}>{option.label} </Option>
             ))}
           </Select>
         </Form.Item>

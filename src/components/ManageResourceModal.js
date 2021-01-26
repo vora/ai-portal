@@ -16,7 +16,7 @@ export default function ManageResourceModal({
     setEditedResource(JSON.parse(JSON.stringify(resource)));
   }, [resource]);
 
-  let { api, enums, refresh } = useAppEnv();
+  let { api, enums, refresh, user } = useAppEnv();
   let [topics, setTopics] = useState([]);
   let [organizations, setOrganizations] = useState([]);
 
@@ -56,7 +56,7 @@ export default function ManageResourceModal({
       footer={[]}
       width={600}
     >
-      {resource && editedResource && (
+      {resource && editedResource && user?.role === 'admin' && (
         <Form labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
           <Form.Item label="Name">
             <Input
@@ -193,7 +193,10 @@ export default function ManageResourceModal({
               style={{ width: '100%' }}
               mode="tags"
               onChange={(newKeywords) => {
-                setEditedResource({ ...editedResource, keywords: newKeywords });
+                setEditedResource({
+                  ...editedResource,
+                  keywords: newKeywords,
+                });
               }}
             >
               {resource?.keywords.map((word) => (
@@ -255,6 +258,12 @@ export default function ManageResourceModal({
             Apply Changes
           </Button>
         </Form>
+      )}
+
+      {user?.role !== 'admin' && (
+        <>
+          <p>You do not have sufficient permissions to edit this resource.</p>
+        </>
       )}
     </Modal>
   );
