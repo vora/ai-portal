@@ -13,8 +13,9 @@ exports.getAll = async () => {
   return await Topic.find();
 };
 
-exports.toJSON = async (topic) => {
-  return { ...topic };
+exports.toJSON = (topic) => {
+  let { __v, ...topicObj } = JSON.parse(JSON.stringify(topic));
+  return topicObj;
 };
 
 exports.getByName = async (name) => {

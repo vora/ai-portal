@@ -6,7 +6,8 @@ module.exports = (app) => {
   firewall.get(
     '/api/topics',
     async (req, res) => {
-      res.json(await topicUtil.getAll());
+      let topics = await topicUtil.getAll();
+      res.json(topics.map(topicUtil.toJSON));
     },
     { public: [] }
   );

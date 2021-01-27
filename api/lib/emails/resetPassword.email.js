@@ -4,4 +4,4 @@ module.exports.text = ({ resetURL }) =>
    Thanks, AI Global`;
 module.exports.html = ({ resetURL }) =>
   `<strong>You have requested your password on AI Global to be reset. Visit <a href="${resetURL}">${resetURL}</a> to reset your password.<strong><br>
-   <strong> <br> Thanks, AI Global<br> <img src="https://portal.dev.ai-global.org/logo.png"/>`;
+   <strong> <br> Thanks, AI Global<br> <img src="https://portal.ai-global.org/logo.png"/>`;

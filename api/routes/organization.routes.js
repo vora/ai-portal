@@ -98,6 +98,6 @@ module.exports = (app) => {
 };
 
 let userPartOfOrg = async (user, fields) => {
-  console.log('WARNING: TODO userPartOfOrg(...)');
-  return true;
+  let org = await organizationUtil.getById(fields._id);
+  return org?.members.includes(user._id);
 };

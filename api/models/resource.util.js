@@ -4,6 +4,7 @@ const Organization = mongoose.model('Organization');
 const Topic = mongoose.model('Topic');
 const File = mongoose.model('File');
 const fileUtil = require('./file.util');
+const organizationUtil = require('./organization.util');
 const querys = require('../lib/querys');
 
 exports.Resource = Resource;
@@ -71,6 +72,7 @@ exports.update = async (resource, rawParams) => {
         'modifiedDate',
         'licenseName',
         'downloadURL',
+        'logoURL',
         'technical',
         'trustIndexCategories',
         'fundedBy',
@@ -80,6 +82,7 @@ exports.update = async (resource, rawParams) => {
         'qualityReview',
         'ethicsReview',
         'usage',
+        'featured',
         'isConfidential',
         'offensiveContent',
         'numInstances',
@@ -116,17 +119,24 @@ exports.update = async (resource, rawParams) => {
 };
 
 exports.toJSON = (resource) => {
-  return JSON.parse(JSON.stringify(resource));
+  let { __v, ...obj } = JSON.parse(JSON.stringify(resource));
+  obj.organizations = obj.organizations.map(organizationUtil.toJSON);
+  obj.files = obj.organizations.map(fileUtil.toJSON);
+  return obj;
 };
 
 exports.getById = async (id) => {
   return await populate(Resource.findById(id));
 };
 
-exports.getAllPending = async (id) => {
+exports.getAllPending = async () => {
   return await populate(
     Resource.find({ reviewsRemaining: { $exists: true, $not: { $size: 0 } } })
   );
+};
+
+exports.getFeatured = async () => {
+  return await populate(Resource.find({ featured: true }));
 };
 
 exports.delete = async (resource) => {

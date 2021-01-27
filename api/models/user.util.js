@@ -126,12 +126,31 @@ exports.verifyEmail = async (user, token) => {
   return true;
 };
 
+exports.getResources = async (user) => {
+  let { resources } = await User.findById(user._id).populate(
+    'resources',
+    '-_id -__v -resources'
+  );
+  return resources;
+};
+
+exports.getOrganizations = async (user) => {
+  let { organizations } = await User.findById(user._id).populate(
+    'organizations',
+    '-_id -__v -organizations'
+  );
+  return organizations;
+};
+
 exports.getById = async (id) => {
   return await User.findById(id);
 };
 
 exports.toJSON = (user) => {
-  return JSON.parse(JSON.stringify(user));
+  let { __v, hashedPassword, salt, ...userObj } = JSON.parse(
+    JSON.stringify(user)
+  );
+  return userObj;
 };
 
 exports.toTokenJSON = (user, accessClient) => {
@@ -140,7 +159,10 @@ exports.toTokenJSON = (user, accessClient) => {
 };
 
 exports.toPrivateJSON = (user) => {
-  return JSON.parse(JSON.stringify(user));
+  let { __v, hashedPassword, salt, ...userObj } = JSON.parse(
+    JSON.stringify(user)
+  );
+  return userObj;
 };
 
 exports.delete = async (user) => {

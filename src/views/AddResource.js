@@ -49,21 +49,15 @@ let modelPage = {
 
 let steps = [];
 function AddResource() {
-  let { api, enums, user } = useAppEnv();
+  let { api, user } = useAppEnv();
   let history = useHistory();
-  let [topics, setTopics] = useState([]);
-  let [orgs, setOrgs] = useState([]);
   let [loading, setLoading] = useState(true);
   let [modalVisible, setModalVisible] = useState(!user);
 
-  console.log('num pages', steps.length);
-  console.log('loading', loading);
   useEffect(() => {
     setLoading(true);
     api.get('/api/topics').then((topics) => {
-      setTopics(topics);
       api.get('/api/organizations').then((orgs) => {
-        setOrgs(orgs);
         if (steps.length === 0) {
           steps.push({
             title: 'Core 1',

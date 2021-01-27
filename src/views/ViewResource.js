@@ -52,7 +52,7 @@ export default function ViewResource() {
   let [resource, setResource] = useState(null);
   let [loading, setLoading] = useState(true);
   let [showModal, setShowModal] = useState(false);
-  let { api } = useAppEnv();
+  let { api, user } = useAppEnv();
   let { resId } = useParams();
   useEffect(() => {
     let fetchResource = async () => {
@@ -65,6 +65,8 @@ export default function ViewResource() {
   let topRef = useRef(null);
   let fileRef = useRef(null);
   let detailRef = useRef(null);
+  let canEdit =
+    resource?.user?._id === user?._id || ['mod', 'admin'].includes(user?.role);
   if (loading) {
     return (
       <div
@@ -123,16 +125,20 @@ export default function ViewResource() {
                     </Tag>
                   );
                 })}
-                extra={[
-                  <Button
-                    icon={<EditOutlined />}
-                    key="3"
-                    shape="round"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Edit Resource
-                  </Button>,
-                ]}
+                extra={
+                  canEdit
+                    ? [
+                        <Button
+                          icon={<EditOutlined />}
+                          key="3"
+                          shape="round"
+                          onClick={() => setShowModal(true)}
+                        >
+                          Edit Resource
+                        </Button>,
+                      ]
+                    : []
+                }
               >
                 {resource.desc}
               </PageHeader>

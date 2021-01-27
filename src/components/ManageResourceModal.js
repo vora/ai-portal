@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, DatePicker, Form, Input, Modal, Select } from '../ant';
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Checkbox,
+} from '../ant';
 import { useAppEnv } from './../env';
 import moment from 'moment';
 import FileUpload from './FilesUpload';
@@ -44,6 +52,8 @@ export default function ManageResourceModal({
         files: editedResource.files,
         creator: editedResource.creator,
         reviewsRemaining: editedResource.reviewsRemaining,
+        featured: editedResource.featured,
+        logoURL: editedResource.logoURL,
       })
       .then(() => refresh());
   };
@@ -178,6 +188,18 @@ export default function ManageResourceModal({
               }
             />
           </Form.Item>
+          <Form.Item label="Logo Image URL">
+            <Input
+              placeholder="Logo Image URL"
+              value={editedResource.logoURL}
+              onChange={(e) =>
+                setEditedResource({
+                  ...editedResource,
+                  logoURL: e.target.value,
+                })
+              }
+            />
+          </Form.Item>
           <Form.Item label="Files">
             <FileUpload
               files={editedResource.files}
@@ -248,6 +270,19 @@ export default function ManageResourceModal({
                 <Select.Option value={category}>{category}</Select.Option>
               ))}
             </Select>
+          </Form.Item>
+          <Form.Item name="featured" valuePropName="checked">
+            <Checkbox
+              checked={editedResource.featured}
+              onChange={(evt) => {
+                setEditedResource({
+                  ...editedResource,
+                  featured: evt.target.checked,
+                });
+              }}
+            >
+              Show on landing page
+            </Checkbox>
           </Form.Item>
           <Button
             type="primary"

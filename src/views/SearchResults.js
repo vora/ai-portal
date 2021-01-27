@@ -24,7 +24,7 @@ export default function SearchResults(props) {
     let segments = [];
     segments.push('q=' + (query || ''));
     for (let filter in filters) {
-      if (filters[filter] && filters[filter].length != 0) {
+      if (filters[filter] && filters[filter].length !== 0) {
         segments.push(filter + '=' + filters[filter]);
       }
     }

@@ -7,9 +7,11 @@ const resourceUpdateFields = [
   'topics',
   'path',
   'downloadURL',
+  'logoURL',
   'modifiedDate',
   'trustIndexCategories',
   'keywords',
+  'featured',
   'organizations',
   'files',
   'creator',
@@ -107,11 +109,26 @@ module.exports = (app) => {
     { mod: [] }
   );
 
+  firewall.get(
+    '/api/resources/all/featured',
+    async (req, res) => {
+      let resources = await resourceUtil.getFeatured();
+      res.json(resources.map(resourceUtil.toJSON));
+    },
+    {
+      public: [],
+    }
+  );
+
   firewall.post(
     '/api/resources',
     async (req, res) => {
       try {
-        let newResource = await resourceUtil.create(req.body);
+        let user = await req.getUser();
+        let newResource = await resourceUtil.create({
+          ...req.body,
+          user: user,
+        });
         return res.json(resourceUtil.toJSON(newResource));
       } catch (err) {
         res.json({ errors: [{ msg: '' + err }] });

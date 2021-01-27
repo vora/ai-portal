@@ -18,3 +18,7 @@ exports.createFromAWSUpload = async (awsUploadParams) => {
   await file.save();
   return file;
 };
+
+exports.toJSON = (file) => {
+  return JSON.parse(JSON.stringify(file));
+};

@@ -16,6 +16,7 @@ const ResourceSchema = new Schema({
   modifiedDate: { type: Date, default: Date.now },
   licenseName: { type: String, default: 'Unknown' },
   downloadURL: { type: String },
+  logoURL: { type: String, default: '/demo/aiglobal-other.png' },
   technical: { type: Boolean, default: false },
   featured: { type: Boolean, default: false },
   trustIndexCategories: { type: [String], default: [] },
@@ -93,6 +94,10 @@ const ResourceSchema = new Schema({
     hardware: { type: String, default: '' },
     otherPretrainedModels: { type: String, default: '' },
     metrics: { type: String, default: '' },
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
   files: [
     {

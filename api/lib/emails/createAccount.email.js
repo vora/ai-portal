@@ -6,4 +6,4 @@ module.exports.text = ({ name, verifyURL }) =>
 module.exports.html = ({ name, verifyURL }) =>
   `<strong>Hi ${name}. <br/>Welcome to the AI Global portal! Your new account has been created for the AI Global Responsible AI Portal.
     To complete the registration, please verify your email <a href="${verifyURL}">${verifyURL}</a><strong>
-     <strong><br> Thanks, AI Global <br> <img src="https://portal.dev.ai-global.org/logo.png"/>`;
+     <strong><br> Thanks, AI Global <br> <img src="https://portal.ai-global.org/logo.png"/>`;

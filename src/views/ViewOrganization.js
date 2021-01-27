@@ -24,7 +24,7 @@ import ManageOrganizationModal from './../components/ManageOrganizationModal';
 const { Panel } = Collapse;
 
 export default function ViewOrganization() {
-  let { api } = useAppEnv();
+  let { api, user } = useAppEnv();
   let { orgId } = useParams();
   let [org, setOrg] = useState(null);
   let [orgRes, setOrgRes] = useState([]);
@@ -33,6 +33,7 @@ export default function ViewOrganization() {
   let topRef = useRef(null);
   let fileRef = useRef(null);
   let detailRef = useRef(null);
+  let canEdit = ['mod', 'admin'].includes(user?.role);
   useEffect(() => {
     api.get('/api/organizations/' + orgId).then((org) => {
       setOrg(org);
@@ -87,16 +88,20 @@ export default function ViewOrganization() {
                 subTitle={org.shortName}
                 tags={[]}
                 avatar={{ src: org.logoURL }}
-                extra={[
-                  <Button
-                    icon={<EditOutlined />}
-                    key="3"
-                    shape="round"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Edit Organization
-                  </Button>,
-                ]}
+                extra={
+                  canEdit
+                    ? [
+                        <Button
+                          icon={<EditOutlined />}
+                          key="3"
+                          shape="round"
+                          onClick={() => setShowModal(true)}
+                        >
+                          Edit Organization
+                        </Button>,
+                      ]
+                    : []
+                }
               ></PageHeader>
             </div>
             <div ref={detailRef}>

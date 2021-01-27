@@ -477,7 +477,7 @@ function FAQ({ abridged }) {
             >
               <p style={{ marginLeft: '25px' }}>
                 You can{' '}
-                <a href="https://portal.dev.ai-global.org/login#!">
+                <a href="https://portal.ai-global.org/login#!">
                   reset your password here
                 </a>{' '}
                 by typing in your username. An email to reset your password will

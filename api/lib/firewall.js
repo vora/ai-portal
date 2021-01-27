@@ -74,7 +74,7 @@ module.exports = (app) => {
       console.log('!!!!!  ALL REQUEST ARE ALLOWED  !!!!!');
       console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       firewalledApp[method] = (endpoint, endpointHandler, rules) =>
-        app[method](endpointHandler);
+        app[method](endpoint, endpointHandler);
     } else {
       firewalledApp[method] = (endpoint, endpointHandler, rules, ownerTest) =>
         protect(

@@ -6,35 +6,22 @@ import LoginButton from '../components/LoginButton';
 import Banner from '../components/Banner';
 import FAQ from '../components/Faq';
 import { notification, BackTop } from 'antd';
+import { useAppEnv } from './../env';
 import {
   RightCircleOutlined,
   QuestionCircleOutlined,
   UpCircleOutlined,
 } from '@ant-design/icons';
 
-let TEMP_FRONTEND_ITEMS = [
-  {
-    name: 'AI Design Assistant',
-    logoURL: '/demo/aiglobal.png',
-    description:
-      'A unified assessment to assure the responsible design, development and deployment of AI',
-  },
-  {
-    name: 'Fawkes',
-    logoURL: '/demo/fawkes-logo.png',
-    description:
-      'A software that gives individuals the ability to limit how their own images can be used to track them',
-  },
-  {
-    name: 'Data Nutrition Project',
-    logoURL: '/demo/nutrition-logo.png',
-    description: 'A nutrition label for datasets',
-  },
-];
-
 function Landing() {
+  let { api } = useAppEnv();
+  let [featured, setFeatured] = useState([]);
   let history = useHistory();
   let [query, setQuery] = React.useState('');
+  useEffect(() => {
+    api.get('/api/resources/all/featured').then(setFeatured);
+  }, [api]);
+  console.log(featured);
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Banner
@@ -150,7 +137,7 @@ function Landing() {
           </div>
         </Row>
         <Row justify="center" gutter={[24, 16]}>
-          {TEMP_FRONTEND_ITEMS.map((feat) => (
+          {featured.map((feat) => (
             <Col span={4}>
               <FeatureCard feature={feat} />
             </Col>
@@ -226,7 +213,11 @@ function FeatureCard({ feature }) {
   return (
     <Card
       onClick={() =>
-        window.open('https://google.com', '_blank', 'noopener noreferrer')
+        window.open(
+          '/resources/' + feature._id,
+          '_blank',
+          'noopener noreferrer'
+        )
       }
       hoverable
       style={{
@@ -243,7 +234,7 @@ function FeatureCard({ feature }) {
         />
       }
     >
-      <Card.Meta title={feature.name} description={feature.description} />
+      <Card.Meta title={feature.name} description={feature.desc} />
     </Card>
   );
 }
