@@ -408,6 +408,7 @@ function FAQ({ abridged }) {
                 columns={columns}
                 dataSource={raiCategories}
                 style={{ backgroundColor: 'white' }}
+                pagination={false}
               />
             </Panel>
             <Panel

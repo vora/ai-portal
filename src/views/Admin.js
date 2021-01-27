@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   Layout,
   Content,
-  Search,
   Row,
   Col,
   Card,
@@ -11,8 +10,6 @@ import {
   Statistic,
   Tooltip,
   Button,
-  Breadcrumb,
-  Menu,
 } from '../ant';
 import {
   QuestionCircleTwoTone,
@@ -22,8 +19,8 @@ import {
   OrderedListOutlined,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
-import LoginButton from '../components/LoginButton';
 import Sidebar from '../components/Sidebar';
+import FormHeader from '../components/FormHeader';
 import ResourceTable from '../components/ResourceTable';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
@@ -127,14 +124,7 @@ function ManageUsersTable({ users }) {
           <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
         </Tooltip>
       </h1>
-      <Tooltip title="Search for a user" placement="right">
-        <Search
-          style={{ width: '50%', marginBottom: '20px' }}
-          placeholder="Anakin Skywalker"
-          enterButton
-          onSearch={console.log}
-        />
-      </Tooltip>
+
       <Table
         columns={columns}
         dataSource={users}
@@ -153,8 +143,7 @@ function ManageUsersTable({ users }) {
 }
 
 function ManageTopicsTable({ topics }) {
-  // let { api } = useAppEnv;
-  // let [manageTopic, setManageTopic] = useState([]);
+  let { api, refresh } = useAppEnv;
   const columns = [
     {
       title: 'Name',
@@ -173,7 +162,15 @@ function ManageTopicsTable({ topics }) {
     {
       title: 'Manage',
       key: 'action',
-      render: (text, topic) => <Button onClick={() => {}}>Remove</Button>,
+      render: (text, topic) => (
+        <Button
+          onClick={() => {
+            api.del(`/api/users/${topic._id}`).then(() => refresh());
+          }}
+        >
+          Remove
+        </Button>
+      ),
     },
   ];
   return (
@@ -191,14 +188,6 @@ function ManageTopicsTable({ topics }) {
           <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
         </Tooltip>
       </h1>
-      <Tooltip title="Search for a user" placement="right">
-        <Search
-          style={{ width: '50%', marginBottom: '20px' }}
-          placeholder="Law Enforcement"
-          enterButton
-          onSearch={console.log}
-        />
-      </Tooltip>
       <Table
         columns={columns}
         dataSource={topics}
@@ -234,54 +223,9 @@ function Admin() {
     userRef = useRef(null),
     topicRef = useRef(null);
 
-  const breadcrumb_menu = (
-    <Menu>
-      <Menu.Item>
-        <a href="/resources">Resources</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="/organizations">Organizations</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="/feedback">Suggestions</a>
-      </Menu.Item>
-      <Menu.Item></Menu.Item>
-    </Menu>
-  );
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
-      <Row justify="start" align="middle">
-        <Col span={3}>
-          <a href="/" style={{ margin: '15px' }}>
-            <img alt="logo" src="/logo.png" width={'160px'} />
-          </a>
-        </Col>
-        <Col span={5}>
-          <Breadcrumb
-            style={{
-              paddingTop: '40px',
-              paddingLeft: '80px',
-            }}
-          >
-            <Breadcrumb.Item>
-              <a href="/" style={{ fontSize: '16px' }}>
-                Home
-              </a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              style={{ fontSize: '16px' }}
-              overlay={breadcrumb_menu}
-            >
-              Account
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Admin</Breadcrumb.Item>
-          </Breadcrumb>
-        </Col>
-        <Col span={12}></Col>
-        <Col span={4}>
-          <LoginButton />
-        </Col>
-      </Row>
+      <FormHeader />
       <Layout>
         <Sidebar
           headings={[

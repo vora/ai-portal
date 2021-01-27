@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Card, Button, Tag, Table, Tooltip } from '../ant';
+import { Card, Button, Tag, Table, Tooltip } from '../ant';
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 import ManageResourceModal from './ManageResourceModal';
 
@@ -112,14 +112,6 @@ function ResourceTable({ resources, edit, admin }) {
           <QuestionCircleTwoTone style={{ fontSize: '0.8em' }} />{' '}
         </Tooltip>
       </h1>
-      <Tooltip title="Search for a resource" placement="right">
-        <Search
-          style={{ width: '50%', marginBottom: '20px' }}
-          placeholder="Responsible AI Design Assistant"
-          enterButton
-          onSearch={console.log}
-        />
-      </Tooltip>
       <Table
         columns={resourcesColumns}
         dataSource={resources}

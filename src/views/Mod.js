@@ -1,15 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Layout,
-  Content,
-  Row,
-  Col,
-  Card,
-  Statistic,
-  Tooltip,
-  Breadcrumb,
-  Menu,
-} from '../ant';
+import { Layout, Content, Row, Col, Card, Statistic, Tooltip } from '../ant';
 
 import {
   QuestionCircleTwoTone,
@@ -17,7 +7,7 @@ import {
   FileProtectOutlined,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
-import LoginButton from '../components/LoginButton';
+import FormHeader from '../components/FormHeader';
 import Sidebar from '../components/Sidebar';
 import ResourceTable from '../components/ResourceTable';
 import { useAppEnv } from './../env';
@@ -73,54 +63,9 @@ function Mod() {
   let dashRef = useRef(null);
   let resourceRef = useRef(null);
 
-  const breadcrumb_menu = (
-    <Menu>
-      <Menu.Item>
-        <a href="/resources">Resources</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="/organizations">Organizations</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a href="/feedback">Suggestions</a>
-      </Menu.Item>
-      <Menu.Item></Menu.Item>
-    </Menu>
-  );
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
-      <Row justify="start" align="middle">
-        <Col span={3}>
-          <a href="/" style={{ margin: '15px' }}>
-            <img alt="logo" src="/logo.png" width={'160px'} />
-          </a>
-        </Col>
-        <Col span={5}>
-          <Breadcrumb
-            style={{
-              paddingTop: '40px',
-              paddingLeft: '80px',
-            }}
-          >
-            <Breadcrumb.Item>
-              <a href="/" style={{ fontSize: '16px' }}>
-                Home
-              </a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              style={{ fontSize: '16px' }}
-              overlay={breadcrumb_menu}
-            >
-              Account
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>Mod</Breadcrumb.Item>
-          </Breadcrumb>
-        </Col>
-        <Col span={12}></Col>
-        <Col span={4}>
-          <LoginButton />
-        </Col>
-      </Row>
+      <FormHeader />
       <Layout>
         <Sidebar
           headings={['Overview', 'Pending Resources']}
