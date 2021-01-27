@@ -8,6 +8,7 @@ import {
   Affix,
   Space,
   Spin,
+  Tooltip,
 } from '../ant';
 import ResourceCard from '../components/ResourceCard';
 import { useAppEnv } from '../env';
@@ -53,23 +54,35 @@ export default function ListAndFilterResources({
             style={{ height: '100%', borderRight: 0 }}
           >
             <Menu.Item style={{ marginTop: '10px' }}>
-              <h1
-                style={{
-                  fontSize: '1.2em',
-                  width: '100%',
-                  fontWeight: 'bolder',
-                }}
+              <Tooltip
+                placement="right"
+                title={() => (
+                  <t>
+                    Learn more about what the filters mean at the
+                    <a href="/faq">FAQ</a>
+                  </t>
+                )}
               >
-                <FilterTwoTone style={{ fontSize: '1em' }} />
-                Filters
-              </h1>
+                <h1
+                  style={{
+                    fontSize: '1.2em',
+                    width: '100%',
+                    fontWeight: 'bolder',
+                  }}
+                >
+                  <FilterTwoTone style={{ fontSize: '1em' }} />
+                  Filters
+                </h1>
+              </Tooltip>
             </Menu.Item>
             <Menu.Item key="orgs" disabled>
               <Select
                 onChange={(v) => updateFilters({ organizations: v })}
-                showSearch
-                defaultValue="Organization"
+                placeholder="Organization"
                 style={{ width: '100%' }}
+                mode="multiple"
+                showArrow={true}
+                allowClear={true}
               >
                 {orgs.map((org) => (
                   <Select.Option value={org._id}>{org.name}</Select.Option>
@@ -80,8 +93,11 @@ export default function ListAndFilterResources({
               <Select
                 showSearch
                 onChange={(e) => updateFilters({ organizationType: e })}
-                defaultValue="Organization Type"
+                placeholder="Organization Type"
                 style={{ width: '100%' }}
+                mode="multiple"
+                showArrow={true}
+                allowClear={true}
               >
                 {orgTypes.map((res) => (
                   <Select.Option value={res}>{res}</Select.Option>
@@ -92,8 +108,11 @@ export default function ListAndFilterResources({
               <Select
                 showS
                 onChange={(e) => updateFilters({ type: e })}
-                defaultValue="Resource Type"
+                placeholder="Resource Type"
                 style={{ width: '100%' }}
+                mode="multiple"
+                showArrow={true}
+                allowClear={true}
               >
                 {resourceTypes.map((res) => (
                   <Select.Option value={res}>{res}</Select.Option>
@@ -104,8 +123,11 @@ export default function ListAndFilterResources({
               <Select
                 showSearch
                 onChange={(e) => updateFilters({ path: e })}
-                defaultValue="Resource Path"
+                placeholder="Resource Path"
                 style={{ width: '100%' }}
+                mode="multiple"
+                showArrow={true}
+                allowClear={true}
               >
                 {resourcePath.map((res) => (
                   <Select.Option value={res}>{res}</Select.Option>
@@ -115,8 +137,10 @@ export default function ListAndFilterResources({
             <Menu.Item key="sort" disabled>
               <Select
                 onChange={(e) => updateFilters({ sortBy: e })}
-                defaultValue="Sort By"
+                placeholder="Sort By"
                 style={{ width: '100%' }}
+                showArrow={true}
+                allowClear={true}
               >
                 <Select.Option value="byNameAsc">Name</Select.Option>
                 <Select.Option value="byUploadDateAsc">
@@ -127,8 +151,11 @@ export default function ListAndFilterResources({
             <Menu.Item key="topics" disabled>
               <Select
                 onChange={(e) => updateFilters({ topics: e })}
-                defaultValue="Topics"
+                placeholder="Topics"
                 style={{ width: '100%' }}
+                mode="multiple"
+                showArrow={true}
+                allowClear={true}
               >
                 {topics.map((res) => (
                   <Select.Option value={res._id}>{res.name}</Select.Option>
@@ -139,7 +166,7 @@ export default function ListAndFilterResources({
         </Sider>
       </Affix>
       <Layout style={{ padding: '24px 24px 24px' }}>
-        <Content>
+        <Content style={{ minHeight: '750px' }}>
           {!loading && (
             <Space direction="vertical" style={{ width: '100%' }}>
               {resources.map((res) => (
@@ -147,7 +174,27 @@ export default function ListAndFilterResources({
               ))}
             </Space>
           )}
-          {loading && <Spin />}
+          {!loading && resources.length === 0 && (
+            <div>
+              <h3 style={{ marginTop: '5px' }}>
+                Your search did not match any resources. Try a different search
+                or use the filters.
+              </h3>
+            </div>
+          )}
+          {loading && (
+            <div
+              style={{
+                position: 'absolute',
+                right: '50%',
+                top: '50%',
+                bottom: '50%',
+                left: '50%',
+              }}
+            >
+              <Spin />{' '}
+            </div>
+          )}
         </Content>
       </Layout>
     </Layout>

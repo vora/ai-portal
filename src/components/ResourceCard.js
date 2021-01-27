@@ -33,6 +33,16 @@ export default function ResourceCard({ resource }) {
           </Tag>
         ))}
       >
+        <Card.Meta
+          description={resource.organizations.map((org, index) => {
+            let orgText =
+              index < resource.organizations.length - 1
+                ? org.name + ', '
+                : org.name;
+            return <b>{orgText}</b>;
+          })}
+        />
+
         <Card.Meta description={resource.desc} />
       </Card>
       <Modal
@@ -76,7 +86,7 @@ export default function ResourceCard({ resource }) {
         <p style={{ marginBottom: '5px' }}>
           <strong style={{ marginRight: '10px' }}>Download Link: </strong>{' '}
           <a
-            href={resource.link}
+            href={resource.downloadURL}
             target="_blank"
             rel="noopener noreferrer"
             onClick={window.gtag('event', 'resource_shortcut_download', {

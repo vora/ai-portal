@@ -24,7 +24,9 @@ export default function SearchResults(props) {
     let segments = [];
     segments.push('q=' + (query || ''));
     for (let filter in filters) {
-      segments.push(filter + '=' + filters[filter]);
+      if (filters[filter] && filters[filter].length != 0) {
+        segments.push(filter + '=' + filters[filter]);
+      }
     }
     let url =
       (isResourceView ? '/resources?' : '/organizations?') + segments.join('&');
@@ -46,7 +48,11 @@ export default function SearchResults(props) {
               width={'160px'}
             />
           </a>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
+          <Menu
+            theme="light"
+            mode="horizontal"
+            defaultSelectedKeys={['resources']}
+          >
             <Menu.Item key="s" disabled>
               <Search
                 className="menu-search"

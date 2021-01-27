@@ -151,6 +151,23 @@ export default function ViewResource() {
                   disabled={true}
                 >
                   <Descriptions column={1}>
+                    <Descriptions.Item label="Download URL">
+                      <a href={resource.downloadURL}>{resource.downloadURL} </a>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Organizations">
+                      {resource.organizations.map((org, index) => {
+                        let orgText =
+                          index < resource.organizations.length - 1
+                            ? org.name + ', '
+                            : org.name;
+                        return <a href={org.websiteURL}>{orgText}</a>;
+                      })}
+                    </Descriptions.Item>
+                    {resource.creator !== '' && (
+                      <Descriptions.Item label="Creator">
+                        {resource.creator}
+                      </Descriptions.Item>
+                    )}
                     <Descriptions.Item label="Resource Type/Format">
                       {resource.type.join(', ')}
                     </Descriptions.Item>
@@ -163,33 +180,78 @@ export default function ViewResource() {
                     <Descriptions.Item label="AI Systems Type">
                       <text>Not available yet</text>
                     </Descriptions.Item>
-                  </Descriptions>
-                </Panel>
-
-                <Panel header="More Details" key="2">
-                  <Descriptions column={1}>
-                    <Descriptions.Item label="Creation Date">
-                      {resource.creationDate}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Modified Date">
-                      {resource.modifiedDate}
-                    </Descriptions.Item>
+                    {resource.keywords?.length > 0 && (
+                      <Descriptions.Item label="Keywords">
+                        {resource.keywords.join(', ')}
+                      </Descriptions.Item>
+                    )}
+                    {resource.creationDate && (
+                      <Descriptions.Item label="Creation Date">
+                        {resource.creationDate}
+                      </Descriptions.Item>
+                    )}
+                    {resource.modifiedDate && (
+                      <Descriptions.Item label="Modified Date">
+                        {resource.modifiedDate}
+                      </Descriptions.Item>
+                    )}
                     <Descriptions.Item label="Upload Date">
                       {resource.uploadDate}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Creator">
-                      {resource.creator}
                     </Descriptions.Item>
                     <Descriptions.Item label="Funded By">
                       {resource.fundedBy}
                     </Descriptions.Item>
                   </Descriptions>
                 </Panel>
+
+                {resource.type.includes('Dataset') && (
+                  <Panel header="Dataset Details" key="2">
+                    <Descriptions column={1}>
+                      {resource.dataDictLink && (
+                        <Descriptions.Item label="Data Dictionary">
+                          {resource.dataDictLink}
+                        </Descriptions.Item>
+                      )}
+                      {resource.noiseDescription && (
+                        <Descriptions.Item label="Noise Description">
+                          {resource.noiseDescription}
+                        </Descriptions.Item>
+                      )}
+                      {resource.missingInfo && (
+                        <Descriptions.Item label="Missing Info">
+                          {resource.missingInfo}
+                        </Descriptions.Item>
+                      )}
+                      {resource.isConfidential && (
+                        <Descriptions.Item label="Is a confidential dateset">
+                          {resource.isConfidential}
+                        </Descriptions.Item>
+                      )}
+                      {resource.offensiveContent && (
+                        <Descriptions.Item label="Contain offensive content">
+                          {resource.offensiveContent}
+                        </Descriptions.Item>
+                      )}
+                      {resource.personalInfoRemoved && (
+                        <Descriptions.Item label="Personal Info was removed">
+                          {resource.personalInfoRemoved}
+                        </Descriptions.Item>
+                      )}
+                      {resource.privacyProcedure && (
+                        <Descriptions.Item label="Privacy Procedure">
+                          {resource.privacyProcedure}
+                        </Descriptions.Item>
+                      )}
+                    </Descriptions>
+                  </Panel>
+                )}
               </Collapse>
             </div>
-            <div ref={fileRef}>
-              <FileTable data={resource.files}></FileTable>
-            </div>
+            {resource.files.length !== 0 && (
+              <div ref={fileRef}>
+                <FileTable data={resource.files}></FileTable>
+              </div>
+            )}
           </Content>
         </Layout>
       </Layout>
