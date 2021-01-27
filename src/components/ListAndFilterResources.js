@@ -9,10 +9,11 @@ import {
   Space,
   Spin,
   Tooltip,
+  Button,
 } from '../ant';
 import ResourceCard from '../components/ResourceCard';
 import { useAppEnv } from '../env';
-import { FilterTwoTone } from '@ant-design/icons';
+import { FilterTwoTone, RedoOutlined } from '@ant-design/icons';
 
 export default function ListAndFilterResources({
   orgTypes,
@@ -53,12 +54,12 @@ export default function ListAndFilterResources({
             theme="light"
             style={{ height: '100%', borderRight: 0 }}
           >
-            <Menu.Item style={{ marginTop: '10px' }}>
+            <Menu.Item style={{ marginTop: '10px' }} disabled>
               <Tooltip
                 placement="right"
                 title={() => (
                   <t>
-                    Learn more about what the filters mean at the
+                    Learn more on our&nbsp;
                     <a href="/faq">FAQ</a>
                   </t>
                 )}
@@ -161,6 +162,11 @@ export default function ListAndFilterResources({
                   <Select.Option value={res._id}>{res.name}</Select.Option>
                 ))}
               </Select>
+            </Menu.Item>
+            <Menu.Item disbled selectable={false}>
+              <Button href="/resources?q=">
+                Reset Filters <RedoOutlined style={{ marginRight: '0' }} />
+              </Button>
             </Menu.Item>
           </Menu>
         </Sider>

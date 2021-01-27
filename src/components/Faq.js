@@ -379,7 +379,7 @@ function FAQ({ abridged }) {
         <div style={{ marginTop: '4rem', width: '100%' }}>
           <h1 style={{ fontWeight: 'bold' }}>
             <BarsOutlined style={{ fontSize: '0.9em', color: '#1890ff' }} />
-            &nbsp;Design Assistant &amp; Terms
+            &nbsp;Design Assistant &amp; Filtering
           </h1>
           <Collapse
             accordion

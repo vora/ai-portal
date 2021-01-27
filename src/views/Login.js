@@ -194,6 +194,11 @@ function LoginView({ setShowLogin, redirect }) {
           </Button>
         </Form.Item>
         <p>
+          <a onClick={() => setShowLogin(false)} href="/register">
+            Create account
+          </a>
+        </p>
+        <p>
           <a onClick={() => setShowLogin(false)} href="#!">
             Forgot login?
           </a>

@@ -8,9 +8,10 @@ import {
   Affix,
   Space,
   Spin,
+  Button,
 } from '../ant';
 import { useAppEnv } from '../env';
-import { FilterTwoTone } from '@ant-design/icons';
+import { FilterTwoTone, RedoOutlined } from '@ant-design/icons';
 import OrganizationCard from './OrganizationCard';
 
 export default function ListAndFilterOrganizations({
@@ -68,6 +69,11 @@ export default function ListAndFilterOrganizations({
                   <Select.Option value={res}>{res}</Select.Option>
                 ))}
               </Select>
+            </Menu.Item>
+            <Menu.Item disbled>
+              <Button href="/organizations?q=">
+                Reset Filters <RedoOutlined style={{ marginRight: '0' }} />
+              </Button>
             </Menu.Item>
           </Menu>
         </Sider>
