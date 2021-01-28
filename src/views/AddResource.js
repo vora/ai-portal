@@ -113,7 +113,6 @@ function AddResource() {
       formVal.formats.includes('Library') ||
       formVal.formats.includes('Software') ||
       formVal.formats.includes('Model');
-
     let result = await api.post('/api/resources', {
       name: formVal.name,
       desc: formVal.desc,
@@ -206,8 +205,8 @@ function AddResource() {
       },
       topics: formVal.topics,
       organizations: formVal.organizations,
+      files: [],
     });
-
     if (result.errors) {
       for (let msg of result.errors) {
         console.log(msg.msg);
@@ -216,7 +215,6 @@ function AddResource() {
         });
       }
       steps = [];
-
       return;
     } else {
       message.success('Form successfully submitted');
@@ -329,6 +327,7 @@ function AddResource() {
       <Content
         style={{
           padding: '0 50px',
+          minHeight: '700px',
         }}
       >
         <Row

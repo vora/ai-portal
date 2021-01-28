@@ -59,8 +59,8 @@ export default function ListAndFilterResources({
                 placement="right"
                 title={() => (
                   <t>
-                    Learn more on our&nbsp;
-                    <a href="/faq">FAQ</a>
+                    Learn more on our
+                    <a href="/faq"> FAQ</a>
                   </t>
                 )}
               >
@@ -124,14 +124,16 @@ export default function ListAndFilterResources({
               <Select
                 showSearch
                 onChange={(e) => updateFilters({ path: e })}
-                placeholder="Resource Path"
+                placeholder="Roles"
                 style={{ width: '100%' }}
                 mode="multiple"
                 showArrow={true}
                 allowClear={true}
               >
                 {resourcePath.map((res) => (
-                  <Select.Option value={res}>{res}</Select.Option>
+                  <Select.Option value={res}>
+                    {res.replace('Path', '')}
+                  </Select.Option>
                 ))}
               </Select>
             </Menu.Item>

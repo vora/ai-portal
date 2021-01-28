@@ -26,7 +26,7 @@ module.exports = (app) => {
         res.json({ errors: [err] });
       }
     },
-    { mod: [] }
+    { mod: ['name', 'desc'] }
   );
 
   firewall.delete(

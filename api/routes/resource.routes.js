@@ -17,6 +17,7 @@ const resourceUpdateFields = [
   'creator',
   'reviewsRemaining',
   '_id',
+  'files',
 ];
 const resourcePostFields = [
   'name',
@@ -61,6 +62,7 @@ const resourcePostFields = [
   'model',
   'topics',
   'organizations',
+  'files',
 ];
 module.exports = (app) => {
   const firewall = require('../lib/firewall')(app);

@@ -105,6 +105,7 @@ exports.update = async (resource, rawParams) => {
         'removalRequest',
         'dataset',
         'model',
+        'files',
       ],
       setRefFuncs: {
         topics: exports.setTopics,

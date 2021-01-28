@@ -143,7 +143,7 @@ function ManageUsersTable({ users }) {
 }
 
 function ManageTopicsTable({ topics }) {
-  let { api, refresh } = useAppEnv;
+  let { api, refresh } = useAppEnv();
   const columns = [
     {
       title: 'Name',
@@ -165,7 +165,7 @@ function ManageTopicsTable({ topics }) {
       render: (text, topic) => (
         <Button
           onClick={() => {
-            api.del(`/api/users/${topic._id}`).then(() => refresh());
+            api.del(`/api/topics/${topic._id}`).then(() => refresh());
           }}
         >
           Remove

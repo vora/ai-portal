@@ -79,7 +79,7 @@ export default function ListAndFilterOrganizations({
         </Sider>
       </Affix>
       <Layout style={{ padding: '24px 24px 24px' }}>
-        <Content>
+        <Content style={{ minHeight: '750px' }}>
           {!loading && (
             <Space direction="vertical" style={{ width: '100%' }}>
               {orgs.map((org) => (
@@ -87,7 +87,19 @@ export default function ListAndFilterOrganizations({
               ))}
             </Space>
           )}
-          {loading && <Spin />}
+          {loading && (
+            <div
+              style={{
+                position: 'absolute',
+                right: '50%',
+                top: '50%',
+                bottom: '50%',
+                left: '50%',
+              }}
+            >
+              <Spin />
+            </div>
+          )}
         </Content>
       </Layout>
     </Layout>

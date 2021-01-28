@@ -145,9 +145,7 @@ export default function Register() {
           </Col>
         </Row>
       </Content>
-      <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-        <Footer />
-      </div>
+      <Footer />
     </Layout>
   );
 }

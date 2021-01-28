@@ -9,7 +9,6 @@ module.exports.RESOURCE_TYPES = [
   'Assessment',
   'Benchmark',
   'Best Practices',
-  'Datasets',
   'Dataset',
   'Design Tool',
   'Education Tool',

@@ -51,7 +51,9 @@ export default function SearchResults(props) {
           <Menu
             theme="light"
             mode="horizontal"
-            defaultSelectedKeys={['resources']}
+            defaultSelectedKeys={
+              isResourceView ? ['resources'] : ['organizations']
+            }
           >
             <Menu.Item key="s" disabled>
               <Search

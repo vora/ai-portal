@@ -42,6 +42,7 @@ export default function Feedback(props) {
   let onSubmit = async (values) => {
     await api.post('/api/feedback/submit', values);
     notification.info({ message: 'Sent!' });
+    history.push('/resources');
   };
   let onFail = (values) => {
     for (let err of values.errorFields) {
