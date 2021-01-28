@@ -20,7 +20,7 @@ import { useHistory } from 'react-router';
 const { Title } = Typography;
 
 function AddOrganizations() {
-  let { api } = useAppEnv();
+  let { api, enums } = useAppEnv();
   let history = useHistory();
   let onSubmit = async (formVal) => {
     let result = await api.post('/api/organizations', {
@@ -66,21 +66,24 @@ function AddOrganizations() {
       string: 'Short Name',
       val: 'shortName',
       type: 'type',
-      required: true,
+      required: false,
       tip: 'Any acronyms or abbreviations for this organization',
     },
     {
       string: 'City',
       val: 'city',
       type: 'type',
-      required: true,
+      required: false,
       tip: 'The city where this organization is located',
     },
     {
       string: 'Country',
       val: 'country',
       type: 'select',
-      options: ['A', 'B', ''],
+      options: [
+        { name: 'United States', label: 'United States' },
+        { name: 'Canada', label: 'Canada' },
+      ],
       required: true,
       tip: 'Location of this organization',
     },
@@ -102,15 +105,19 @@ function AddOrganizations() {
       string: 'Users',
       val: 'members',
       type: 'multiple',
-      options: ['Alice', 'Bob'],
-      required: true,
+      options: [],
+      required: false,
       tip: 'Users who are a part of this organization',
     },
     {
       string: 'Organization Type',
       val: 'type',
       type: 'select',
-      options: ['Industry', 'Academia', 'Government', 'Civil Society', 'Other'],
+      options: enums
+        ? enums.ORG_TYPES.map((type) => {
+            return { name: type, label: type };
+          })
+        : [],
       required: true,
       tip: "A URL for the organization's website",
     },
@@ -118,22 +125,20 @@ function AddOrganizations() {
   return (
     <Layout>
       <FormHeader />
-      <Layout
-        style={{ height: `${window.innerHeight - 120}px`, overflow: 'hidden' }}
-      >
+      <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
         <Content style={{ padding: '0 50px' }}>
-          <Row justify="center" style={{ marginTop: '4rem' }}>
+          <Row justify="center" style={{ marginTop: '2rem' }}>
             <Col
               span={8}
               style={{
                 textAlign: 'center',
                 backgroundColor: '#fff',
                 padding: '26px',
-                minWidth: '700px',
+                minWidth: '50%',
               }}
             >
               <Typography>
-                <Title style={{ minWidth: '500px' }}>Add an Organization</Title>
+                <Title level={2}>Add an Organization</Title>
               </Typography>
               <Form
                 name="basic"

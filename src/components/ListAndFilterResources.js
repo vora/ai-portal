@@ -76,95 +76,82 @@ export default function ListAndFilterResources({
                 </h1>
               </Tooltip>
             </Menu.Item>
-            <Menu.Item key="orgs" disabled>
-              <Select
-                onChange={(v) => updateFilters({ organizations: v })}
-                placeholder="Organization"
-                style={{ width: '100%' }}
-                mode="multiple"
-                showArrow={true}
-                allowClear={true}
-              >
-                {orgs.map((org) => (
-                  <Select.Option value={org._id}>{org.name}</Select.Option>
-                ))}
-              </Select>
-            </Menu.Item>
-            <Menu.Item key="orgTypes" disabled>
-              <Select
-                showSearch
-                onChange={(e) => updateFilters({ organizationType: e })}
-                placeholder="Organization Type"
-                style={{ width: '100%' }}
-                mode="multiple"
-                showArrow={true}
-                allowClear={true}
-              >
-                {orgTypes.map((res) => (
-                  <Select.Option value={res}>{res}</Select.Option>
-                ))}
-              </Select>
-            </Menu.Item>
-            <Menu.Item key="resourceTypes" disabled>
-              <Select
-                showS
-                onChange={(e) => updateFilters({ type: e })}
-                placeholder="Resource Type"
-                style={{ width: '100%' }}
-                mode="multiple"
-                showArrow={true}
-                allowClear={true}
-              >
-                {resourceTypes.map((res) => (
-                  <Select.Option value={res}>{res}</Select.Option>
-                ))}
-              </Select>
-            </Menu.Item>
-            <Menu.Item key="paths" disabled>
-              <Select
-                showSearch
-                onChange={(e) => updateFilters({ path: e })}
-                placeholder="Roles"
-                style={{ width: '100%' }}
-                mode="multiple"
-                showArrow={true}
-                allowClear={true}
-              >
-                {resourcePath.map((res) => (
-                  <Select.Option value={res}>
-                    {res.replace('Path', '')}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Menu.Item>
-            <Menu.Item key="sort" disabled>
-              <Select
-                onChange={(e) => updateFilters({ sortBy: e })}
-                placeholder="Sort By"
-                style={{ width: '100%' }}
-                showArrow={true}
-                allowClear={true}
-              >
-                <Select.Option value="byNameAsc">Name</Select.Option>
-                <Select.Option value="byUploadDateAsc">
-                  Upload Date
+            <Select
+              onChange={(v) => updateFilters({ organizations: v })}
+              placeholder="Organization"
+              style={{ width: '95%', padding: '2px 10px' }}
+              mode="multiple"
+              showArrow={true}
+              allowClear={true}
+            >
+              {orgs.map((org) => (
+                <Select.Option value={org._id}>{org.name}</Select.Option>
+              ))}
+            </Select>
+            <Select
+              showSearch
+              onChange={(e) => updateFilters({ organizationType: e })}
+              placeholder="Organization Type"
+              style={{ width: '95%', padding: '5px 10px' }}
+              mode="multiple"
+              showArrow={true}
+              allowClear={true}
+            >
+              {orgTypes.map((res) => (
+                <Select.Option value={res}>{res}</Select.Option>
+              ))}
+            </Select>
+            <Select
+              showS
+              onChange={(e) => updateFilters({ type: e })}
+              placeholder="Resource Type"
+              style={{ width: '95%', padding: '5px 10px' }}
+              mode="multiple"
+              showArrow={true}
+              allowClear={true}
+            >
+              {resourceTypes.map((res) => (
+                <Select.Option value={res}>{res}</Select.Option>
+              ))}
+            </Select>
+            <Select
+              showSearch
+              onChange={(e) => updateFilters({ path: e })}
+              placeholder="Roles"
+              style={{ width: '95%', padding: '5px 10px' }}
+              mode="multiple"
+              showArrow={true}
+              allowClear={true}
+            >
+              {resourcePath.map((res) => (
+                <Select.Option value={res}>
+                  {res.replace('Path', '')}
                 </Select.Option>
-              </Select>
-            </Menu.Item>
-            <Menu.Item key="topics" disabled>
-              <Select
-                onChange={(e) => updateFilters({ topics: e })}
-                placeholder="Topics"
-                style={{ width: '100%' }}
-                mode="multiple"
-                showArrow={true}
-                allowClear={true}
-              >
-                {topics.map((res) => (
-                  <Select.Option value={res._id}>{res.name}</Select.Option>
-                ))}
-              </Select>
-            </Menu.Item>
+              ))}
+            </Select>
+            <Select
+              onChange={(e) => updateFilters({ sortBy: e })}
+              placeholder="Sort By"
+              style={{ width: '95%', padding: '5px 10px' }}
+              showArrow={true}
+              allowClear={true}
+            >
+              <Select.Option value="byNameAsc">Name</Select.Option>
+              <Select.Option value="byUploadDateAsc">Upload Date</Select.Option>
+            </Select>
+            <Select
+              onChange={(e) => updateFilters({ topics: e })}
+              placeholder="Topics"
+              style={{ width: '95%', padding: '5px 10px' }}
+              mode="multiple"
+              showArrow={true}
+              allowClear={true}
+            >
+              {topics.map((res) => (
+                <Select.Option value={res._id}>{res.name}</Select.Option>
+              ))}
+            </Select>
+
             <Menu.Item disbled selectable={false}>
               <Button href="/resources?q=">
                 Reset Filters <RedoOutlined style={{ marginRight: '0' }} />

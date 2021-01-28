@@ -58,7 +58,13 @@ function Landing() {
                 enterButton
                 size="large"
                 onChange={(e) => setQuery(e.target.value)}
-                onSearch={() => history.push('/resources?q=' + query)}
+                onSearch={() => {
+                  window.gtag('event', 'search_bar_query', {
+                    event_label: query,
+                    event_category: 'search',
+                  });
+                  history.push('/resources?q=' + query);
+                }}
                 style={{
                   marginBottom: '5px',
                 }}
