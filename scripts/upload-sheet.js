@@ -77,6 +77,14 @@ let uploadRow = async (row, orgsDb) => {
     .on('error', console.warn)
     .on('disconnected', console.warn)
     .once('open', () => {
+      // Auto allow all pending:
+      // resourceUtil.getAllPending().then(async (resources) => {
+      //   await Promise.all(
+      //     resources.map((res) =>
+      //       resourceUtil.update(res, { reviewsRemaining: [] })
+      //     )
+      //   );
+      // });
       fs.createReadStream(orgsFn)
         .pipe(csv())
         .on('data', (row) => {
