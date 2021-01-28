@@ -6,7 +6,6 @@ import {
   Col,
   Card,
   Space,
-  Tag,
   Table,
   Button,
   Tooltip,
@@ -120,66 +119,18 @@ function Dashboard({ user }) {
   );
 }
 
-function Organizations({ orgs }) {
+function Organizations({ organizations }) {
   const columns = [
     {
       title: 'Organization',
-      dataIndex: 'organization',
-      key: 'organization',
-      sorter: (a, b) => a.organization.localeCompare(b.organization),
+      dataIndex: 'name',
+      key: 'Name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      sorter: (a, b) => a.type.localeCompare(b.type),
-      sortDirections: ['descend', 'ascend'],
-      render: (type) => {
-        return (
-          <Tag
-            style={{ color: 'white', fontWeight: 'bold' }}
-            color={'#097AE8'}
-            key={type}
-          >
-            {type.toUpperCase()}
-          </Tag>
-        );
-      },
-    },
-    {
-      title: 'User Role',
-      key: 'role',
-      dataIndex: 'role',
-      sorter: (a, b) => a.role.localeCompare(b.role),
-      sortDirections: ['descend', 'ascend'],
-      render: (role) => {
-        return (
-          <Tag
-            style={{ color: 'white', fontWeight: 'bold' }}
-            color={'red'}
-            key={role}
-          >
-            {role.toUpperCase()}
-          </Tag>
-        );
-      },
-    },
-    {
-      title: 'Total Members',
-      dataIndex: 'members',
-      key: 'members',
-      sorter: (a, b) => a.members.localeCompare(b.members),
-      sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (text, record) => <a href="/">Leave</a>,
     },
   ];
   return (
-    <Card id="users" style={{ marginBottom: '20px' }}>
+    <Card id="orgs" style={{ marginBottom: '20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
         Manage Organizations &nbsp;
         <Tooltip
@@ -196,7 +147,7 @@ function Organizations({ orgs }) {
       </h1>
       <Table
         columns={columns}
-        dataSource={orgs}
+        dataSource={organizations}
         onChange={console.log}
         pagination={{ pageSize: 10 }}
         scroll={{ y: 240 }}
