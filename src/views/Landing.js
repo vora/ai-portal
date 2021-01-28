@@ -76,8 +76,8 @@ function Landing() {
             </div>
           </Col>
         </Row>
-        <Row justify="center" style={{ marginTop: '4rem', marginBottom: '0' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Row justify="center" style={{ marginTop: '6rem', marginBottom: '0' }}>
+          {/* <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <p
               style={{
                 fontSize: '2.5em',
@@ -91,7 +91,7 @@ function Landing() {
                 You came to the right place.
               </span>
             </p>
-          </div>
+          </div> */}
         </Row>
         <Row justify="center">
           <Col span={14}>
