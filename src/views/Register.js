@@ -49,7 +49,7 @@ export default function Register() {
     }
   };
   return (
-    <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
+    <Layout style={{ overflow: 'hidden' }}>
       <FormHeader />
       <Content
         style={{
@@ -58,14 +58,17 @@ export default function Register() {
             'radial-gradient(circle, rgba(0,166,156,1) 0%, rgba(0,173,238,1) 100%)',
         }}
       >
-        <Row justify="center" style={{ marginTop: '4rem' }}>
+        <Row
+          justify="center"
+          style={{ marginTop: '2rem', marginBottom: '1rem' }}
+        >
           <Col
             span={10}
             style={{
               textAlign: 'center',
               backgroundColor: '#fff',
               padding: '26px',
-              minWidth: '700px',
+              minWidth: '50%',
             }}
           >
             <Form
@@ -75,10 +78,9 @@ export default function Register() {
               onFinish={onSubmit}
               onFinishFailed={onFail}
               wrapperCol={{ span: 14 }}
-              style={{ minWidth: '600px' }}
             >
               <Typography>
-                <Title style={{ minWidth: '500px' }}>User Registration</Title>
+                <Title level={2}>User Registration</Title>
                 <Paragraph>
                   You can create an account for the AI Global Portal! Members
                   can upload resources to the portal.

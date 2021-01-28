@@ -246,9 +246,9 @@ export function getQuestionsCore1(topics, orgs) {
       val: 'paths',
       type: 'multiple',
       options: [
-        { name: 'Designer', label: 'Designer' },
+        { name: 'Designer Path', label: 'Designer' },
         {
-          name: 'Developer',
+          name: 'Developer Path',
           label: 'Developer',
         },
         { name: 'Policymaker Path', label: 'Policymaker' },

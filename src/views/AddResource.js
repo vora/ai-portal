@@ -341,7 +341,7 @@ function AddResource() {
                 textAlign: 'center',
                 backgroundColor: '#fff',
                 padding: '26px',
-                minWidth: '1300px',
+                minWidth: '95%',
               }}
             >
               <div ref={topRef}>

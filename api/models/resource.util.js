@@ -121,8 +121,8 @@ exports.update = async (resource, rawParams) => {
 
 exports.toJSON = (resource) => {
   let { __v, ...obj } = JSON.parse(JSON.stringify(resource));
-  obj.organizations = obj.organizations.map(organizationUtil.toJSON);
-  obj.files = obj.organizations.map(fileUtil.toJSON);
+  obj.organizations = obj.organizations?.map(organizationUtil.toJSON);
+  obj.files = obj.files?.map(fileUtil.toJSON);
   return obj;
 };
 

@@ -46,7 +46,7 @@ export default function Login(props) {
         .join('&')}`
     : '/resources';
   return (
-    <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
+    <Layout style={{ height: `${window.innerHeight}px` }}>
       <FormHeader />
       <Content
         style={{
@@ -55,7 +55,7 @@ export default function Login(props) {
             'radial-gradient(circle, rgba(0,166,156,1) 0%, rgba(0,173,238,1) 100%)',
         }}
       >
-        <Row justify="center" style={{ marginTop: '4rem' }}>
+        <Row justify="center" style={{ marginTop: '2rem' }}>
           {inOAuth && user ? (
             <OAuthConfirmView oauthParams={oauthParams} />
           ) : showLogin ? (
@@ -93,11 +93,12 @@ function OAuthConfirmView({ oauthParams }) {
         textAlign: 'center',
         backgroundColor: '#fff',
         padding: '26px',
-        minWidth: '700px',
+        minWidth: '50%',
+        justifyContent: 'center',
       }}
     >
       <Typography>
-        <Title style={{ minWidth: '500px' }}>{oauthInfo?.name}</Title>
+        <Title level={2}>{oauthInfo?.name}</Title>
         <span>Allow {oauthInfo?.name} to access your AI Global account?</span>
         <br />
         <div style={{ marginTop: '10px' }}>
@@ -146,23 +147,23 @@ function LoginView({ setShowLogin, redirect }) {
   };
   return (
     <Col
-      span={8}
       style={{
+        justifyContent: 'center',
         textAlign: 'center',
         backgroundColor: '#fff',
         padding: '26px',
-        minWidth: '700px',
+        minWidth: '50%',
       }}
     >
       <Typography>
-        <Title style={{ minWidth: '500px' }}>Login</Title>
+        <Title level={2}>Login</Title>
       </Typography>
       <Form
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onSubmit}
         onFinishFailed={onFail}
-        style={{ minWidth: '600px' }}
+        wrapperCol={{ span: 14, offset: 5 }}
       >
         <Form.Item
           name="username"
@@ -232,23 +233,23 @@ function LoginForgetView(props) {
   };
   return (
     <Col
-      span={8}
       style={{
+        justifyContent: 'center',
         textAlign: 'center',
         backgroundColor: '#fff',
         padding: '26px',
-        minWidth: '700px',
+        minWidth: '50%',
       }}
     >
       <Typography>
-        <Title style={{ minWidth: '500px' }}>Reset Login</Title>
+        <Title level={2}>Reset Login</Title>
       </Typography>
       <Form
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onSubmit}
         onFinishFailed={onFail}
-        style={{ minWidth: '600px' }}
+        wrapperCol={{ span: 14, offset: 5 }}
       >
         <Form.Item
           name="username"
