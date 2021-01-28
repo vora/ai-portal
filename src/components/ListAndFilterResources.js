@@ -59,8 +59,8 @@ export default function ListAndFilterResources({
                 placement="right"
                 title={() => (
                   <t>
-                    Learn more on our
-                    <a href="/faq"> FAQ</a>
+                    Learn more on our&nbsp;
+                    <a href="/faq">FAQ</a>
                   </t>
                 )}
               >

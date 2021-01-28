@@ -157,13 +157,12 @@ function FAQ({ abridged }) {
           >
             <p style={{ marginLeft: '25px' }}>
               Resources are often scattered on different platforms and can be
-              difficult to find and access. The purpose of the Community Portal
-              is to allow quick and easy access to 300+ resources that bring
-              awareness to ethical AI issues and how to mitigate harm of
-              technology. By reducing the time it takes to search for trusted
-              resources through housing themin the same place, our goal is to
-              improve access and empower progress in this rapidly evolving
-              field.
+              difficult to find. The purpose of the Community Portal is to allow
+              quick and easy access to 300+ resources that bring awareness to
+              ethical AI issues and how to mitigate harm of technology. By
+              reducing the time it takes to search for trusted resources, our
+              goal is to improve access and empower progress in this rapidly
+              evolving field.
             </p>
           </Panel>
           <Panel
@@ -414,7 +413,7 @@ function FAQ({ abridged }) {
             <Panel
               header={
                 <p style={{ fontWeight: 'bold', marginBottom: '0' }}>
-                  What are the Resource Paths?
+                  What are the Roles?
                 </p>
               }
               key="2"
@@ -426,23 +425,22 @@ function FAQ({ abridged }) {
                 looking for resources. These include:
                 <ul style={{ marginTop: '5px' }}>
                   <li>
-                    <strong>Explorer Path</strong>: Introductory material to
-                    those new to Responsible AI
+                    <strong>Explorer</strong>: Introductory material to those
+                    new to Responsible AI
                   </li>
                   <li>
-                    <strong>Designer Path</strong>: Intended for product
-                    designers
+                    <strong>Designer</strong>: Intended for product designers
                   </li>
                   <li>
-                    <strong>Developer Path</strong>: Technical resources for
+                    <strong>Developer</strong>: Technical resources for
                     engineers and developers
                   </li>
                   <li>
-                    <strong>Policymaker Path</strong>: Individuals looking for
+                    <strong>Policymaker</strong>: Individuals looking for
                     governance systems and regulations
                   </li>
                   <li>
-                    <strong>Risk Manager Path</strong>: Those interested in best
+                    <strong>Risk Manager</strong>: Those interested in best
                     practices and use cases
                   </li>
                 </ul>

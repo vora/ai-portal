@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Layout, Menu, Header, Row, Search, Affix, Content, Col } from '../ant';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
@@ -9,6 +9,7 @@ import { UpCircleOutlined } from '@ant-design/icons';
 
 function Faq() {
   let history = useHistory();
+  let faqRef = useRef(null);
   let updateSearch = (query) => {
     let segments = [];
     segments.push('q=' + (query || ''));
@@ -96,7 +97,17 @@ function Faq() {
                 policies, datasets, and open-source software
               </strong>{' '}
               designed to support Responsible AI development. If you'd like to
-              learn more, watch the demo below or explore our FAQ.
+              learn more, watch the demo below or explore our{' '}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  faqRef.current.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                FAQ
+              </a>
+              .
             </p>
             <p style={{ fontWeight: 'bold', fontSize: '1.4em' }}>
               Video Demonstration
@@ -112,10 +123,18 @@ function Faq() {
             ></iframe>
           </Col>
         </Row>
-        <Row justify="center" style={{ marginTop: '6rem' }}>
-          <h1 style={{ fontSize: '1.5em', fontWeight: 'bold' }}>
-            Frequently Asked Questions
-          </h1>
+        <Row justify="center" style={{ marginTop: '2rem' }}>
+          <div ref={faqRef}>
+            <h1
+              style={{
+                fontSize: '1.5em',
+                fontWeight: 'bold',
+                marginTop: '6rem',
+              }}
+            >
+              Frequently Asked Questions
+            </h1>
+          </div>
         </Row>
         <Row justify="center" style={{ marginTop: '0.2rem' }}>
           <Col span={15}>

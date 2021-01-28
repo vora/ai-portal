@@ -177,7 +177,7 @@ export default function ViewResource() {
                     <Descriptions.Item label="Resource Type/Format">
                       {resource.type.join(', ')}
                     </Descriptions.Item>
-                    <Descriptions.Item label="Resource Path">
+                    <Descriptions.Item label="Role(s)">
                       {resource.path.join(', ')}
                     </Descriptions.Item>
                     <Descriptions.Item label="Responsible AI Trust Index Categories">

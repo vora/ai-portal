@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Layout, Content, Search, Row, Col, Card, Button } from '../ant';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
@@ -11,9 +11,11 @@ import {
   RightCircleOutlined,
   QuestionCircleOutlined,
   UpCircleOutlined,
+  DownCircleOutlined,
 } from '@ant-design/icons';
 
 function Landing() {
+  let faqRef = useRef(null);
   let { api } = useAppEnv();
   let [featured, setFeatured] = useState([]);
   let history = useHistory();
@@ -86,16 +88,13 @@ function Landing() {
           </div>
         </Row>
         <Row justify="center">
-          <Col span={15}>
+          <Col span={14}>
             <p style={{ fontSize: '1.4em', textAlign: 'center' }}>
               On the Community Portal, you can find{' '}
               <strong>selected research, datasets, toolkits, and more</strong>{' '}
               to help you learn more about <strong>Responsible AI</strong> and
-              apply it in you work. Start searching or explore our resources
-              above!
-              {/* Whether you're an experienced practitioner
-              or learning about AI for the first time, we have resources for
-              you! */}
+              apply it in you work. Start <a href="/resources?q=">searching</a>{' '}
+              or <a href="/resources/create">upload</a>&nbsp;your own resources!
             </p>
           </Col>
         </Row>
@@ -108,9 +107,29 @@ function Landing() {
             <RightCircleOutlined />
           </a>
         </Row>
-        <Row justify="center" style={{ marginTop: '10rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <p style={{ fontSize: '2em', fontWeight: 'bold', color: 'black' }}>
+        <Row justify="center" style={{ marginTop: '2rem' }}>
+          <DownCircleOutlined
+            style={{ fontSize: '3em', color: '#1890ff', opacity: '0.6' }}
+            onClick={() =>
+              faqRef.current.scrollIntoView({
+                behavior: 'smooth',
+              })
+            }
+          />
+        </Row>
+        <Row justify="center" style={{ marginTop: '9rem' }}>
+          <div
+            ref={faqRef}
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+          >
+            <p
+              style={{
+                fontSize: '2em',
+                fontWeight: 'bold',
+                color: 'black',
+                marginTop: '2rem',
+              }}
+            >
               Frequently Asked Questions
             </p>
           </div>
