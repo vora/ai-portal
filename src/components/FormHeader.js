@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Affix, Menu, Search } from '../ant';
+import { Header, Affix, Menu, Search, Button } from '../ant';
 import LoginButton from '../components/LoginButton';
 import { useHistory } from 'react-router';
 
@@ -45,17 +45,19 @@ function FormHeader() {
           >
             Organizations
           </Menu.Item>
-          <Menu.Item
-            key="upload"
-            onClick={() => history.push('/resources/create')}
-          >
-            Upload
-          </Menu.Item>
           <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
             Feedback
           </Menu.Item>
           <Menu.Item key="faq" onClick={() => history.push('/faq')}>
             FAQ
+          </Menu.Item>
+          <Menu.Item
+            key="upload"
+            onClick={() => history.push('/resources/create')}
+          >
+            <Button style={{ borderRadius: '10px', fontWeight: 'bold' }}>
+              Upload
+            </Button>
           </Menu.Item>
         </Menu>
         <div style={{ position: 'absolute', top: '0px', right: '20px' }}>
