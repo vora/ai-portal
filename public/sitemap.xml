@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://portal.ai-global.org</loc>
+   	 	<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://portal.ai-global.org/resources</loc>
+    		<priority>1</priority>
+    		<changefreq>Weekly</changefreq>
+	</url>
+	<url>
+		<loc>https://portal.ai-global.org/resources/create</loc>
+    		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>https://portal.ai-global.org/organizations</loc>
+    		<priority>0.5</priority>
+    		<changefreq>Monthly</changefreq>
+	</url>
+	<url>
+		<loc>https://portal.ai-global.org/faq</loc>
+    		<priority>0.5</priority>
+	</url>
+</urlset>
