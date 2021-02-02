@@ -79,11 +79,7 @@ function AddOrganizations() {
     {
       string: 'Country',
       val: 'country',
-      type: 'select',
-      options: [
-        { name: 'United States', label: 'United States' },
-        { name: 'Canada', label: 'Canada' },
-      ],
+      type: 'type',
       required: true,
       tip: 'Location of this organization',
     },
@@ -125,7 +121,7 @@ function AddOrganizations() {
   return (
     <Layout>
       <FormHeader />
-      <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
+      <Layout style={{ height: `${window.innerHeight}px` }}>
         <Content style={{ padding: '0 50px' }}>
           <Row justify="center" style={{ marginTop: '2rem' }}>
             <Col

@@ -142,17 +142,17 @@ export function getQuestionsCore1(topics, orgs) {
         { name: 'Inspection', label: 'Inspection' },
         { name: 'Library', label: 'Library' },
         { name: 'Model', label: 'Model' },
+        { name: 'News', label: 'News' },
         { name: 'Podcast', label: 'Podcast' },
         { name: 'Principles', label: 'Principle' },
         { name: 'Regulations and Laws', label: 'Regulations and Laws' },
-        { name: 'Research', label: 'Principle' },
+        { name: 'Research', label: 'Research' },
         { name: 'Software', label: 'Software' },
         { name: 'Standards', label: 'Standards' },
         {
           name: 'Strategy & Implementation',
           label: 'Strategy & Implementation',
         },
-
         { name: 'Toolkit', label: 'Toolkit' },
         { name: 'Vision Tool', label: 'Vision Tool' },
         { name: 'Working Groups', label: 'Working Groups' },
@@ -287,7 +287,7 @@ export function getQuestionsCore1(topics, orgs) {
     },
     {
       string: 'Where can we access the resource?',
-      val: 'resources',
+      val: 'url',
       type: 'type',
       options: null,
       required: true,
