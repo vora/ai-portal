@@ -99,7 +99,7 @@ function Landing() {
               On the Community Portal, you can find{' '}
               <strong>selected research, datasets, toolkits, and more</strong>{' '}
               to help you learn more about <strong>Responsible AI</strong> and
-              apply it in you work. Start <a href="/resources?q=">searching</a>{' '}
+              apply it in your work. Start <a href="/resources?q=">searching</a>{' '}
               or <a href="/resources/create">upload</a>&nbsp;your own resources!
             </p>
           </Col>
