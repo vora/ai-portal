@@ -29,7 +29,7 @@ module.exports = (app) => {
       let user = await req.getUser();
       let ctx = { enums: enums };
       if (user) {
-        ctx.user = user;
+        ctx.user = userUtil.toPrivateJSON(user);
       }
       return res.json(ctx);
     },
