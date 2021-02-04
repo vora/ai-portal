@@ -61,6 +61,9 @@ export default function OrganizationCard({ organization }) {
             {organization.websiteURL}
           </a>
         </p>
+        <a href={'/resources?q=&organizations=' + organization._id}>
+          Click here to view their list of resources
+        </a>
       </Modal>
     </div>
   );

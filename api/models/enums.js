@@ -17,6 +17,7 @@ module.exports.RESOURCE_TYPES = [
   'Inspection',
   'Library',
   'Model',
+  'News',
   'Podcast',
   'Principles',
   'Regulations and Laws',
@@ -28,7 +29,6 @@ module.exports.RESOURCE_TYPES = [
   'Vision Tool',
   'Working Groups',
   'Workshop',
-
   'Other',
 ];
 module.exports.RESOURCE_PATHS = [

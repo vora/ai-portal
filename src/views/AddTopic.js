@@ -73,11 +73,11 @@ function AddTopic() {
               textAlign: 'center',
               backgroundColor: '#fff',
               padding: '26px',
-              minWidth: '700px',
+              minWidth: '50%',
             }}
           >
             <Typography>
-              <Title style={{ minWidth: '500px' }}>Add a Topic</Title>
+              <Title level={2}>Add a Topic</Title>
             </Typography>
             <Form
               labelCol={{ span: 3 }}

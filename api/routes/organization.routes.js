@@ -39,6 +39,8 @@ module.exports = (app) => {
         'websiteURL',
         'type',
         'name',
+        'members',
+        'resources',
       ],
       mod: [
         '_id',
@@ -49,6 +51,8 @@ module.exports = (app) => {
         'websiteURL',
         'type',
         'name',
+        'members',
+        'resources',
       ],
     },
     userPartOfOrg
@@ -82,6 +86,8 @@ module.exports = (app) => {
         'websiteURL',
         'type',
         'name',
+        'members',
+        'resources',
       ],
     }
   );

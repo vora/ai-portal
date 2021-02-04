@@ -1,5 +1,15 @@
 import React, { useRef } from 'react';
-import { Layout, Menu, Header, Row, Search, Affix, Content, Col } from '../ant';
+import {
+  Layout,
+  Menu,
+  Header,
+  Row,
+  Search,
+  Affix,
+  Content,
+  Col,
+  Button,
+} from '../ant';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
 import { useHistory } from 'react-router';
@@ -54,17 +64,19 @@ function Faq() {
             >
               Organizations
             </Menu.Item>
-            <Menu.Item
-              key="upload"
-              onClick={() => history.push('/resources/create')}
-            >
-              Upload
-            </Menu.Item>
             <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
               Feedback
             </Menu.Item>
             <Menu.Item key="faq" onClick={() => history.push('/faq')}>
               FAQ
+            </Menu.Item>
+            <Menu.Item
+              key="upload"
+              onClick={() => history.push('/resources/create')}
+            >
+              <Button style={{ borderRadius: '10px', fontWeight: 'bold' }}>
+                Add A Resource
+              </Button>
             </Menu.Item>
           </Menu>
           <div style={{ position: 'absolute', top: '0px', right: '20px' }}>

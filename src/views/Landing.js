@@ -58,7 +58,13 @@ function Landing() {
                 enterButton
                 size="large"
                 onChange={(e) => setQuery(e.target.value)}
-                onSearch={() => history.push('/resources?q=' + query)}
+                onSearch={() => {
+                  window.gtag('event', 'search_bar_query', {
+                    event_label: query,
+                    event_category: 'search',
+                  });
+                  history.push('/resources?q=' + query);
+                }}
                 style={{
                   marginBottom: '5px',
                 }}
@@ -70,8 +76,8 @@ function Landing() {
             </div>
           </Col>
         </Row>
-        <Row justify="center" style={{ marginTop: '4rem', marginBottom: '0' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+        <Row justify="center" style={{ marginTop: '6rem', marginBottom: '0' }}>
+          {/* <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <p
               style={{
                 fontSize: '2.5em',
@@ -85,7 +91,7 @@ function Landing() {
                 You came to the right place.
               </span>
             </p>
-          </div>
+          </div> */}
         </Row>
         <Row justify="center">
           <Col span={14}>
@@ -93,7 +99,7 @@ function Landing() {
               On the Community Portal, you can find{' '}
               <strong>selected research, datasets, toolkits, and more</strong>{' '}
               to help you learn more about <strong>Responsible AI</strong> and
-              apply it in you work. Start <a href="/resources?q=">searching</a>{' '}
+              apply it in your work. Start <a href="/resources?q=">searching</a>{' '}
               or <a href="/resources/create">upload</a>&nbsp;your own resources!
             </p>
           </Col>
