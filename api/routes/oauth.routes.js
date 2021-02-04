@@ -3,8 +3,20 @@ const userUtil = require('../models/user.util');
 const SUPPORTED_CLIENTS = [
   {
     id: 'designassistant',
-    redirect_uri: 'http://designassistant.dev.ai-global.org',
+    redirect_uri: 'https://designassistant.dev.ai-global.org',
+    name: 'AI Global Design Assistant (Dev Version)',
+    allowedScopes: ['*'],
+  },
+  {
+    id: 'designassistan-dev',
+    redirect_uri: 'https://designassistant.ai-global.org',
     name: 'AI Global Design Assistant',
+    allowedScopes: ['*'],
+  },
+  {
+    id: 'localhost',
+    redirect_uri: 'http://localhost:3000',
+    name: 'Localhost',
     allowedScopes: ['*'],
   },
 ];
