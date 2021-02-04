@@ -2,13 +2,13 @@ const userUtil = require('../models/user.util');
 
 const SUPPORTED_CLIENTS = [
   {
-    id: 'designassistant',
+    id: 'designassistant-dev',
     redirect_uri: 'https://designassistant.dev.ai-global.org',
     name: 'AI Global Design Assistant (Dev Version)',
     allowedScopes: ['*'],
   },
   {
-    id: 'designassistan-dev',
+    id: 'designassistant',
     redirect_uri: 'https://designassistant.ai-global.org',
     name: 'AI Global Design Assistant',
     allowedScopes: ['*'],
@@ -90,7 +90,6 @@ module.exports = (app) => {
       } = req.body;
       let client = SUPPORTED_CLIENTS.find((c) => c.id == client_id);
       let decodedCode = req.jwtDecode(code);
-      // TODO validate decodedCode challenge & code_verifier
       if (
         grant_type != 'authorization_code' ||
         !decodedCode.userId ||
