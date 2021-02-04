@@ -84,10 +84,7 @@ function OAuthConfirmView({ oauthParams }) {
     }
   }, [api, oauthParams.client_id]);
   let allow = async () => {
-    let { authCode, redirect } = await api.post(
-      '/api/oauth/authcode',
-      oauthParams
-    );
+    let { redirect } = await api.post('/api/oauth/authcode', oauthParams);
     window.location = redirect;
   };
   if (!oauthInfo) {
