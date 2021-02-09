@@ -1,31 +1,38 @@
-# Documentation / Deployment and CI
+# Documentation / Development
 
-## GitHub Actions
+## Setup
 
-For our CI, we use GitHub's built-in [GitHub Actions](https://docs.github.com/en/actions) as defined by this [config file](https://github.com/AI-Global/ai-portal/tree/master/.github/workflows). All this does it check for front-end build errors. In the future this is where things like unit and integration tests should be added. In an ideal world, master should always have a check (meaning no build errors) and PRs should not be merged until there are passing.
+#### Requirements
 
-## Site Hosting
+- You will need to use [vscode](https://code.visualstudio.com/) in order to use our auto-formatting tools and linting.
+- You'll need [yarn](https://classic.yarnpkg.com/en/docs/install/) to install packages. If you ever see a `package-lock.json` file, you've done something wrong (delete it and run `yarn install`).
 
-### Site
+#### Environment Variables
 
-Both the front-end and back-end are run on the same [Heroku](https://www.heroku.com/dynos) dyno (think: very small and cheap server) which runs `$ node server.js`. Heroku settings can be viewed at [dashboard.heroku.com/apps/ai-global-portal](https://dashboard.heroku.com/apps/ai-global-portal). Here one can also find production's environment variables, DNS settings, server logs, and error metrics.
+> Do not use the same `MONGODB_URL` that is used in production. If you want a database for development, you can just create a free one with [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 
-### DNS
+```bash
+MONGODB_URL=mongodb+srv...secret...
+REACT_APP_API_BASE_URL=http://localhost:5000
 
-A single `CNAME` record in namecheap directs `portal.ai-global.org` to Heroku.
+// Optional
+SENDGRID_API_KEY=SG....secret...
+FEEDBACK_EMAIL=name@ai-global.org
+DISABLE_FIREWALL=true
+```
 
-##### Cost: ~$5/month
+### Commands
 
-## Data Hosting
+```
+$ git clone https://github.com/AI-Global/ai-portal && cd ai-portal
+$ yarn install
+$ yarn watch:api
+```
 
-### Users, Resources, etc.
+## Helpful Docs
 
-Our MongoDB database is hosted on [Atlas](https://www.mongodb.com/cloud/atlas) for free (up to 512MB). Atlas settings can be view at [cloud.mongodb.com/v2/5f9f71470cc0b741eab50a50](https://cloud.mongodb.com/v2/5f9f71470cc0b741eab50a50#clusters). The "collections" tab can be very useful for editing database objects manually. Note: `MONGODB_URL` is effectively the password for this, **NEVER** commit or share it.
-
-##### Cost MongoDB: free
-
-### Files
-
-File storage is handled by [AWS s3](https://aws.amazon.com/s3/). The storage bucket can be accessed and edited at [s3.console.aws.amazon.com/s3/buckets/ai-portal-files](https://s3.console.aws.amazon.com/s3/buckets/ai-portal-files?region=us-east-2&tab=objects). Note 1: Everything in the `ai-portal-files` bucket is public, **NEVER** store confidential information there. Note 2: The current [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) settings only allow access from the portal (although this is easily updatable).
-
-##### Cost s3: ~$0-10/month
+- [ExpressJS](https://expressjs.com/en/5x/api.html)
+- [Mongoose](https://mongoosejs.com/docs/guide.html)
+- [Ant Design Components](https://ant.design/components/overview/)
+- [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+- [General Docs](https://github.com/AI-Global/ai-portal/blob/master/docs/general.md)

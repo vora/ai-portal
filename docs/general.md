@@ -2,17 +2,17 @@
 
 ## Index
 
-- General
+- [General](https://github.com/AI-Global/ai-portal/blob/master/docs/general.md)
   - Index
   - Vocab
   - Tech Stack
   - File Structure
   - Request Flow
-- Development
+- [Development](https://github.com/AI-Global/ai-portal/blob/master/docs/development.md)
   - Setup
   - Commands
   - Helpful Docs
-- Deployment and CI
+- [Deployment and CI](https://github.com/AI-Global/ai-portal/blob/master/docs/deploy.md)
   - GitHub Actions
   - Site Hosting
   - Data Hosting
