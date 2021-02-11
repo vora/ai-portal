@@ -14,6 +14,10 @@ Both the front-end and back-end are run on the same [Heroku](https://www.heroku.
 
 A single `CNAME` record in namecheap directs `portal.ai-global.org` to Heroku.
 
+### Auto-Deploy
+
+Heroku is current set to automatically deploy anything that's pushed to master. This means it's very important to verify PRs work before merging into master. In the event that a bad PR breaks production, one can easily (and only temporarily) roll back to an old version of the code in the Heroku settings.
+
 ##### Cost: ~$5/month
 
 ## Data Hosting

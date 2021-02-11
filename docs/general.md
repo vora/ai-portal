@@ -16,10 +16,13 @@
   - GitHub Actions
   - Site Hosting
   - Data Hosting
-- OAuth
-- Email
-- Database & Storage
-- Scripts
+- [OAuth](https://github.com/AI-Global/ai-portal/blob/master/docs/oauth.md)
+  - Overview
+  - Future Work
+- [Email](https://github.com/AI-Global/ai-portal/blob/master/docs/email.md)
+  - Overview
+  - Limitations
+- [Scripts](https://github.com/AI-Global/ai-portal/blob/master/docs/scripts.md)
 - Front-end Patterns
 - Back-end Patterns
 
