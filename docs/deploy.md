@@ -8,7 +8,7 @@ For our CI, we use GitHub's built-in [GitHub Actions](https://docs.github.com/en
 
 ### Site
 
-Both the front-end and back-end are run on the same [Heroku](https://www.heroku.com/dynos) dyno (think: very small and cheap server) which runs `$ node server.js`. Heroku settings can be viewed at [dashboard.heroku.com/apps/ai-global-portal](https://dashboard.heroku.com/apps/ai-global-portal). Here one can also find production's environment variables, DNS settings, server logs, and error metrics.
+Both the front-end and back-end are run on the same [Heroku](https://www.heroku.com/dynos) dyno (think: very small and cheap server) which runs `$ node server.js`. Heroku settings can be viewed at [dashboard.heroku.com/apps/ai-global-portal](https://dashboard.heroku.com/apps/ai-global-portal). Here one can also find production's environment variables, DNS settings, server logs, and error metrics. HTTP**S** is handled completely by Heroku.
 
 ### DNS
 
