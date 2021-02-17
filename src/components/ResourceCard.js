@@ -57,14 +57,7 @@ export default function ResourceCard({ resource }) {
         onCancel={() => setModalVisible(false)}
         footer={[
           <Tooltip title="Click here for additional information">
-            <Button
-              key="info"
-              href={'/resources/' + resource._id}
-              onClick={window.gtag('event', 'resource_page_view', {
-                event_label: resource._name,
-                event_category: 'view_resource',
-              })}
-            >
+            <Button key="info" href={'/resources/' + resource._id}>
               More Information
             </Button>
           </Tooltip>,
@@ -89,10 +82,6 @@ export default function ResourceCard({ resource }) {
             href={resource.downloadURL}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={window.gtag('event', 'resource_shortcut_download', {
-              event_label: resource.name,
-              event_category: 'view_resource',
-            })}
           >
             {resource.downloadURL}
           </a>

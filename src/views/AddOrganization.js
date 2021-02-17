@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -20,8 +20,13 @@ import { useHistory } from 'react-router';
 const { Title } = Typography;
 
 function AddOrganizations() {
-  let { api, enums } = useAppEnv();
+  let { api, enums, user } = useAppEnv();
   let history = useHistory();
+  useEffect(() => {
+    if (user === null || (user && user.role !== 'admin')) {
+      history.push('/');
+    }
+  }, [user, history]);
   let onSubmit = async (formVal) => {
     let result = await api.post('/api/organizations', {
       shortName: formVal.shortName,

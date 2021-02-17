@@ -216,7 +216,7 @@ export function getQuestionsCore1(topics, orgs) {
     },
     {
       string: 'Responsible AI Trust Index',
-      val: 'trust-index',
+      val: 'trust_index',
       type: 'multiple',
       options: [
         {

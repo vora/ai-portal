@@ -137,7 +137,12 @@ export default function ListAndFilterResources({
               allowClear={true}
             >
               <Select.Option value="byNameAsc">Name</Select.Option>
-              <Select.Option value="byUploadDateAsc">Upload Date</Select.Option>
+              <Select.Option value="byUploadDateAsc">
+                Date Uploaded(Oldest)
+              </Select.Option>
+              <Select.Option value="byUploadDateDesc">
+                Date Uploaded (Newest)
+              </Select.Option>
             </Select>
             <Select
               onChange={(e) => updateFilters({ topics: e })}

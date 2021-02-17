@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Layout,
   Content,
@@ -19,8 +19,13 @@ import { useHistory } from 'react-router';
 const { Title } = Typography;
 
 function AddTopic() {
-  let { api } = useAppEnv();
+  let { api, user } = useAppEnv();
   let history = useHistory();
+  useEffect(() => {
+    if (user === null || (user && user.role !== 'admin')) {
+      history.push('/');
+    }
+  }, [user, history]);
   let onSubmit = async (formVal) => {
     let result = await api.post('/api/topics', formVal);
     if (result.errors) {
