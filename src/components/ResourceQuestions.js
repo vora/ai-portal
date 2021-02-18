@@ -262,7 +262,7 @@ export function getQuestionsCore1(topics, orgs) {
     },
     {
       string: 'Which AI System type does the resource align with?',
-      val: 'ai-system-type',
+      val: 'aiSystemTypes',
       type: 'multiple',
       options: [
         {

@@ -145,7 +145,7 @@ function AddResource() {
       individualsIdentified: formVal.individualsIdentified,
       noiseDescription: formVal.noiseDescription,
       externalRestrictions: formVal.externalRestrictions,
-      aiSystemTypes: formVal.aiSystemType,
+      aiSystemTypes: formVal.aiSystemTypes,
       version: formVal.version,
       updateFrequency: formVal.updateFrequency,
       unintendedUse: formVal.unrelatedTasks,

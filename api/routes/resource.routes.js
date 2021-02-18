@@ -49,7 +49,7 @@ const resourcePostFields = [
   'individualsIdentified',
   'noiseDescription',
   'externalRestrictions',
-  'aiSystemTyupes',
+  'aiSystemTypes',
   'version',
   'updateFrequency',
   'unintendedUse',
