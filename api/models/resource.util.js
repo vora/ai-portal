@@ -34,9 +34,10 @@ exports.search = async (query, fields) => {
       anyFields: ['topics', 'organizations', 'type', 'path'],
       exactFields: ['reviewsRemaining'],
       sorts: {
+        byCreationDateDesc: ['creationDate', -1],
         byUploadDateAsc: ['uploadDate', 1],
-        byNameAsc: ['name', 1],
         byUploadDateDesc: ['uploadDate', -1],
+        byNameAsc: ['name', 1],
       },
     },
     query,
