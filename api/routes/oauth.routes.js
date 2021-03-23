@@ -25,6 +25,12 @@ const SUPPORTED_CLIENTS = [
     name: 'AI Global Certification Beta 1',
     allowedScopes: ['*'],
   },
+  {
+    id: 'certificate-beta-dev',
+    redirect_uri: 'https://rai-certification-beta-testing.herokuapp.com',
+    name: 'AI Global Certification Beta (Dev Version)',
+    allowedScopes: ['*'],
+  },
 ];
 
 module.exports = (app) => {
