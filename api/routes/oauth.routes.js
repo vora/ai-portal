@@ -19,6 +19,12 @@ const SUPPORTED_CLIENTS = [
     name: 'Localhost',
     allowedScopes: ['*'],
   },
+  {
+    id: 'certificate-beta1',
+    redirect_uri: 'https://rai-certification-beta-1.herokuapp.com/',
+    name: 'AI Global Certification Beta 1',
+    allowedScopes: ['*'],
+  },
 ];
 
 module.exports = (app) => {
