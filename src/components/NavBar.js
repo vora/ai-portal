@@ -51,15 +51,12 @@ function NavBar() {
             Feedback
           </Menu.Item>
           <SubMenu key="topics-submenu" title="Topics">
-            <Menu.Item
-              key="topics"
-              onClick={() => history.push('/topics/health')}
-            >
+            <Menu.Item key="topics" onClick={() => history.push('/topics')}>
               Health
             </Menu.Item>
             <Menu.Item
               key="procurement"
-              onClick={() => history.push('/topics/procurement')}
+              onClick={() => history.push('/topics')}
             >
               Procurement
             </Menu.Item>

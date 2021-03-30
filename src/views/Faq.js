@@ -20,7 +20,7 @@ function Faq() {
           style={{ marginTop: '4rem', textAlign: 'center' }}
         >
           <Col span={15}>
-            <h1 style={{ fontSize: '2em', fontWeight: 'bold' }}>
+            <h1 style={{ fontSize: '4em', fontWeight: 'bold' }}>
               About the Responsible AI Community Portal
             </h1>
             <p
