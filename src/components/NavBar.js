@@ -2,6 +2,7 @@ import React from 'react';
 import { Affix, Menu, Header, Search, Button } from '../ant';
 import LoginButton from '../components/LoginButton';
 import { useHistory } from 'react-router';
+import { DownOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
@@ -50,7 +51,14 @@ function NavBar() {
           <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
             Feedback
           </Menu.Item>
-          <SubMenu key="topics-submenu" title="Topics">
+          <SubMenu
+            key="topics-submenu"
+            title={
+              <span>
+                Topics <DownOutlined style={{ fontSize: '0.8em' }} />
+              </span>
+            }
+          >
             <Menu.Item key="topics" onClick={() => history.push('/topics')}>
               Health
             </Menu.Item>
