@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout, Menu, Header, Search, Affix, Button } from '../ant';
+import { Layout } from '../ant';
 import Footer from '../components/Footer';
-import LoginButton from '../components/LoginButton';
+import NavBar from '../components/NavBar';
 import { queryParamsFromProps } from '../util';
 import { useAppEnv } from '../env';
 import { useHistory } from 'react-router';
@@ -38,67 +38,7 @@ export default function SearchResults(props) {
   };
   return (
     <Layout>
-      <Affix offsetTop={0}>
-        <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
-          <a href="/">
-            <img
-              alt="logo"
-              style={{ float: 'left', marginRight: '40px' }}
-              src="/logo.png"
-              width={'160px'}
-            />
-          </a>
-          <Menu
-            theme="light"
-            mode="horizontal"
-            defaultSelectedKeys={
-              isResourceView ? ['resources'] : ['organizations']
-            }
-          >
-            <Menu.Item key="s" disabled>
-              <Search
-                className="menu-search"
-                style={{ marginTop: '20px' }}
-                placeholder={`Search for ${
-                  isResourceView ? 'resources' : 'organizations'
-                }`}
-                enterButton
-                onSearch={(q) => updateSearch(q, filterParams)}
-              />
-            </Menu.Item>
-            <Menu.Item
-              key="resources"
-              onClick={() => history.push('/resources')}
-            >
-              Resources
-            </Menu.Item>
-            <Menu.Item
-              key="organizations"
-              onClick={() => history.push('/organizations')}
-            >
-              Organizations
-            </Menu.Item>
-
-            <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
-              Feedback
-            </Menu.Item>
-            <Menu.Item key="faq" onClick={() => history.push('/faq')}>
-              FAQ
-            </Menu.Item>
-            <Menu.Item
-              key="upload"
-              onClick={() => history.push('/resources/create')}
-            >
-              <Button style={{ borderRadius: '10px', fontWeight: 'bold' }}>
-                Add A Resource
-              </Button>
-            </Menu.Item>
-          </Menu>
-          <div style={{ position: 'absolute', top: '0px', right: '20px' }}>
-            <LoginButton />
-          </div>
-        </Header>
-      </Affix>
+      <NavBar />
       <View
         orgTypes={orgTypes}
         resourceTypes={resourceTypes}

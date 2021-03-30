@@ -9,10 +9,6 @@ import {
   Row,
   Steps,
   message,
-  Header,
-  Affix,
-  Search,
-  Menu,
   notification,
   Spin,
   Modal,
@@ -20,8 +16,8 @@ import {
 import Footer from '../components/Footer';
 import FormQuestion from '../components/FormQuestion';
 import { useAppEnv } from './../env';
-import LoginButton from '../components/LoginButton';
 import { useHistory } from 'react-router';
+import NavBar from '../components/NavBar';
 
 import {
   getQuestionsCore1,
@@ -274,58 +270,7 @@ function AddResource() {
         Click here to
         <a href="/login"> create an account or log in</a>
       </Modal>
-      <Affix offsetTop={0}>
-        <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
-          <a href="/">
-            <img
-              alt="logo"
-              style={{ float: 'left', marginRight: '40px' }}
-              src="/logo.png"
-              width={'160px'}
-            />
-          </a>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
-            <Menu.Item key="s" disabled>
-              <Search
-                className="menu-search"
-                style={{ marginTop: '20px' }}
-                placeholder={'Search for resources'}
-                enterButton
-                onSearch={(q) => updateSearch(q)}
-              />
-            </Menu.Item>
-            <Menu.Item
-              key="resources"
-              onClick={() => history.push('/resources')}
-            >
-              Resources
-            </Menu.Item>
-            <Menu.Item
-              key="organizations"
-              onClick={() => history.push('/organizations')}
-            >
-              Organizations
-            </Menu.Item>
-            <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
-              Feedback
-            </Menu.Item>
-            <Menu.Item key="faq" onClick={() => history.push('/faq')}>
-              FAQ
-            </Menu.Item>
-            <Menu.Item
-              key="upload"
-              onClick={() => history.push('/resources/create')}
-            >
-              <Button style={{ borderRadius: '10px', fontWeight: 'bold' }}>
-                Add A Resource
-              </Button>
-            </Menu.Item>
-          </Menu>
-          <div style={{ position: 'absolute', top: '0px', right: '20px' }}>
-            <LoginButton />
-          </div>
-        </Header>
-      </Affix>
+      <NavBar updateSearch={updateSearch} history={history} />
       <Content
         style={{
           padding: '0 50px',

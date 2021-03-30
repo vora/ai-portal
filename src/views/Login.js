@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
 import { queryParamsFromProps } from '../util';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 
 const { Title } = Typography;
 
@@ -47,7 +47,7 @@ export default function Login(props) {
     : '/resources';
   return (
     <Layout style={{ height: `${window.innerHeight}px` }}>
-      <FormHeader />
+      <NavBar />
       <Content
         style={{
           padding: '0 50px',

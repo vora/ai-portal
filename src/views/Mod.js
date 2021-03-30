@@ -7,7 +7,7 @@ import {
   FileProtectOutlined,
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
 import ResourceTable from '../components/ResourceTable';
 import { useAppEnv } from './../env';
@@ -65,7 +65,7 @@ function Mod() {
 
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
-      <FormHeader />
+      <NavBar />
       <Layout>
         <Sidebar
           headings={['Overview', 'Pending Resources']}

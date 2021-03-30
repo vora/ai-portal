@@ -11,7 +11,7 @@ import {
   notification,
 } from '../ant';
 import Footer from '../components/Footer';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 import { useAppEnv } from './../env';
 import { queryParamsFromProps } from '../util';
 
@@ -49,7 +49,7 @@ function ResetPassword(props) {
   };
   return (
     <Layout>
-      <FormHeader />
+      <NavBar />
       <Layout
         style={{ height: `${window.innerHeight - 120}px`, overflow: 'hidden' }}
       >

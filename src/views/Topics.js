@@ -6,7 +6,7 @@ import { BackTop } from 'antd';
 import { UpCircleOutlined } from '@ant-design/icons';
 import NavBar from '../components/NavBar';
 
-function Faq() {
+function Topics() {
   let faqRef = useRef(null);
   return (
     <Layout>
@@ -87,4 +87,4 @@ function Faq() {
   );
 }
 
-export default Faq;
+export default Topics;

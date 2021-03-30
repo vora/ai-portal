@@ -1,9 +1,11 @@
 import React from 'react';
-import { Header, Affix, Menu, Search, Button } from '../ant';
+import { Affix, Menu, Header, Search, Button } from '../ant';
 import LoginButton from '../components/LoginButton';
 import { useHistory } from 'react-router';
 
-function FormHeader() {
+const { SubMenu } = Menu;
+
+function NavBar() {
   let history = useHistory();
   let updateSearch = (query) => {
     let segments = [];
@@ -48,6 +50,20 @@ function FormHeader() {
           <Menu.Item key="feedback" onClick={() => history.push('/feedback')}>
             Feedback
           </Menu.Item>
+          <SubMenu key="topics-submenu" title="Topics">
+            <Menu.Item
+              key="topics"
+              onClick={() => history.push('/topics/health')}
+            >
+              Health
+            </Menu.Item>
+            <Menu.Item
+              key="procurement"
+              onClick={() => history.push('/topics/procurement')}
+            >
+              Procurement
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item key="faq" onClick={() => history.push('/faq')}>
             FAQ
           </Menu.Item>
@@ -68,4 +84,4 @@ function FormHeader() {
   );
 }
 
-export default FormHeader;
+export default NavBar;

@@ -20,7 +20,7 @@ import {
 } from '@ant-design/icons';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 import ResourceTable from '../components/ResourceTable';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
@@ -225,7 +225,7 @@ function Admin() {
 
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
-      <FormHeader />
+      <NavBar />
       <Layout>
         <Sidebar
           headings={[

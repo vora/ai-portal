@@ -13,7 +13,7 @@ import {
 import Footer from '../components/Footer';
 import { useHistory } from 'react-router';
 import { useAppEnv } from './../env';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 const { Title, Paragraph, Text } = Typography;
 
 export default function Register() {
@@ -50,7 +50,7 @@ export default function Register() {
   };
   return (
     <Layout style={{ overflow: 'hidden' }}>
-      <FormHeader />
+      <NavBar />
       <Content
         style={{
           padding: '0 50px',

@@ -11,7 +11,7 @@ import {
   notification,
 } from '../ant';
 import Footer from '../components/Footer';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 import FormQuestion from '../components/FormQuestion';
 import { useAppEnv } from './../env';
 import { useHistory } from 'react-router';
@@ -69,7 +69,7 @@ function AddTopic() {
 
   return (
     <Layout style={{ height: `${window.innerHeight}px`, overflow: 'hidden' }}>
-      <FormHeader></FormHeader>
+      <NavBar />
       <Content style={{ padding: '0 50px' }}>
         <Row justify="center" style={{ marginTop: '4rem' }}>
           <Col

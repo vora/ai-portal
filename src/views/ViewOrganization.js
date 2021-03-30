@@ -14,7 +14,7 @@ import {
   EditOutlined,
   FolderOpenOutlined,
 } from '@ant-design/icons';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 import ResourceTable from '../components/ResourceTable';
 import Sidebar from '../components/Sidebar';
 import { useParams } from 'react-router-dom';
@@ -64,7 +64,7 @@ export default function ViewOrganization() {
           modalVisible={showModal}
           setModalVisible={(v) => setShowModal(v)}
         />
-        <FormHeader />
+        <NavBar />
         <Layout>
           <Sidebar
             headings={['Overview', 'Details', 'Uploaded Resources']}

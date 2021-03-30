@@ -12,7 +12,7 @@ import {
 } from '../ant';
 import Footer from '../components/Footer';
 import FormQuestion from '../components/FormQuestion';
-import FormHeader from '../components/FormHeader';
+import NavBar from '../components/NavBar';
 import { useAppEnv } from './../env';
 
 import { useHistory } from 'react-router';
@@ -125,7 +125,7 @@ function AddOrganizations() {
   ];
   return (
     <Layout>
-      <FormHeader />
+      <NavBar />
       <Layout style={{ height: `${window.innerHeight}px` }}>
         <Content style={{ padding: '0 50px' }}>
           <Row justify="center" style={{ marginTop: '2rem' }}>
