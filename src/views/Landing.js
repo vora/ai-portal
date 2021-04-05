@@ -27,7 +27,7 @@ function Landing() {
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
       <Banner
-        message="Welcome to the Community Portal Beta!"
+        message="Welcome to the Community Portal!"
         secondary="Learn more"
         link="/faq"
       />
@@ -44,7 +44,7 @@ function Landing() {
               <img alt="logo" src="/demo/aiglobal-other.png" width={'180px'} />
             </a>
             <h1 style={{ fontSize: '2rem', marginTop: '5px' }}>
-              Responsible AI Community Portal Beta
+              Responsible AI Community Portal
             </h1>
             <div
               style={{
