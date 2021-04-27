@@ -17,7 +17,7 @@ REACT_APP_API_BASE_URL=http://localhost:5000
 
 // Optional
 SENDGRID_API_KEY=SG....secret...
-FEEDBACK_EMAIL=name@ai-global.org
+FEEDBACK_EMAIL=name@responsible.ai
 DISABLE_FIREWALL=true
 ```
 

@@ -103,7 +103,7 @@ function OAuthConfirmView({ oauthParams }) {
     >
       <Typography>
         <Title level={2}>{oauthInfo?.name}</Title>
-        <span>Allow {oauthInfo?.name} to access your AI Global account?</span>
+        <span>Allow {oauthInfo?.name} to access your RAI account?</span>
         <br />
         <div style={{ marginTop: '10px' }}>
           <Button type="danger" onClick={() => history.push('/')}>

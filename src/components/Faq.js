@@ -176,14 +176,14 @@ function FAQ({ abridged }) {
           >
             <p style={{ marginLeft: '25px' }}>
               Users can browse through our selected list of resources classified
-              by the AI Global team. You can search terms or apply a variety of
+              by the RAI team. You can search terms or apply a variety of
               filters, which include pathways you can select depending on your
               role. Anyone is able to search terms and access the resources but
               to upload a resource, users will need to{' '}
               <a href="/register">create an account</a>. You can then{' '}
               <a href="/resources/create">share the resource</a>, which will
-              first be reviewed by AI Global admins before being displayed on
-              the Community Portal.
+              first be reviewed by RAI admins before being displayed on the
+              Community Portal.
             </p>
           </Panel>
           <Panel
@@ -210,17 +210,16 @@ function FAQ({ abridged }) {
           <Panel
             header={
               <p style={{ fontWeight: 'bold', marginBottom: '0' }}>
-                Why is AI Global releasing this tool?
+                Why is RAI releasing this tool?
               </p>
             }
             key="4"
             style={{ textAlign: 'start' }}
           >
             <p style={{ marginLeft: '25px' }}>
-              AI Global's mission is to mitigate harm and unintended
-              consequences of technology by building practical tools to support
-              the responsible development of AI systems for individuals and
-              teams.
+              RAI's mission is to mitigate harm and unintended consequences of
+              technology by building practical tools to support the responsible
+              development of AI systems for individuals and teams.
             </p>
           </Panel>
           <Panel
@@ -254,7 +253,7 @@ function FAQ({ abridged }) {
             style={{ textAlign: 'start' }}
           >
             <p style={{ marginLeft: '25px' }}>
-              AI Global moderators and administrators are continually adding and
+              RAI moderators and administrators are continually adding and
               approving resources. We highly encourage users to upload resources
               they believe are beneficial, with our team evaluating the
               submittals prior to uploading them to the Community Portal.
@@ -319,8 +318,8 @@ function FAQ({ abridged }) {
                 You can upload a reousrce by filling out{' '}
                 <a href="/resources/create">this form</a>. You'll first need to
                 have an account and once you submit the form, your request will
-                be reviewed by an AI Global moderator and then added to the
-                Community Portal.
+                be reviewed by an RAI moderator and then added to the Community
+                Portal.
               </p>
             </Panel>
             <Panel
@@ -401,7 +400,7 @@ function FAQ({ abridged }) {
                 <a href="https://oproma.github.io/rai-trustindex/">
                   Design Assistant
                 </a>{' '}
-                by AI Global. The table below describes them in detail:
+                by RAI. The table below describes them in detail:
               </p>
               <Table
                 columns={columns}
@@ -475,7 +474,7 @@ function FAQ({ abridged }) {
             >
               <p style={{ marginLeft: '25px' }}>
                 You can{' '}
-                <a href="https://portal.ai-global.org/login#!">
+                <a href="https://portal.responsible.ai/login#!">
                   reset your password here
                 </a>{' '}
                 by typing in your username. An email to reset your password will

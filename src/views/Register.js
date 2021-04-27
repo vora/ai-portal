@@ -82,8 +82,8 @@ export default function Register() {
               <Typography>
                 <Title level={2}>User Registration</Title>
                 <Paragraph>
-                  You can create an account for the AI Global Portal! Members
-                  can upload resources to the portal.
+                  You can create an account for the RAI Portal! Members can
+                  upload resources to the portal.
                   <Text strong>
                     {' '}
                     After creating your account, an email verfication will be

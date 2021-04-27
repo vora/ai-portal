@@ -7,8 +7,8 @@ const topicUtil = require('../api/models/topic.util');
 const resourceUtil = require('../api/models/resource.util');
 const organizationUtil = require('../api/models/organization.util');
 
-const resourcesFn = 'AI Global - Resource Portal - New External Resources.csv';
-const orgsFn = 'AI Global - Resource Portal - Member Organizations.csv';
+const resourcesFn = 'RAI - Resource Portal - New External Resources.csv';
+const orgsFn = 'RAI - Resource Portal - Member Organizations.csv';
 
 let parseDate = (d) => {
   let newDate = new Date(d);
