@@ -12,14 +12,12 @@ import {
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
-import Banner from '../components/Banner';
 import FAQ from '../components/Faq';
-import { notification, BackTop } from 'antd';
+import { notification } from 'antd';
 import { useAppEnv } from './../env';
 import {
   RightCircleOutlined,
   QuestionCircleOutlined,
-  UpCircleOutlined,
   DownCircleOutlined,
 } from '@ant-design/icons';
 
