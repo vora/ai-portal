@@ -358,8 +358,8 @@ function AddResource() {
                   </a>
                   , and help build a more responsible tech future, we have a few
                   questions about your resource to finalize the process. Your
-                  resource will be checked by an AI Global team member and
-                  approved based on your responses.{' '}
+                  resource will be checked by an RAI team member and approved
+                  based on your responses.{' '}
                 </p>
               </div>
               <Steps

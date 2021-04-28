@@ -1,6 +1,6 @@
 # Responsible AI Portal
 
-#### [By AI Global](https://ai-global.org/)
+#### [By RAI](https://responsible.ai/)
 
 [[View Developer Docs]](https://github.com/AI-Global/ai-portal/blob/master/docs/development.md) | [[View All Docs]](https://github.com/AI-Global/ai-portal/blob/master/docs/general.md)
 

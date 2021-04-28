@@ -12,7 +12,7 @@ Both the front-end and back-end are run on the same [Heroku](https://www.heroku.
 
 ### DNS
 
-A single `CNAME` record in namesilo directs `portal.ai-global.org` to Heroku.
+A single `CNAME` record in namesilo directs `portal.responsible.ai` to Heroku.
 
 ### Auto-Deploy
 

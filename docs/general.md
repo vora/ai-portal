@@ -85,7 +85,7 @@
 
 > An example flow through the stack. FE = frontend, BE = backend.
 
-1. User visits https://portal.ai-global.org/settings in their browser.
+1. User visits https://portal.responsible.ai/settings in their browser.
 2. FE: Calls `/api/context` to gather info about the portal and the current logged-in user.
 3. BE: Queries user based on token provided in API call and returns result as JSON.
 4. User clicks **Change Password**.

@@ -10,7 +10,7 @@ export const EXAMPLE = {
   trust_index: 'Explainbility & Interpretability',
   paths: 'Policymaker Path, Risk Manager Path, Explorer Path',
   ai_system_type: 'Other',
-  url: 'https://map.ai-global.org/',
+  url: 'https://map.responsible.ai/',
   creation_date: '03/01/2020',
   modified_data: '11/15/2020',
   keywords: 'Data Visualization, Helpful AI, Harmful AI',
@@ -21,7 +21,7 @@ export const EXAMPLE = {
     'Where in the World is AI? Map highlights helpful and harmful AI cases worldwide to start discussions around responsible AI',
   creator:
     'Martha Czernuszenko, Shrivu Shankar, Ameya Deshmukh, Colin Philips, and Lucinda Nguyen',
-  contact_email: 'admin@ai-global.org',
+  contact_email: 'admin@responsible.ai',
   location: 'Austin, Texas, USA',
   fundedBy: '',
   missingInfo:
@@ -36,9 +36,9 @@ export const EXAMPLE = {
   dataDictLink: '',
   dataCollectorOwnerRelation: 'Both are Martha Czernuszenko.',
   dataCollection:
-    'Data is collected by AI Global employees from unethical AI Google Alert, Harmful AI Repository, AI & Algorithmic Incident & Controversy Repository by Charlie Pownall and other news resources.',
+    'Data is collected by RAI employees from unethical AI Google Alert, Harmful AI Repository, AI & Algorithmic Incident & Controversy Repository by Charlie Pownall and other news resources.',
   infoCollected:
-    'We are manually collecting data from news sources to provide a publicly accessible dataset on cases around the world. In our dataset, AI Global labels these cases as helpful and harmful.',
+    'We are manually collecting data from news sources to provide a publicly accessible dataset on cases around the world. In our dataset, RAI labels these cases as helpful and harmful.',
   externalRestrictions: 'No, the data is in a Google Sheet open to anyone.',
   sensitiveData:
     'Yes, these news articles list some personal information and business information. The news source is reporting on this story so we assume that permission was authorized for this information.',
@@ -233,7 +233,7 @@ export function getQuestionsCore1(topics, orgs) {
       tip: (
         <t>
           Learn more about our Trust Index Values
-          <a href="https://ai-global.org/2020/04/28/creating-a-responsible-ai-trust-index-a-unified-assessment-to-assure-the-responsible-design-development-and-deployment-of-ai/">
+          <a href="https://responsible.ai/2020/04/28/creating-a-responsible-ai-trust-index-a-unified-assessment-to-assure-the-responsible-design-development-and-deployment-of-ai/">
             {' '}
             here
           </a>

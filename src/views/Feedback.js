@@ -142,7 +142,7 @@ export default function Feedback(props) {
                 options={[
                   'Uploading my resource',
                   'Suggesting a resource',
-                  'Getting involved with AI Global',
+                  'Getting involved with RAI',
                   'Recommending feedback on Portal',
                   'Other',
                 ]}

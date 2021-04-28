@@ -14,6 +14,12 @@ const SUPPORTED_CLIENTS = [
     allowedScopes: ['*'],
   },
   {
+    id: 'designassistant',
+    redirect_uri: 'https://designassistant.responsible.ai',
+    name: 'AI Global Design Assistant',
+    allowedScopes: ['*'],
+  },
+  {
     id: 'localhost',
     redirect_uri: 'http://localhost:3000',
     name: 'Localhost',
