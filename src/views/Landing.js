@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Layout, Content, Search, Row, Col, Card, Button } from '../ant';
+import {
+  Layout,
+  Content,
+  Search,
+  Row,
+  Col,
+  Card,
+  Button,
+  Header,
+} from '../ant';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import LoginButton from '../components/LoginButton';
@@ -26,25 +35,41 @@ function Landing() {
   console.log(featured);
   return (
     <Layout style={{ backgroundColor: '#fff' }}>
-      <Banner
-        message="Welcome to the Community Portal!"
-        secondary="Learn more"
-        link="/faq"
-      />
-      <div style={{ position: 'absolute', top: '60px', right: '20px' }}>
-        <LoginButton />
-      </div>
+      <Header
+        style={{
+          backgroundColor: '#fff',
+          paddingLeft: '0',
+          marginTop: '50px',
+          paddingTop: '50px',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '0px',
+            left: '30px',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}
+        >
+          <a href="/">
+            <img
+              alt="logo"
+              style={{ float: 'center' }}
+              src="/logo.png"
+              width="160"
+            />
+          </a>
+        </div>
+        <div style={{ position: 'absolute', top: '0px', right: '20px' }}>
+          <LoginButton />
+        </div>
+      </Header>
       <Content style={{ padding: '0 50px' }}>
-        <BackTop>
-          <UpCircleOutlined style={{ fontSize: '3em', color: '#1890ff' }} />
-        </BackTop>
-        <Row justify="center" style={{ marginTop: '7rem' }}>
-          <Col span={12} style={{ textAlign: 'center' }}>
-            <a href="/">
-              <img alt="logo" src="/demo/aiglobal-other.png" width={'180px'} />
-            </a>
-            <h1 style={{ fontSize: '2rem', marginTop: '5px' }}>
-              Responsible AI Community Portal
+        <Row justify="center" style={{ marginTop: '4rem' }}>
+          <Col span={14} style={{ textAlign: 'center' }}>
+            <h1 style={{ fontSize: '3rem', marginTop: '5px' }}>
+              <strong>Responsible AI Community Portal</strong>
             </h1>
             <div
               style={{
@@ -76,23 +101,10 @@ function Landing() {
             </div>
           </Col>
         </Row>
-        <Row justify="center" style={{ marginTop: '6rem', marginBottom: '0' }}>
-          {/* <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <p
-              style={{
-                fontSize: '2.5em',
-                fontWeight: 'bold',
-                color: 'black',
-                marginBottom: '0',
-              }}
-            >
-              Looking for resources?{' '}
-              <span style={{ color: '#1890ff' }}>
-                You came to the right place.
-              </span>
-            </p>
-          </div> */}
-        </Row>
+        <Row
+          justify="center"
+          style={{ marginTop: '6rem', marginBottom: '0' }}
+        ></Row>
         <Row justify="center">
           <Col span={14}>
             <p style={{ fontSize: '1.4em', textAlign: 'center' }}>

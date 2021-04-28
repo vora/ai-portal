@@ -16,7 +16,7 @@ const ResourceSchema = new Schema({
   modifiedDate: { type: Date, default: Date.now },
   licenseName: { type: String, default: 'Unknown' },
   downloadURL: { type: String },
-  logoURL: { type: String, default: '/demo/aiglobal-other.png' },
+  logoURL: { type: String, default: '/demo/rai-other.png' },
   technical: { type: Boolean, default: false },
   featured: { type: Boolean, default: false },
   trustIndexCategories: { type: [String], default: [] },
