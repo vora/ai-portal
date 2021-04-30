@@ -3,3 +3,6 @@
 .menu-search .ant-input-search-button {
   width: 45px;
 }
+.ant-menu-horizontal .ant-menu-item {
+  margin-top: -2px;
+}

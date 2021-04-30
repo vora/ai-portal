@@ -45,16 +45,17 @@ function Landing() {
           style={{
             position: 'absolute',
             top: '0px',
-            left: '30px',
+            left: '0px',
             alignItems: 'center',
             textAlign: 'center',
+            width: '180px',
           }}
         >
           <a href="/">
             <img
               alt="logo"
               style={{ float: 'center' }}
-              src="/logo.png"
+              src="/rai-logo-text.png"
               width="160"
             />
           </a>

@@ -54,7 +54,7 @@ export default function SearchResults(props) {
               <img
                 alt="logo"
                 style={{ float: 'center' }}
-                src="/logo.png"
+                src="/rai-logo-text.png"
                 width="160"
               />
             </a>

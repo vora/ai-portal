@@ -18,15 +18,31 @@ function FormHeader() {
   return (
     <Affix offsetTop={0}>
       <Header style={{ backgroundColor: '#fff', paddingLeft: '0' }}>
-        <a href="/">
-          <img
-            alt="logo"
-            style={{ float: 'left', marginRight: '40px' }}
-            src="/logo.png"
-            width={'160px'}
-          />
-        </a>
-        <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '0px',
+            left: '0px',
+            alignItems: 'center',
+            textAlign: 'center',
+            width: '180px',
+          }}
+        >
+          <a href="/">
+            <img
+              alt="logo"
+              style={{ float: 'center' }}
+              src="/rai-logo-text.png"
+              width="160"
+            />
+          </a>
+        </div>
+        <Menu
+          theme="light"
+          mode="horizontal"
+          defaultSelectedKeys={['1']}
+          style={{ position: 'absolute', top: '0px', left: '180px' }}
+        >
           <Menu.Item key="s" disabled>
             <Search
               className="menu-search"

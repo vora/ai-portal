@@ -6,4 +6,4 @@ module.exports.text = ({ name, verifyURL }) =>
 module.exports.html = ({ name, verifyURL }) =>
   `<strong>Hi ${name}. <br/>Welcome to the RAI portal! Your new account has been created for the RAI Responsible AI Portal.
     To complete the registration, please verify your email <a href="${verifyURL}">${verifyURL}</a><strong>
-     <strong><br> Thanks, RAI <br> <img src="https://portal.responsible.ai/logo.png"/>`;
+     <strong><br> Thanks, RAI <br> <img src="https://portal.responsible.ai/rai-logo-text.png"/>`;
