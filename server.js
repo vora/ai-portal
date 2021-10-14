@@ -10,6 +10,8 @@ const app = express();
 require('./api/models/index');
 const userUtil = require('./api/models/user.util');
 
+require('dotenv').config();
+
 // Force HTTPS
 app.use((req, res, next) => {
   if (
