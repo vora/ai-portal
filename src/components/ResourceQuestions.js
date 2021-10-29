@@ -1,8 +1,7 @@
 import React from 'react';
 export const EXAMPLE = {
   name: 'Where in the Word is AI? Map',
-  desc:
-    'An interactive web visualization and dataset with 300+ helpful and harmful AI cases worldwide',
+  desc: 'An interactive web visualization and dataset with 300+ helpful and harmful AI cases worldwide',
   formats: 'Education Tool, Dataset',
   topics: [],
   organization: [],
@@ -158,11 +157,17 @@ export function getQuestionsCore1(topics, orgs) {
         { name: 'Working Groups', label: 'Working Groups' },
         { name: 'Workshop', label: 'Workshop' },
         { name: 'Other', label: 'Other' },
+        { name: 'RAI Governance Policy', label: 'RAI Governance Policy' },
+        { name: 'RAI Guidelines', label: 'RAI Guidelines' },
+        {
+          name: 'RAI Standards and Controls',
+          label: 'RAI Standards and Controls',
+        },
+        { name: 'AI Regulations', label: 'AI Regulations' },
       ],
 
       required: true,
-      tip:
-        'Select any tags that are relevant. If we are missing a tag, please let us know.',
+      tip: 'Select any tags that are relevant. If we are missing a tag, please let us know.',
       example_ans: EXAMPLE.formats,
     },
     {
@@ -210,8 +215,7 @@ export function getQuestionsCore1(topics, orgs) {
       ],
 
       required: true,
-      tip:
-        'If you are unsure of what the organization type is, select civil society',
+      tip: 'If you are unsure of what the organization type is, select civil society',
       example_ans: EXAMPLE.org_types,
     },
     {
@@ -477,8 +481,7 @@ export const QUESTIONS_DATASET = [
     type: 'type',
     options: null,
     required: false,
-    tip:
-      'State if they are the same person or if different people and their relationship',
+    tip: 'State if they are the same person or if different people and their relationship',
     example_ans: EXAMPLE.dataCollectorOwnerRelation,
   },
   {
@@ -506,8 +509,7 @@ export const QUESTIONS_DATASET = [
     type: 'type',
     options: null,
     required: true,
-    tip:
-      'Describe any access permissions. Either Yes and explain restrictions or No',
+    tip: 'Describe any access permissions. Either Yes and explain restrictions or No',
     example_ans: EXAMPLE.externalRestrictions,
   },
   {
@@ -516,8 +518,7 @@ export const QUESTIONS_DATASET = [
     type: 'type',
     options: null,
     required: false,
-    tip:
-      'Please describe any sensitive data such as personal information, business information  or classified information Sensitive Data is Data that could reveal: Racial or ethnic origin, political opinion, religious beliefs, biometric data, health data, sexual orientation, financial information, personal information',
+    tip: 'Please describe any sensitive data such as personal information, business information  or classified information Sensitive Data is Data that could reveal: Racial or ethnic origin, political opinion, religious beliefs, biometric data, health data, sexual orientation, financial information, personal information',
     example_ans: EXAMPLE.sensitiveData,
   },
   {
@@ -536,8 +537,7 @@ export const QUESTIONS_DATASET = [
     type: 'type',
     options: false,
     required: false,
-    tip:
-      'Describe by age, gender, race, or other categories and provide a description of their respective distributions within the dataset. There are several definitions available for the term “vulnerable populations”, the words simply imply the disadvantaged sub-segment of the community requiring upmost care, specific ancillary considerations and augmented protections in research.  The vulnerable individuals’ freedom and capability to protect one-self from intended or inherent risks is variably abbreviated, from decreased freewill to inability to make informed choices(NCBI).',
+    tip: 'Describe by age, gender, race, or other categories and provide a description of their respective distributions within the dataset. There are several definitions available for the term “vulnerable populations”, the words simply imply the disadvantaged sub-segment of the community requiring upmost care, specific ancillary considerations and augmented protections in research.  The vulnerable individuals’ freedom and capability to protect one-self from intended or inherent risks is variably abbreviated, from decreased freewill to inability to make informed choices(NCBI).',
     example_ans: EXAMPLE.datasetDemographics,
   },
   {
@@ -666,8 +666,7 @@ export const QUESTIONS_DATASET = [
     type: 'type',
     options: null,
     required: false,
-    tip:
-      'Were missing values filled? Was categorical data encoded? Was the dataset split or was there feature scaling?',
+    tip: 'Were missing values filled? Was categorical data encoded? Was the dataset split or was there feature scaling?',
     example_ans: EXAMPLE.preprocessing,
   },
   {
@@ -798,8 +797,7 @@ export const QUESTIONS_DATASET = [
       { name: 'Annihilate Dataset', label: 'Annihilate Dataset' },
     ],
     required: false,
-    tip:
-      'Stages include: Generate Schema, Create Dataset, Populate Dataset, Validate Dataset, Update Dataset, Annihilate Dataset',
+    tip: 'Stages include: Generate Schema, Create Dataset, Populate Dataset, Validate Dataset, Update Dataset, Annihilate Dataset',
     example_ans: EXAMPLE.lifecycleState,
   },
   {
@@ -809,8 +807,7 @@ export const QUESTIONS_DATASET = [
     type: 'type',
     options: null,
     required: false,
-    tip:
-      'Some examples could be erroneous attribute values, missing or unknown attribute values',
+    tip: 'Some examples could be erroneous attribute values, missing or unknown attribute values',
     example_ans: EXAMPLE.noiseDescription,
   },
   {
@@ -887,8 +884,7 @@ export const QUESTIONS_MODEL = [
     type: 'text-area',
     options: null,
     required: false,
-    tip:
-      'Learning Rate, Number of Epochs, Number of branches in decision tree, number of clusters in clustering algorithm etc.',
+    tip: 'Learning Rate, Number of Epochs, Number of branches in decision tree, number of clusters in clustering algorithm etc.',
     example_ans: EXAMPLE.hyperparameters,
   },
   {

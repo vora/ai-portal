@@ -30,6 +30,10 @@ module.exports.RESOURCE_TYPES = [
   'Working Groups',
   'Workshop',
   'Other',
+  'RAI Governance Policy',
+  'RAI Guidelines',
+  'RAI Standards and Controls',
+  'AI Regulations',
 ];
 module.exports.RESOURCE_PATHS = [
   'Designer Path',
